@@ -5,13 +5,13 @@ import dev.reuise.web.backend.label.Label;
 import org.junit.Test;
 public class ComponentTests {
     @Test
-    public void createLabel() {
-        Label label = new Label(Label.newOptions());
+    public void createButton() {
+        Button button = new Button(Button.newOptions().setId("example-button").setLabel("Example button"));
     }
 
     @Test
-    public void createButton() {
-        Button button = new Button(Button.newOptions().setId("example-button").setLabel("Example button"));
+    public void createLabel() {
+        Label label = new Label(Label.newOptions());
     }
 
     @Test
