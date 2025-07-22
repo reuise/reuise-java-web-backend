@@ -1,0 +1,3 @@
+package dev.reuise.web.backend.splitcontainer;
+import dev.reuise.web.core.splitcontainer.WebSplitContainerDividerFeatures;
+public interface WebBackendSplitContainerDividerFeatures extends WebSplitContainerDividerFeatures {}

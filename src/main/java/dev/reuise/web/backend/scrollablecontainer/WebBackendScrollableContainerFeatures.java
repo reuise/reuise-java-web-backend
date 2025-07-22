@@ -1,0 +1,3 @@
+package dev.reuise.web.backend.scrollablecontainer;
+import dev.reuise.web.core.scrollablecontainer.WebScrollableContainerFeatures;
+public interface WebBackendScrollableContainerFeatures extends WebScrollableContainerFeatures {}
