@@ -31,6 +31,8 @@ public interface WebBackendDocumentFeatures extends WebDocumentFeatures {
 
     WebBackendDocumentFeatures removeExternalStyleSheet(ExternalStyleSheet externalStyleSheet);
 
+    WebBackendDocumentFeatures clearExternalStyleSheet();
+
     List<ExternalScript> getExternalScript();
 
     WebBackendDocumentFeatures setExternalScript(List<ExternalScript> externalScript);
@@ -41,6 +43,8 @@ public interface WebBackendDocumentFeatures extends WebDocumentFeatures {
 
     WebBackendDocumentFeatures removeExternalScript(ExternalScript externalScript);
 
+    WebBackendDocumentFeatures clearExternalScript();
+
     List<ExternalResource> getPreconnect();
 
     WebBackendDocumentFeatures setPreconnect(List<ExternalResource> preconnect);
@@ -48,6 +52,8 @@ public interface WebBackendDocumentFeatures extends WebDocumentFeatures {
     WebBackendDocumentFeatures addPreconnect(ExternalResource preconnect);
 
     WebBackendDocumentFeatures removePreconnect(ExternalResource preconnect);
+
+    WebBackendDocumentFeatures clearPreconnect();
 
     List<ExternalResource> getDnsPrefetch();
 
@@ -57,6 +63,8 @@ public interface WebBackendDocumentFeatures extends WebDocumentFeatures {
 
     WebBackendDocumentFeatures removeDnsPrefetch(ExternalResource dnsPrefetch);
 
+    WebBackendDocumentFeatures clearDnsPrefetch();
+
     List<Metadata> getMetadata();
 
     WebBackendDocumentFeatures setMetadata(List<Metadata> metadata);
@@ -64,6 +72,8 @@ public interface WebBackendDocumentFeatures extends WebDocumentFeatures {
     WebBackendDocumentFeatures addMetadata(Metadata metadata);
 
     WebBackendDocumentFeatures removeMetadata(Metadata metadata);
+
+    WebBackendDocumentFeatures clearMetadata();
 
     boolean hasMetadata(Metadata metadata);
 
@@ -77,6 +87,8 @@ public interface WebBackendDocumentFeatures extends WebDocumentFeatures {
 
     WebBackendDocumentFeatures removeImportMap(ImportMap importMap);
 
+    WebBackendDocumentFeatures clearImportMap();
+
     List<String> getScript();
 
     WebBackendDocumentFeatures setScript(List<String> script);
@@ -86,6 +98,8 @@ public interface WebBackendDocumentFeatures extends WebDocumentFeatures {
     WebBackendDocumentFeatures setScript(String script);
 
     WebBackendDocumentFeatures removeScript(String script);
+
+    WebBackendDocumentFeatures clearScript();
 
     String getManifest();
 
@@ -100,6 +114,8 @@ public interface WebBackendDocumentFeatures extends WebDocumentFeatures {
     WebBackendDocumentFeatures setIcon(DocumentIcon icon);
 
     WebBackendDocumentFeatures removeIcon(DocumentIcon icon);
+
+    WebBackendDocumentFeatures clearIcon();
 
     StructuredData getStructuredData();
 

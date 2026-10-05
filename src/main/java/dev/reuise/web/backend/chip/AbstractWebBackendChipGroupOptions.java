@@ -562,6 +562,12 @@ public abstract class AbstractWebBackendChipGroupOptions<S extends AbstractWebBa
         return self();
     }
 
+    @Override
+    public S clearChildren() {
+        parentComponentPart.clearChildren();
+        return self();
+    }
+
     public WebBackendParentComponentPartOptions getParentComponentPart() {
         return parentComponentPart;
     }
@@ -715,6 +721,12 @@ public abstract class AbstractWebBackendChipGroupOptions<S extends AbstractWebBa
     @Override
     public S removeStyleClass(String styleClass) {
         baseComponentPart.removeStyleClass(styleClass);
+        return self();
+    }
+
+    @Override
+    public S clearStyleClasses() {
+        baseComponentPart.clearStyleClasses();
         return self();
     }
 

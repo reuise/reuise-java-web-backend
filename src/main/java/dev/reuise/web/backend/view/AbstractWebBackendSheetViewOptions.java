@@ -24,6 +24,7 @@ import java.util.Map;
 // Option: Parameters - WEB
 // Option: ContentType - WEB
 // Option: Title - CORE
+// Option: Revealed - CORE
 // Option: Direction - CORE
 // Option: JustifyContent - CORE
 // Option: AlignItems - CORE
@@ -146,6 +147,22 @@ public abstract class AbstractWebBackendSheetViewOptions<S extends AbstractWebBa
     @Override
     public S setTitle(String title) {
         this.viewPart.setTitle(title);
+        return self();
+    }
+
+    @Override
+    public boolean isRevealed() {
+        return viewPart.isRevealed();
+    }
+
+    @Override
+    public ComponentOption<Boolean> getRevealedOption() {
+        return viewPart.getRevealedOption();
+    }
+
+    @Override
+    public S setRevealed(Boolean revealed) {
+        this.viewPart.setRevealed(revealed);
         return self();
     }
 
@@ -949,6 +966,12 @@ public abstract class AbstractWebBackendSheetViewOptions<S extends AbstractWebBa
         return self();
     }
 
+    @Override
+    public S clearChildren() {
+        parentComponentPart.clearChildren();
+        return self();
+    }
+
     public WebBackendParentComponentPartOptions getParentComponentPart() {
         return parentComponentPart;
     }
@@ -1102,6 +1125,12 @@ public abstract class AbstractWebBackendSheetViewOptions<S extends AbstractWebBa
     @Override
     public S removeStyleClass(String styleClass) {
         baseComponentPart.removeStyleClass(styleClass);
+        return self();
+    }
+
+    @Override
+    public S clearStyleClasses() {
+        baseComponentPart.clearStyleClasses();
         return self();
     }
 

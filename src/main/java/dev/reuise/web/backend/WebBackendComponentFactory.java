@@ -1,5 +1,7 @@
 package dev.reuise.web.backend;
 import dev.reuise.core.RootComponent;
+import dev.reuise.core.accordion.CoreAccordionItemOptions;
+import dev.reuise.core.accordion.CoreAccordionOptions;
 import dev.reuise.core.applayout.CoreAppLayoutBodyOptions;
 import dev.reuise.core.applayout.CoreAppLayoutOptions;
 import dev.reuise.core.avatar.CoreAvatarOptions;
@@ -27,6 +29,7 @@ import dev.reuise.core.input.CoreChipFieldOptions;
 import dev.reuise.core.input.CoreMultiEmailAddressFieldOptions;
 import dev.reuise.core.input.CorePasswordFieldOptions;
 import dev.reuise.core.input.CoreSearchFieldOptions;
+import dev.reuise.core.input.CoreSegmentedTextFieldOptions;
 import dev.reuise.core.input.CoreTextFieldOptions;
 import dev.reuise.core.layout.CoreColumnLayoutOptions;
 import dev.reuise.core.layout.CoreContainerOptions;
@@ -78,12 +81,17 @@ import dev.reuise.core.text.CoreHeadingOptions;
 import dev.reuise.core.text.CoreIconLabelOptions;
 import dev.reuise.core.text.CoreInlineTextOptions;
 import dev.reuise.core.text.CoreLabelOptions;
+import dev.reuise.core.text.CoreLineBreakOptions;
 import dev.reuise.core.text.CoreParagraphOptions;
 import dev.reuise.core.text.CoreTextBlockOptions;
 import dev.reuise.core.text.CoreTextOptions;
 import dev.reuise.core.topappbar.CoreTopAppBarOptions;
 import dev.reuise.core.view.CoreSheetViewOptions;
 import dev.reuise.core.view.CoreViewOptions;
+import dev.reuise.web.backend.accordion.WebBackendAccordion;
+import dev.reuise.web.backend.accordion.WebBackendAccordionItem;
+import dev.reuise.web.backend.accordion.WebBackendAccordionItemOptions;
+import dev.reuise.web.backend.accordion.WebBackendAccordionOptions;
 import dev.reuise.web.backend.applayout.WebBackendAppLayout;
 import dev.reuise.web.backend.applayout.WebBackendAppLayoutBody;
 import dev.reuise.web.backend.applayout.WebBackendAppLayoutBodyOptions;
@@ -158,6 +166,8 @@ import dev.reuise.web.backend.input.WebBackendPasswordField;
 import dev.reuise.web.backend.input.WebBackendPasswordFieldOptions;
 import dev.reuise.web.backend.input.WebBackendSearchField;
 import dev.reuise.web.backend.input.WebBackendSearchFieldOptions;
+import dev.reuise.web.backend.input.WebBackendSegmentedTextField;
+import dev.reuise.web.backend.input.WebBackendSegmentedTextFieldOptions;
 import dev.reuise.web.backend.input.WebBackendTextField;
 import dev.reuise.web.backend.input.WebBackendTextFieldOptions;
 import dev.reuise.web.backend.layout.WebBackendColumnLayout;
@@ -262,6 +272,8 @@ import dev.reuise.web.backend.text.WebBackendInlineText;
 import dev.reuise.web.backend.text.WebBackendInlineTextOptions;
 import dev.reuise.web.backend.text.WebBackendLabel;
 import dev.reuise.web.backend.text.WebBackendLabelOptions;
+import dev.reuise.web.backend.text.WebBackendLineBreak;
+import dev.reuise.web.backend.text.WebBackendLineBreakOptions;
 import dev.reuise.web.backend.text.WebBackendParagraph;
 import dev.reuise.web.backend.text.WebBackendParagraphOptions;
 import dev.reuise.web.backend.text.WebBackendText;
@@ -293,393 +305,409 @@ import dev.reuise.web.core.scriptcomponent.WebScriptComponentOptions;
 import dev.reuise.web.core.view.WebRouteLayoutOptions;
 import dev.reuise.web.core.view.WebSheetRouteLayoutOptions;
 public interface WebBackendComponentFactory extends WebComponentFactory {
-    WebBackendSvgShape createSvgShape(WebSvgShapeOptions options);
-
-    WebBackendSvgShapeOptions createSvgShapeOptions();
-
-    WebBackendSvgImage createSvgImage(WebSvgImageOptions options);
-
-    WebBackendSvgImageOptions createSvgImageOptions();
-
-    WebBackendButton createButton(CoreButtonOptions options);
-
-    WebBackendButtonOptions createButtonOptions();
-
-    WebBackendRouteLayout createRouteLayout(WebRouteLayoutOptions options);
-
-    WebBackendRouteLayoutOptions createRouteLayoutOptions();
-
-    WebBackendMenuItem createMenuItem(CoreMenuItemOptions options);
-
-    WebBackendMenuItemOptions createMenuItemOptions();
-
-    WebBackendTextBlock createTextBlock(CoreTextBlockOptions options);
-
-    WebBackendTextBlockOptions createTextBlockOptions();
-
-    WebBackendRowLayout createRowLayout(CoreRowLayoutOptions options);
-
-    WebBackendRowLayoutOptions createRowLayoutOptions();
-
-    WebBackendBasicListItem createBasicListItem(CoreBasicListItemOptions options);
-
-    WebBackendBasicListItemOptions createBasicListItemOptions();
-
-    WebBackendSvgText createSvgText(WebSvgTextOptions options);
-
-    WebBackendSvgTextOptions createSvgTextOptions();
-
-    WebBackendSplitContainerDivider createSplitContainerDivider(CoreSplitContainerDividerOptions options);
-
-    WebBackendSplitContainerDividerOptions createSplitContainerDividerOptions();
-
-    WebBackendTableBody createTableBody(CoreTableBodyOptions options);
-
-    WebBackendTableBodyOptions createTableBodyOptions();
-
-    WebBackendParagraph createParagraph(CoreParagraphOptions options);
-
-    WebBackendParagraphOptions createParagraphOptions();
-
-    WebBackendSheetView createSheetView(CoreSheetViewOptions options);
-
-    WebBackendSheetViewOptions createSheetViewOptions();
-
-    WebBackendPasswordField createPasswordField(CorePasswordFieldOptions options);
-
-    WebBackendPasswordFieldOptions createPasswordFieldOptions();
-
-    WebBackendIconLabel createIconLabel(CoreIconLabelOptions options);
-
-    WebBackendIconLabelOptions createIconLabelOptions();
-
-    WebBackendBasicList createBasicList(CoreBasicListOptions options);
-
-    WebBackendBasicListOptions createBasicListOptions();
-
-    WebBackendAppLayout createAppLayout(CoreAppLayoutOptions options);
-
-    WebBackendAppLayoutOptions createAppLayoutOptions();
-
-    WebBackendHeading createHeading(CoreHeadingOptions options);
-
-    WebBackendHeadingOptions createHeadingOptions();
-
-    WebBackendScriptComponent createScriptComponent(WebScriptComponentOptions options);
-
-    WebBackendScriptComponentOptions createScriptComponentOptions();
-
-    WebBackendListView createListView(CoreListViewOptions options);
-
-    WebBackendListViewOptions createListViewOptions();
-
-    WebBackendBadge createBadge(CoreBadgeOptions options);
-
-    WebBackendBadgeOptions createBadgeOptions();
-
-    WebBackendBottomAppBar createBottomAppBar(CoreBottomAppBarOptions options);
-
-    WebBackendBottomAppBarOptions createBottomAppBarOptions();
-
-    WebBackendScrollableContainer createScrollableContainer(CoreScrollableContainerOptions options);
-
-    WebBackendScrollableContainerOptions createScrollableContainerOptions();
-
-    WebBackendColumnLayout createColumnLayout(CoreColumnLayoutOptions options);
-
-    WebBackendColumnLayoutOptions createColumnLayoutOptions();
-
-    WebBackendMenuDivider createMenuDivider(CoreMenuDividerOptions options);
-
-    WebBackendMenuDividerOptions createMenuDividerOptions();
-
-    WebBackendParentComponent createParentComponent(CoreParentComponentPartOptions options);
-
-    WebBackendParentComponentOptions createParentComponentOptions();
-
-    WebBackendInlineText createInlineText(CoreInlineTextOptions options);
-
-    WebBackendInlineTextOptions createInlineTextOptions();
-
-    WebBackendSheetRouteLayout createSheetRouteLayout(WebSheetRouteLayoutOptions options);
-
-    WebBackendSheetRouteLayoutOptions createSheetRouteLayoutOptions();
-
-    WebBackendTableHeader createTableHeader(CoreTableHeaderOptions options);
-
-    WebBackendTableHeaderOptions createTableHeaderOptions();
-
-    WebBackendTextField createTextField(CoreTextFieldOptions options);
-
-    WebBackendTextFieldOptions createTextFieldOptions();
-
-    WebBackendTable createTable(CoreTableOptions options);
-
-    WebBackendTableOptions createTableOptions();
-
-    WebBackendImage createImage(CoreImageOptions options);
-
-    WebBackendImageOptions createImageOptions();
-
-    WebBackendContainer createContainer(CoreContainerOptions options);
-
-    WebBackendContainerOptions createContainerOptions();
-
-    WebBackendSheetLayout createSheetLayout(CoreSheetLayoutOptions options);
-
-    WebBackendSheetLayoutOptions createSheetLayoutOptions();
-
     WebBackendListItem createListItem(CoreListItemOptions options);
 
     WebBackendListItemOptions createListItemOptions();
-
-    WebBackendMessageDialog createMessageDialog(CoreMessageDialogOptions options);
-
-    WebBackendMessageDialogOptions createMessageDialogOptions();
-
-    WebBackendSearchField createSearchField(CoreSearchFieldOptions options);
-
-    WebBackendSearchFieldOptions createSearchFieldOptions();
-
-    WebBackendSvgPath createSvgPath(WebSvgPathOptions options);
-
-    WebBackendSvgPathOptions createSvgPathOptions();
-
-    WebBackendDocumentBody createDocumentBody(WebDocumentBodyOptions options);
-
-    WebBackendDocumentBodyOptions createDocumentBodyOptions();
-
-    WebBackendFilterChip createFilterChip(CoreFilterChipOptions options);
-
-    WebBackendFilterChipOptions createFilterChipOptions();
-
-    WebBackendSvg createSvg(WebSvgOptions options);
-
-    WebBackendSvgOptions createSvgOptions();
-
-    WebBackendTableFooter createTableFooter(CoreTableFooterOptions options);
-
-    WebBackendTableFooterOptions createTableFooterOptions();
-
-    WebBackendCardGrid createCardGrid(CoreCardGridOptions options);
-
-    WebBackendCardGridOptions createCardGridOptions();
-
-    WebBackendMediaPlayer createMediaPlayer(CoreMediaPlayerOptions options);
-
-    WebBackendMediaPlayerOptions createMediaPlayerOptions();
-
-    WebBackendView createView(CoreViewOptions options);
-
-    WebBackendViewOptions createViewOptions();
-
-    WebBackendIconButton createIconButton(CoreIconButtonOptions options);
-
-    WebBackendIconButtonOptions createIconButtonOptions();
-
-    WebBackendSlideContainer createSlideContainer(CoreSlideContainerOptions options);
-
-    WebBackendSlideContainerOptions createSlideContainerOptions();
 
     WebBackendChipGroup createChipGroup(CoreChipGroupOptions options);
 
     WebBackendChipGroupOptions createChipGroupOptions();
 
-    WebBackendScrollableContainerScrollArea createScrollableContainerScrollArea(CoreScrollableContainerScrollAreaOptions options);
+    WebBackendDocument createDocument(WebDocumentOptions options);
 
-    WebBackendScrollableContainerScrollAreaOptions createScrollableContainerScrollAreaOptions();
-
-    WebBackendSlideContainerEdge createSlideContainerEdge(CoreSlideContainerEdgeOptions options);
-
-    WebBackendSlideContainerEdgeOptions createSlideContainerEdgeOptions();
-
-    WebBackendChipField createChipField(CoreChipFieldOptions options);
-
-    WebBackendChipFieldOptions createChipFieldOptions();
-
-    WebBackendNavigationLink createNavigationLink(CoreNavigationLinkOptions options);
-
-    WebBackendNavigationLinkOptions createNavigationLinkOptions();
-
-    WebBackendSelectMenu createSelectMenu(CoreSelectMenuOptions options);
-
-    WebBackendSelectMenuOptions createSelectMenuOptions();
-
-    WebBackendCheckboxTableColumn createCheckboxTableColumn(CoreCheckboxTableColumnOptions options);
-
-    WebBackendCheckboxTableColumnOptions createCheckboxTableColumnOptions();
-
-    WebBackendTableColumnGroup createTableColumnGroup(CoreTableColumnGroupOptions options);
-
-    WebBackendTableColumnGroupOptions createTableColumnGroupOptions();
-
-    WebBackendAppLayoutBody createAppLayoutBody(CoreAppLayoutBodyOptions options);
-
-    WebBackendAppLayoutBodyOptions createAppLayoutBodyOptions();
-
-    WebBackendMenu createMenu(CoreMenuOptions options);
-
-    WebBackendMenuOptions createMenuOptions();
-
-    WebBackendTableRow createTableRow(CoreTableRowOptions options);
-
-    WebBackendTableRowOptions createTableRowOptions();
-
-    WebBackendSkeleton createSkeleton(CoreSkeletonOptions options);
-
-    WebBackendSkeletonOptions createSkeletonOptions();
-
-    WebBackendBasicInputField createBasicInputField(CoreBasicInputFieldOptions options);
-
-    WebBackendBasicInputFieldOptions createBasicInputFieldOptions();
-
-    WebBackendTab createTab(CoreTabOptions options);
-
-    WebBackendTabOptions createTabOptions();
-
-    WebBackendFilePicker createFilePicker(WebFilePickerOptions options);
-
-    WebBackendFilePickerOptions createFilePickerOptions();
-
-    WebBackendVideoPlayer createVideoPlayer(CoreVideoPlayerOptions options);
-
-    WebBackendVideoPlayerOptions createVideoPlayerOptions();
-
-    WebBackendDrawer createDrawer(CoreDrawerOptions options);
-
-    WebBackendDrawerOptions createDrawerOptions();
-
-    WebBackendProgressIndicator createProgressIndicator(CoreProgressIndicatorOptions options);
-
-    WebBackendProgressIndicatorOptions createProgressIndicatorOptions();
-
-    WebBackendSplitContainerPanel createSplitContainerPanel(CoreSplitContainerPanelOptions options);
-
-    WebBackendSplitContainerPanelOptions createSplitContainerPanelOptions();
-
-    WebBackendIcon createIcon(CoreIconOptions options);
-
-    WebBackendIconOptions createIconOptions();
-
-    WebBackendSvgRect createSvgRect(WebSvgRectOptions options);
-
-    WebBackendSvgRectOptions createSvgRectOptions();
-
-    WebBackendBaseComponent createBaseComponent(CoreBaseComponentPartOptions options);
-
-    WebBackendBaseComponentOptions createBaseComponentOptions();
-
-    WebBackendDivider createDivider(CoreDividerOptions options);
-
-    WebBackendDividerOptions createDividerOptions();
+    WebBackendDocumentOptions createDocumentOptions();
 
     WebBackendCheckboxTableCell createCheckboxTableCell(CoreCheckboxTableCellOptions options);
 
     WebBackendCheckboxTableCellOptions createCheckboxTableCellOptions();
 
-    WebBackendSurface createSurface(CoreSurfaceOptions options);
+    WebBackendAppLayout createAppLayout(CoreAppLayoutOptions options);
 
-    WebBackendSurfaceOptions createSurfaceOptions();
+    WebBackendAppLayoutOptions createAppLayoutOptions();
 
-    WebBackendText createText(CoreTextOptions options);
+    WebBackendBasicInputField createBasicInputField(CoreBasicInputFieldOptions options);
 
-    WebBackendTextOptions createTextOptions();
+    WebBackendBasicInputFieldOptions createBasicInputFieldOptions();
 
-    WebBackendLabel createLabel(CoreLabelOptions options);
+    WebBackendAccordion createAccordion(CoreAccordionOptions options);
 
-    WebBackendLabelOptions createLabelOptions();
-
-    WebBackendMultiEmailAddressField createMultiEmailAddressField(CoreMultiEmailAddressFieldOptions options);
-
-    WebBackendMultiEmailAddressFieldOptions createMultiEmailAddressFieldOptions();
-
-    WebBackendTableHeaderCell createTableHeaderCell(CoreTableHeaderCellOptions options);
-
-    WebBackendTableHeaderCellOptions createTableHeaderCellOptions();
-
-    WebBackendBasicCheckbox createBasicCheckbox(CoreBasicCheckboxOptions options);
-
-    WebBackendBasicCheckboxOptions createBasicCheckboxOptions();
-
-    WebBackendTableColumn createTableColumn(CoreTableColumnOptions options);
-
-    WebBackendTableColumnOptions createTableColumnOptions();
-
-    WebBackendDropZone createDropZone(CoreDropZoneOptions options);
-
-    WebBackendDropZoneOptions createDropZoneOptions();
-
-    WebBackendChip createChip(CoreChipOptions options);
-
-    WebBackendChipOptions createChipOptions();
-
-    WebBackendTextTrack createTextTrack(CoreTextTrackOptions options);
-
-    WebBackendTextTrackOptions createTextTrackOptions();
-
-    WebBackendAudioPlayer createAudioPlayer(CoreAudioPlayerOptions options);
-
-    WebBackendAudioPlayerOptions createAudioPlayerOptions();
-
-    WebBackendTableCell createTableCell(CoreTableCellOptions options);
-
-    WebBackendTableCellOptions createTableCellOptions();
-
-    WebBackendCheckbox createCheckbox(CoreCheckboxOptions options);
-
-    WebBackendCheckboxOptions createCheckboxOptions();
-
-    WebBackendCard createCard(CoreCardOptions options);
-
-    WebBackendCardOptions createCardOptions();
-
-    WebBackendSplitContainer createSplitContainer(CoreSplitContainerOptions options);
-
-    WebBackendSplitContainerOptions createSplitContainerOptions();
-
-    WebBackendDialog createDialog(CoreDialogOptions options);
-
-    WebBackendDialogOptions createDialogOptions();
-
-    WebBackendAvatar createAvatar(CoreAvatarOptions options);
-
-    WebBackendAvatarOptions createAvatarOptions();
-
-    WebBackendScrollableContainerEdge createScrollableContainerEdge(CoreScrollableContainerEdgeOptions options);
-
-    WebBackendScrollableContainerEdgeOptions createScrollableContainerEdgeOptions();
-
-    WebBackendTableHeaderRow createTableHeaderRow(CoreTableHeaderRowOptions options);
-
-    WebBackendTableHeaderRowOptions createTableHeaderRowOptions();
-
-    WebBackendSvgGroup createSvgGroup(WebSvgGroupOptions options);
-
-    WebBackendSvgGroupOptions createSvgGroupOptions();
-
-    WebBackendLink createLink(CoreLinkOptions options);
-
-    WebBackendLinkOptions createLinkOptions();
+    WebBackendAccordionOptions createAccordionOptions();
 
     WebBackendTopAppBar createTopAppBar(CoreTopAppBarOptions options);
 
     WebBackendTopAppBarOptions createTopAppBarOptions();
 
-    WebBackendDocument createDocument(WebDocumentOptions options);
+    WebBackendColumnLayout createColumnLayout(CoreColumnLayoutOptions options);
 
-    WebBackendDocumentOptions createDocumentOptions();
+    WebBackendColumnLayoutOptions createColumnLayoutOptions();
+
+    WebBackendSheetView createSheetView(CoreSheetViewOptions options);
+
+    WebBackendSheetViewOptions createSheetViewOptions();
+
+    WebBackendScrollableContainer createScrollableContainer(CoreScrollableContainerOptions options);
+
+    WebBackendScrollableContainerOptions createScrollableContainerOptions();
 
     WebBackendFlexContainer createFlexContainer(CoreFlexContainerOptions options);
 
     WebBackendFlexContainerOptions createFlexContainerOptions();
 
-    WebBackendFieldSet createFieldSet(CoreFieldSetOptions options);
+    WebBackendTableColumnGroup createTableColumnGroup(CoreTableColumnGroupOptions options);
 
-    WebBackendFieldSetOptions createFieldSetOptions();
+    WebBackendTableColumnGroupOptions createTableColumnGroupOptions();
+
+    WebBackendTableBody createTableBody(CoreTableBodyOptions options);
+
+    WebBackendTableBodyOptions createTableBodyOptions();
+
+    WebBackendTab createTab(CoreTabOptions options);
+
+    WebBackendTabOptions createTabOptions();
+
+    WebBackendSheetLayout createSheetLayout(CoreSheetLayoutOptions options);
+
+    WebBackendSheetLayoutOptions createSheetLayoutOptions();
+
+    WebBackendSearchField createSearchField(CoreSearchFieldOptions options);
+
+    WebBackendSearchFieldOptions createSearchFieldOptions();
+
+    WebBackendSvgShape createSvgShape(WebSvgShapeOptions options);
+
+    WebBackendSvgShapeOptions createSvgShapeOptions();
+
+    WebBackendLabel createLabel(CoreLabelOptions options);
+
+    WebBackendLabelOptions createLabelOptions();
+
+    WebBackendMenu createMenu(CoreMenuOptions options);
+
+    WebBackendMenuOptions createMenuOptions();
+
+    WebBackendText createText(CoreTextOptions options);
+
+    WebBackendTextOptions createTextOptions();
+
+    WebBackendSplitContainerPanel createSplitContainerPanel(CoreSplitContainerPanelOptions options);
+
+    WebBackendSplitContainerPanelOptions createSplitContainerPanelOptions();
+
+    WebBackendTextTrack createTextTrack(CoreTextTrackOptions options);
+
+    WebBackendTextTrackOptions createTextTrackOptions();
+
+    WebBackendTableHeaderCell createTableHeaderCell(CoreTableHeaderCellOptions options);
+
+    WebBackendTableHeaderCellOptions createTableHeaderCellOptions();
+
+    WebBackendTableCell createTableCell(CoreTableCellOptions options);
+
+    WebBackendTableCellOptions createTableCellOptions();
+
+    WebBackendListView createListView(CoreListViewOptions options);
+
+    WebBackendListViewOptions createListViewOptions();
+
+    WebBackendTableFooter createTableFooter(CoreTableFooterOptions options);
+
+    WebBackendTableFooterOptions createTableFooterOptions();
+
+    WebBackendBottomAppBar createBottomAppBar(CoreBottomAppBarOptions options);
+
+    WebBackendBottomAppBarOptions createBottomAppBarOptions();
+
+    WebBackendBasicList createBasicList(CoreBasicListOptions options);
+
+    WebBackendBasicListOptions createBasicListOptions();
+
+    WebBackendMultiEmailAddressField createMultiEmailAddressField(CoreMultiEmailAddressFieldOptions options);
+
+    WebBackendMultiEmailAddressFieldOptions createMultiEmailAddressFieldOptions();
+
+    WebBackendMenuDivider createMenuDivider(CoreMenuDividerOptions options);
+
+    WebBackendMenuDividerOptions createMenuDividerOptions();
+
+    WebBackendRouteLayout createRouteLayout(WebRouteLayoutOptions options);
+
+    WebBackendRouteLayoutOptions createRouteLayoutOptions();
+
+    WebBackendAvatar createAvatar(CoreAvatarOptions options);
+
+    WebBackendAvatarOptions createAvatarOptions();
+
+    WebBackendIconButton createIconButton(CoreIconButtonOptions options);
+
+    WebBackendIconButtonOptions createIconButtonOptions();
+
+    WebBackendDivider createDivider(CoreDividerOptions options);
+
+    WebBackendDividerOptions createDividerOptions();
+
+    WebBackendFilePicker createFilePicker(WebFilePickerOptions options);
+
+    WebBackendFilePickerOptions createFilePickerOptions();
+
+    WebBackendDialog createDialog(CoreDialogOptions options);
+
+    WebBackendDialogOptions createDialogOptions();
+
+    WebBackendAppLayoutBody createAppLayoutBody(CoreAppLayoutBodyOptions options);
+
+    WebBackendAppLayoutBodyOptions createAppLayoutBodyOptions();
+
+    WebBackendScriptComponent createScriptComponent(WebScriptComponentOptions options);
+
+    WebBackendScriptComponentOptions createScriptComponentOptions();
+
+    WebBackendTableRow createTableRow(CoreTableRowOptions options);
+
+    WebBackendTableRowOptions createTableRowOptions();
+
+    WebBackendDropZone createDropZone(CoreDropZoneOptions options);
+
+    WebBackendDropZoneOptions createDropZoneOptions();
+
+    WebBackendCheckbox createCheckbox(CoreCheckboxOptions options);
+
+    WebBackendCheckboxOptions createCheckboxOptions();
+
+    WebBackendChipField createChipField(CoreChipFieldOptions options);
+
+    WebBackendChipFieldOptions createChipFieldOptions();
+
+    WebBackendSurface createSurface(CoreSurfaceOptions options);
+
+    WebBackendSurfaceOptions createSurfaceOptions();
+
+    WebBackendVideoPlayer createVideoPlayer(CoreVideoPlayerOptions options);
+
+    WebBackendVideoPlayerOptions createVideoPlayerOptions();
+
+    WebBackendSvgPath createSvgPath(WebSvgPathOptions options);
+
+    WebBackendSvgPathOptions createSvgPathOptions();
+
+    WebBackendDrawer createDrawer(CoreDrawerOptions options);
+
+    WebBackendDrawerOptions createDrawerOptions();
+
+    WebBackendMediaPlayer createMediaPlayer(CoreMediaPlayerOptions options);
+
+    WebBackendMediaPlayerOptions createMediaPlayerOptions();
+
+    WebBackendLink createLink(CoreLinkOptions options);
+
+    WebBackendLinkOptions createLinkOptions();
+
+    WebBackendTextBlock createTextBlock(CoreTextBlockOptions options);
+
+    WebBackendTextBlockOptions createTextBlockOptions();
+
+    WebBackendIcon createIcon(CoreIconOptions options);
+
+    WebBackendIconOptions createIconOptions();
+
+    WebBackendSvgGroup createSvgGroup(WebSvgGroupOptions options);
+
+    WebBackendSvgGroupOptions createSvgGroupOptions();
+
+    WebBackendPasswordField createPasswordField(CorePasswordFieldOptions options);
+
+    WebBackendPasswordFieldOptions createPasswordFieldOptions();
+
+    WebBackendSelectMenu createSelectMenu(CoreSelectMenuOptions options);
+
+    WebBackendSelectMenuOptions createSelectMenuOptions();
+
+    WebBackendBasicListItem createBasicListItem(CoreBasicListItemOptions options);
+
+    WebBackendBasicListItemOptions createBasicListItemOptions();
+
+    WebBackendIconLabel createIconLabel(CoreIconLabelOptions options);
+
+    WebBackendIconLabelOptions createIconLabelOptions();
+
+    WebBackendTable createTable(CoreTableOptions options);
+
+    WebBackendTableOptions createTableOptions();
+
+    WebBackendSvgText createSvgText(WebSvgTextOptions options);
+
+    WebBackendSvgTextOptions createSvgTextOptions();
+
+    WebBackendScrollableContainerScrollArea createScrollableContainerScrollArea(CoreScrollableContainerScrollAreaOptions options);
+
+    WebBackendScrollableContainerScrollAreaOptions createScrollableContainerScrollAreaOptions();
+
+    WebBackendSvg createSvg(WebSvgOptions options);
+
+    WebBackendSvgOptions createSvgOptions();
+
+    WebBackendParentComponent createParentComponent(CoreParentComponentPartOptions options);
+
+    WebBackendParentComponentOptions createParentComponentOptions();
+
+    WebBackendBaseComponent createBaseComponent(CoreBaseComponentPartOptions options);
+
+    WebBackendBaseComponentOptions createBaseComponentOptions();
+
+    WebBackendInlineText createInlineText(CoreInlineTextOptions options);
+
+    WebBackendInlineTextOptions createInlineTextOptions();
+
+    WebBackendView createView(CoreViewOptions options);
+
+    WebBackendViewOptions createViewOptions();
+
+    WebBackendSvgRect createSvgRect(WebSvgRectOptions options);
+
+    WebBackendSvgRectOptions createSvgRectOptions();
+
+    WebBackendHeading createHeading(CoreHeadingOptions options);
+
+    WebBackendHeadingOptions createHeadingOptions();
+
+    WebBackendScrollableContainerEdge createScrollableContainerEdge(CoreScrollableContainerEdgeOptions options);
+
+    WebBackendScrollableContainerEdgeOptions createScrollableContainerEdgeOptions();
+
+    WebBackendAudioPlayer createAudioPlayer(CoreAudioPlayerOptions options);
+
+    WebBackendAudioPlayerOptions createAudioPlayerOptions();
+
+    WebBackendNavigationLink createNavigationLink(CoreNavigationLinkOptions options);
+
+    WebBackendNavigationLinkOptions createNavigationLinkOptions();
+
+    WebBackendTableHeader createTableHeader(CoreTableHeaderOptions options);
+
+    WebBackendTableHeaderOptions createTableHeaderOptions();
+
+    WebBackendButton createButton(CoreButtonOptions options);
+
+    WebBackendButtonOptions createButtonOptions();
+
+    WebBackendRowLayout createRowLayout(CoreRowLayoutOptions options);
+
+    WebBackendRowLayoutOptions createRowLayoutOptions();
+
+    WebBackendBasicCheckbox createBasicCheckbox(CoreBasicCheckboxOptions options);
+
+    WebBackendBasicCheckboxOptions createBasicCheckboxOptions();
+
+    WebBackendCard createCard(CoreCardOptions options);
+
+    WebBackendCardOptions createCardOptions();
+
+    WebBackendSvgImage createSvgImage(WebSvgImageOptions options);
+
+    WebBackendSvgImageOptions createSvgImageOptions();
+
+    WebBackendLineBreak createLineBreak(CoreLineBreakOptions options);
+
+    WebBackendLineBreakOptions createLineBreakOptions();
+
+    WebBackendTableHeaderRow createTableHeaderRow(CoreTableHeaderRowOptions options);
+
+    WebBackendTableHeaderRowOptions createTableHeaderRowOptions();
+
+    WebBackendTextField createTextField(CoreTextFieldOptions options);
+
+    WebBackendTextFieldOptions createTextFieldOptions();
+
+    WebBackendSlideContainerEdge createSlideContainerEdge(CoreSlideContainerEdgeOptions options);
+
+    WebBackendSlideContainerEdgeOptions createSlideContainerEdgeOptions();
 
     WebBackendTabBar createTabBar(CoreTabBarOptions options);
 
     WebBackendTabBarOptions createTabBarOptions();
+
+    WebBackendMessageDialog createMessageDialog(CoreMessageDialogOptions options);
+
+    WebBackendMessageDialogOptions createMessageDialogOptions();
+
+    WebBackendSegmentedTextField createSegmentedTextField(CoreSegmentedTextFieldOptions options);
+
+    WebBackendSegmentedTextFieldOptions createSegmentedTextFieldOptions();
+
+    WebBackendCardGrid createCardGrid(CoreCardGridOptions options);
+
+    WebBackendCardGridOptions createCardGridOptions();
+
+    WebBackendImage createImage(CoreImageOptions options);
+
+    WebBackendImageOptions createImageOptions();
+
+    WebBackendSlideContainer createSlideContainer(CoreSlideContainerOptions options);
+
+    WebBackendSlideContainerOptions createSlideContainerOptions();
+
+    WebBackendSheetRouteLayout createSheetRouteLayout(WebSheetRouteLayoutOptions options);
+
+    WebBackendSheetRouteLayoutOptions createSheetRouteLayoutOptions();
+
+    WebBackendBadge createBadge(CoreBadgeOptions options);
+
+    WebBackendBadgeOptions createBadgeOptions();
+
+    WebBackendMenuItem createMenuItem(CoreMenuItemOptions options);
+
+    WebBackendMenuItemOptions createMenuItemOptions();
+
+    WebBackendTableColumn createTableColumn(CoreTableColumnOptions options);
+
+    WebBackendTableColumnOptions createTableColumnOptions();
+
+    WebBackendProgressIndicator createProgressIndicator(CoreProgressIndicatorOptions options);
+
+    WebBackendProgressIndicatorOptions createProgressIndicatorOptions();
+
+    WebBackendDocumentBody createDocumentBody(WebDocumentBodyOptions options);
+
+    WebBackendDocumentBodyOptions createDocumentBodyOptions();
+
+    WebBackendSplitContainerDivider createSplitContainerDivider(CoreSplitContainerDividerOptions options);
+
+    WebBackendSplitContainerDividerOptions createSplitContainerDividerOptions();
+
+    WebBackendParagraph createParagraph(CoreParagraphOptions options);
+
+    WebBackendParagraphOptions createParagraphOptions();
+
+    WebBackendChip createChip(CoreChipOptions options);
+
+    WebBackendChipOptions createChipOptions();
+
+    WebBackendContainer createContainer(CoreContainerOptions options);
+
+    WebBackendContainerOptions createContainerOptions();
+
+    WebBackendSkeleton createSkeleton(CoreSkeletonOptions options);
+
+    WebBackendSkeletonOptions createSkeletonOptions();
+
+    WebBackendAccordionItem createAccordionItem(CoreAccordionItemOptions options);
+
+    WebBackendAccordionItemOptions createAccordionItemOptions();
+
+    WebBackendFieldSet createFieldSet(CoreFieldSetOptions options);
+
+    WebBackendFieldSetOptions createFieldSetOptions();
+
+    WebBackendFilterChip createFilterChip(CoreFilterChipOptions options);
+
+    WebBackendFilterChipOptions createFilterChipOptions();
+
+    WebBackendCheckboxTableColumn createCheckboxTableColumn(CoreCheckboxTableColumnOptions options);
+
+    WebBackendCheckboxTableColumnOptions createCheckboxTableColumnOptions();
+
+    WebBackendSplitContainer createSplitContainer(CoreSplitContainerOptions options);
+
+    WebBackendSplitContainerOptions createSplitContainerOptions();
 
     void setRootComponent(RootComponent rootComponent);
 

@@ -18,6 +18,8 @@ import java.util.Map;
 // Option: Text - CORE
 // Option: FontSize - CORE
 // Option: LineHeight - CORE
+// Option: FontWeight - CORE
+// Option: FontStyle - CORE
 // Option: HighlightText - CORE
 // Option: Children - CORE
 // Option: Id - WEB
@@ -211,6 +213,106 @@ public abstract class AbstractWebBackendLabelOptions<S extends AbstractWebBacken
     }
 
     @Override
+    public Object getFontWeight() {
+        return textPart.getFontWeight();
+    }
+
+    @Override
+    public ComponentOption<Object> getFontWeightOption() {
+        return textPart.getFontWeightOption();
+    }
+
+    @Override
+    public S setFontWeight(Object fontWeight) {
+        this.textPart.setFontWeight(fontWeight);
+        return self();
+    }
+
+    @Override
+    public S setFontWeight(Object fontWeight, State state) {
+        this.textPart.setFontWeight(fontWeight, state);
+        return self();
+    }
+
+    @Override
+    public S setFontWeightAllStates(Object fontWeight) {
+        setFontWeight(ScreenSizeValues.of(fontWeight, fontWeight));
+        setFontWeight(fontWeight);
+        return self();
+    }
+
+    @Override
+    public S setFontWeight(ScreenSizeValues<Object> fontWeight) {
+        this.textPart.setFontWeight(fontWeight);
+        return self();
+    }
+
+    @Override
+    public Object getFontWeight(State state) {
+        return textPart.getFontWeight(state);
+    }
+
+    @Override
+    public ComponentOption<Object> getFontWeightOption(State state) {
+        return textPart.getFontWeightOption(state);
+    }
+
+    @Override
+    public Collection<State> getFontWeightStates() {
+        return textPart.getFontWeightStates();
+    }
+
+    @Override
+    public Object getFontStyle() {
+        return textPart.getFontStyle();
+    }
+
+    @Override
+    public ComponentOption<Object> getFontStyleOption() {
+        return textPart.getFontStyleOption();
+    }
+
+    @Override
+    public S setFontStyle(Object fontStyle) {
+        this.textPart.setFontStyle(fontStyle);
+        return self();
+    }
+
+    @Override
+    public S setFontStyle(Object fontStyle, State state) {
+        this.textPart.setFontStyle(fontStyle, state);
+        return self();
+    }
+
+    @Override
+    public S setFontStyleAllStates(Object fontStyle) {
+        setFontStyle(ScreenSizeValues.of(fontStyle, fontStyle));
+        setFontStyle(fontStyle);
+        return self();
+    }
+
+    @Override
+    public S setFontStyle(ScreenSizeValues<Object> fontStyle) {
+        this.textPart.setFontStyle(fontStyle);
+        return self();
+    }
+
+    @Override
+    public Object getFontStyle(State state) {
+        return textPart.getFontStyle(state);
+    }
+
+    @Override
+    public ComponentOption<Object> getFontStyleOption(State state) {
+        return textPart.getFontStyleOption(state);
+    }
+
+    @Override
+    public Collection<State> getFontStyleStates() {
+        return textPart.getFontStyleStates();
+    }
+
+    @Override
     public String getHighlightText() {
         return textPart.getHighlightText();
     }
@@ -261,6 +363,12 @@ public abstract class AbstractWebBackendLabelOptions<S extends AbstractWebBacken
     @Override
     public S removeChild(CoreComponent child) {
         parentComponentPart.removeChild(child);
+        return self();
+    }
+
+    @Override
+    public S clearChildren() {
+        parentComponentPart.clearChildren();
         return self();
     }
 
@@ -417,6 +525,12 @@ public abstract class AbstractWebBackendLabelOptions<S extends AbstractWebBacken
     @Override
     public S removeStyleClass(String styleClass) {
         baseComponentPart.removeStyleClass(styleClass);
+        return self();
+    }
+
+    @Override
+    public S clearStyleClasses() {
+        baseComponentPart.clearStyleClasses();
         return self();
     }
 

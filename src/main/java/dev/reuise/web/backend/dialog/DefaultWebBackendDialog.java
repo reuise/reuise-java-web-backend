@@ -489,6 +489,12 @@ public abstract class DefaultWebBackendDialog<S extends DefaultWebBackendDialog<
     }
 
     @Override
+    public S clearActions() {
+        this.actions.clear();
+        return self();
+    }
+
+    @Override
     public void writeTo(PrintWriter writer) {
         writeStartTag(writer);
         parentComponentPart.writeTo(writer);

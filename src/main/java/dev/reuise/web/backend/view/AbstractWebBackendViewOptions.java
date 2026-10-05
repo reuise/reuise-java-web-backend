@@ -904,6 +904,12 @@ public abstract class AbstractWebBackendViewOptions<S extends AbstractWebBackend
         return self();
     }
 
+    @Override
+    public S clearChildren() {
+        parentComponentPart.clearChildren();
+        return self();
+    }
+
     public WebBackendParentComponentPartOptions getParentComponentPart() {
         return parentComponentPart;
     }
@@ -1057,6 +1063,12 @@ public abstract class AbstractWebBackendViewOptions<S extends AbstractWebBackend
     @Override
     public S removeStyleClass(String styleClass) {
         baseComponentPart.removeStyleClass(styleClass);
+        return self();
+    }
+
+    @Override
+    public S clearStyleClasses() {
+        baseComponentPart.clearStyleClasses();
         return self();
     }
 

@@ -170,6 +170,12 @@ public abstract class AbstractWebBackendMultiEmailAddressFieldOptions<S extends 
     }
 
     @Override
+    public S clearValues() {
+        chipFieldPart.clearValues();
+        return self();
+    }
+
+    @Override
     public boolean hasValue(String value) {
         return chipFieldPart.hasValue(value);
     }
@@ -199,6 +205,12 @@ public abstract class AbstractWebBackendMultiEmailAddressFieldOptions<S extends 
     @Override
     public S removeDelimiter(String delimiter) {
         chipFieldPart.removeDelimiter(delimiter);
+        return self();
+    }
+
+    @Override
+    public S clearDelimiters() {
+        chipFieldPart.clearDelimiters();
         return self();
     }
 
@@ -534,6 +546,12 @@ public abstract class AbstractWebBackendMultiEmailAddressFieldOptions<S extends 
         return self();
     }
 
+    @Override
+    public S clearChildren() {
+        parentComponentPart.clearChildren();
+        return self();
+    }
+
     public WebBackendParentComponentPartOptions getParentComponentPart() {
         return parentComponentPart;
     }
@@ -687,6 +705,12 @@ public abstract class AbstractWebBackendMultiEmailAddressFieldOptions<S extends 
     @Override
     public S removeStyleClass(String styleClass) {
         baseComponentPart.removeStyleClass(styleClass);
+        return self();
+    }
+
+    @Override
+    public S clearStyleClasses() {
+        baseComponentPart.clearStyleClasses();
         return self();
     }
 

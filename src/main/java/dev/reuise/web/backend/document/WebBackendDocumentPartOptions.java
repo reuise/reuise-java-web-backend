@@ -46,6 +46,8 @@ public interface WebBackendDocumentPartOptions extends WebDocumentPartOptions {
 
     WebBackendDocumentPartOptions removeExternalStyleSheet(ExternalStyleSheet externalStyleSheet);
 
+    WebBackendDocumentPartOptions clearExternalStyleSheet();
+
     List<ExternalScript> getExternalScript();
 
     ComponentOption<List<ExternalScript>> getExternalScriptOption();
@@ -58,6 +60,8 @@ public interface WebBackendDocumentPartOptions extends WebDocumentPartOptions {
 
     WebBackendDocumentPartOptions removeExternalScript(ExternalScript externalScript);
 
+    WebBackendDocumentPartOptions clearExternalScript();
+
     List<ExternalResource> getPreconnect();
 
     ComponentOption<List<ExternalResource>> getPreconnectOption();
@@ -67,6 +71,8 @@ public interface WebBackendDocumentPartOptions extends WebDocumentPartOptions {
     WebBackendDocumentPartOptions addPreconnect(ExternalResource preconnect);
 
     WebBackendDocumentPartOptions removePreconnect(ExternalResource preconnect);
+
+    WebBackendDocumentPartOptions clearPreconnect();
 
     List<ExternalResource> getDnsPrefetch();
 
@@ -78,6 +84,8 @@ public interface WebBackendDocumentPartOptions extends WebDocumentPartOptions {
 
     WebBackendDocumentPartOptions removeDnsPrefetch(ExternalResource dnsPrefetch);
 
+    WebBackendDocumentPartOptions clearDnsPrefetch();
+
     List<Metadata> getMetadata();
 
     ComponentOption<List<Metadata>> getMetadataOption();
@@ -87,6 +95,8 @@ public interface WebBackendDocumentPartOptions extends WebDocumentPartOptions {
     WebBackendDocumentPartOptions addMetadata(Metadata metadata);
 
     WebBackendDocumentPartOptions removeMetadata(Metadata metadata);
+
+    WebBackendDocumentPartOptions clearMetadata();
 
     boolean hasMetadata(Metadata metadata);
 
@@ -102,6 +112,8 @@ public interface WebBackendDocumentPartOptions extends WebDocumentPartOptions {
 
     WebBackendDocumentPartOptions removeImportMap(ImportMap importMap);
 
+    WebBackendDocumentPartOptions clearImportMap();
+
     List<String> getScript();
 
     ComponentOption<List<String>> getScriptOption();
@@ -113,6 +125,8 @@ public interface WebBackendDocumentPartOptions extends WebDocumentPartOptions {
     WebBackendDocumentPartOptions setScript(String script);
 
     WebBackendDocumentPartOptions removeScript(String script);
+
+    WebBackendDocumentPartOptions clearScript();
 
     String getManifest();
 
@@ -131,6 +145,8 @@ public interface WebBackendDocumentPartOptions extends WebDocumentPartOptions {
     WebBackendDocumentPartOptions setIcon(DocumentIcon icon);
 
     WebBackendDocumentPartOptions removeIcon(DocumentIcon icon);
+
+    WebBackendDocumentPartOptions clearIcon();
 
     StructuredData getStructuredData();
 

@@ -228,6 +228,12 @@ public abstract class AbstractWebBackendBottomAppBarOptions<S extends AbstractWe
     }
 
     @Override
+    public S clearStyleClasses() {
+        baseComponentPart.clearStyleClasses();
+        return self();
+    }
+
+    @Override
     public boolean hasStyleClass(String styleClass) {
         return baseComponentPart.hasStyleClass(styleClass);
     }

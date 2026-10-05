@@ -29,13 +29,6 @@ public class WebBackendStyleSheet implements StyleSheet {
         return rules;
     }
 
-    public Style getRule(String rule, State state) {
-        if (state instanceof Interaction interactionState) {
-            return rules.get(interactionState.getSelector(rule));
-        }
-        return rules.get(rule);
-    }
-
     public Map<String, StyleSheet> getAtRules() {
         return atRules;
     }
@@ -63,6 +56,7 @@ public class WebBackendStyleSheet implements StyleSheet {
     public WebBackendStyleSheet() {
     }
 
+    @Override
     public Style addRule(String rule, State state) {
         String selector = null;
         if (state instanceof Interaction)
@@ -78,6 +72,7 @@ public class WebBackendStyleSheet implements StyleSheet {
         return style;
     }
 
+    @Override
     public Style addRule(String rule) {
         return addRule(rule, null);
     }
@@ -115,6 +110,7 @@ public class WebBackendStyleSheet implements StyleSheet {
         return rules.get(rule);
     }
 
+    @Override
     public void setRule(String rule, Style style) {
         if (rule == null)
             return;

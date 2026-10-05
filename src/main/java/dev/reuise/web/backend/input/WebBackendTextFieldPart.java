@@ -62,6 +62,8 @@ public interface WebBackendTextFieldPart extends WebBackendTextFieldFeatures , W
 
     WebBackendTextFieldPart removeValidator(InputValidator validator);
 
+    WebBackendTextFieldPart clearValidators();
+
     boolean isRequired();
 
     WebBackendTextFieldPart setRequired(Boolean required);

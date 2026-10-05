@@ -556,6 +556,12 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
     }
 
     @Override
+    public S clearExternalStyleSheet() {
+        this.externalStyleSheet.clear();
+        return self();
+    }
+
+    @Override
     public List<ExternalScript> getExternalScript() {
         return externalScript;
     }
@@ -589,6 +595,12 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
     }
 
     @Override
+    public S clearExternalScript() {
+        this.externalScript.clear();
+        return self();
+    }
+
+    @Override
     public List<ExternalResource> getPreconnect() {
         return preconnect;
     }
@@ -612,6 +624,12 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
     @Override
     public S removePreconnect(ExternalResource preconnect) {
         this.preconnect.remove(preconnect);
+        return self();
+    }
+
+    @Override
+    public S clearPreconnect() {
+        this.preconnect.clear();
         return self();
     }
 
@@ -643,6 +661,12 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
     }
 
     @Override
+    public S clearDnsPrefetch() {
+        this.dnsPrefetch.clear();
+        return self();
+    }
+
+    @Override
     public List<Metadata> getMetadata() {
         return metadata;
     }
@@ -666,6 +690,12 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
     @Override
     public S removeMetadata(Metadata metadata) {
         this.metadata.remove(metadata);
+        return self();
+    }
+
+    @Override
+    public S clearMetadata() {
+        this.metadata.clear();
         return self();
     }
 
@@ -708,6 +738,12 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
     }
 
     @Override
+    public S clearImportMap() {
+        this.importMap.clear();
+        return self();
+    }
+
+    @Override
     public List<String> getScript() {
         return script;
     }
@@ -737,6 +773,12 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
     @Override
     public S removeScript(String script) {
         this.script.remove(script);
+        return self();
+    }
+
+    @Override
+    public S clearScript() {
+        this.script.clear();
         return self();
     }
 
@@ -781,6 +823,12 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
     @Override
     public S removeIcon(DocumentIcon icon) {
         this.icon.remove(icon);
+        return self();
+    }
+
+    @Override
+    public S clearIcon() {
+        this.icon.clear();
         return self();
     }
 
@@ -855,6 +903,12 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
     @Override
     public S removeKeyword(String keyword) {
         this.keywords.remove(keyword);
+        return self();
+    }
+
+    @Override
+    public S clearKeywords() {
+        this.keywords.clear();
         return self();
     }
 

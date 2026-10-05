@@ -374,6 +374,20 @@ public abstract class DefaultWebBackendText<S extends DefaultWebBackendText<S, O
         return self();
     }
 
+    @Override
+    public S setFontWeightAllStates(Object fontWeight) {
+        setFontWeight(ScreenSizeValues.of(fontWeight, fontWeight));
+        setFontWeight(fontWeight);
+        return self();
+    }
+
+    @Override
+    public S setFontStyleAllStates(Object fontStyle) {
+        setFontStyle(ScreenSizeValues.of(fontStyle, fontStyle));
+        setFontStyle(fontStyle);
+        return self();
+    }
+
     // Implementation
     @Override
     public void writeTo(PrintWriter writer) {

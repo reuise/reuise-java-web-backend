@@ -376,6 +376,12 @@ public abstract class DefaultWebBackendBaseComponent<S extends DefaultWebBackend
         return self();
     }
 
+    @Override
+    public S clearStyleClasses() {
+        this.styleClasses.clear();
+        return self();
+    }
+
     // Implementation
     @Override
     public boolean hasStyleClass(String styleClass) {

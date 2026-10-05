@@ -114,6 +114,11 @@ public abstract class DefaultWebBackendAudioPlayer<S extends DefaultWebBackendAu
         addPart(ComponentPart.Type.BASE, mediaPlayerPart);
     }
 
+    @Override
+    public void refreshTextTracks() {
+        this.mediaPlayerPart.refreshTextTracks();
+    }
+
     public WebBackendMediaPlayerPart getMediaPlayerPart() {
         return mediaPlayerPart;
     }

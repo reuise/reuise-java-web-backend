@@ -27,6 +27,8 @@ public interface WebBackendSheetRouteLayoutPart extends WebBackendSheetRouteLayo
 
     WebBackendSheetRouteLayoutPart removeRoute(RouteOptions route);
 
+    WebBackendSheetRouteLayoutPart clearRoutes();
+
     boolean hasRoute(RouteOptions route);
 
     RouteViewRevealer getRouteViewRevealer();
@@ -43,6 +45,8 @@ public interface WebBackendSheetRouteLayoutPart extends WebBackendSheetRouteLayo
 
     WebBackendSheetRouteLayoutPart removeRevealHandler(RouteViewRevealHandler revealHandler);
 
+    WebBackendSheetRouteLayoutPart clearRevealHandlers();
+
     List<RouteViewBeforeRevealHandler> getBeforeRevealHandlers();
 
     WebBackendSheetRouteLayoutPart setBeforeRevealHandlers(List<RouteViewBeforeRevealHandler> beforeRevealHandlers);
@@ -52,6 +56,8 @@ public interface WebBackendSheetRouteLayoutPart extends WebBackendSheetRouteLayo
     WebBackendSheetRouteLayoutPart setBeforeRevealHandler(RouteViewBeforeRevealHandler beforeRevealHandler);
 
     WebBackendSheetRouteLayoutPart removeBeforeRevealHandler(RouteViewBeforeRevealHandler beforeRevealHandler);
+
+    WebBackendSheetRouteLayoutPart clearBeforeRevealHandlers();
 
     WebView getCurrentView();
 

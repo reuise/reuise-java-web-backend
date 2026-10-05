@@ -3,7 +3,6 @@ import dev.reuise.core.ComponentPart;
 import dev.reuise.core.ComponentType;
 import dev.reuise.core.CoreComponent;
 import dev.reuise.core.CoreComponentOptions;
-import dev.reuise.core.Html;
 import dev.reuise.core.Interaction;
 import dev.reuise.core.RootComponent;
 import dev.reuise.core.State;
@@ -85,9 +84,7 @@ import java.util.Set;
 // add composition for sheetLayout: setMaxSheetSize
 // base comp: splitContainer
 // base comp: container
-// add composition for container: addHeading
-// add composition for container: addDivider
-// add composition for container: addParagraph
+// add composition for container: addMarkdown
 // base comp: parentComponent
 // base comp: baseComponent
 // add composition for baseComponent: writeTo
@@ -228,43 +225,8 @@ public abstract class DefaultWebBackendSheetRouteLayout<S extends DefaultWebBack
         return self();
     }
 
-    public S addHeading(int level, String text) {
-        sheetLayoutPart.addHeading(level, text);
-        return self();
-    }
-
-    public S addHeading(String text) {
-        sheetLayoutPart.addHeading(text);
-        return self();
-    }
-
-    public S addHeading(int level, Html html) {
-        sheetLayoutPart.addHeading(level, html);
-        return self();
-    }
-
-    public S addHeading(Html html) {
-        sheetLayoutPart.addHeading(html);
-        return self();
-    }
-
-    public S addDivider() {
-        sheetLayoutPart.addDivider();
-        return self();
-    }
-
-    public S addDivider(String label) {
-        sheetLayoutPart.addDivider(label);
-        return self();
-    }
-
-    public S addParagraph(String text) {
-        sheetLayoutPart.addParagraph(text);
-        return self();
-    }
-
-    public S addParagraph(Html html) {
-        sheetLayoutPart.addParagraph(html);
+    public S addMarkdown(String markdown) {
+        sheetLayoutPart.addMarkdown(markdown);
         return self();
     }
 

@@ -228,6 +228,12 @@ public abstract class AbstractWebBackendSkeletonOptions<S extends AbstractWebBac
     }
 
     @Override
+    public S clearStyleClasses() {
+        baseComponentPart.clearStyleClasses();
+        return self();
+    }
+
+    @Override
     public boolean hasStyleClass(String styleClass) {
         return baseComponentPart.hasStyleClass(styleClass);
     }

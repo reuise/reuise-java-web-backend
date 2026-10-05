@@ -6,7 +6,6 @@ import dev.reuise.core.CoreComponentOptions;
 import dev.reuise.core.Interaction;
 import dev.reuise.core.RootComponent;
 import dev.reuise.core.State;
-import dev.reuise.core.list.CoreListItem;
 import dev.reuise.core.option.OptionApplicator;
 import dev.reuise.core.parentcomponent.CoreParentComponentOptions;
 import dev.reuise.core.theme.Theme;
@@ -20,8 +19,6 @@ import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
 // Option: Children - CORE
@@ -349,12 +346,6 @@ public abstract class DefaultWebBackendListView<S extends DefaultWebBackendListV
 
     public void onInitializeCommonStyle(StyleBuilder commonStyles) {
         super.onInitializeCommonStyle(commonStyles);
-    }
-
-    @Override
-    public S setItem(CoreListItem item) {
-        setItems(new ArrayList<CoreListItem>(Arrays.asList(item)));
-        return self();
     }
 
     @Override

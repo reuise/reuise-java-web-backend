@@ -114,6 +114,11 @@ public abstract class DefaultWebBackendVideoPlayer<S extends DefaultWebBackendVi
         addPart(ComponentPart.Type.BASE, mediaPlayerPart);
     }
 
+    @Override
+    public void refreshTextTracks() {
+        this.mediaPlayerPart.refreshTextTracks();
+    }
+
     public WebBackendMediaPlayerPart getMediaPlayerPart() {
         return mediaPlayerPart;
     }

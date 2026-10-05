@@ -236,6 +236,12 @@ public abstract class AbstractWebBackendImageOptions<S extends AbstractWebBacken
     }
 
     @Override
+    public S clearStyleClasses() {
+        baseComponentPart.clearStyleClasses();
+        return self();
+    }
+
+    @Override
     public boolean hasStyleClass(String styleClass) {
         return baseComponentPart.hasStyleClass(styleClass);
     }
