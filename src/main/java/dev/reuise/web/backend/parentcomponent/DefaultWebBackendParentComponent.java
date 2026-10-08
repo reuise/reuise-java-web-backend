@@ -22,7 +22,6 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 // Option: Id - WEB
 // Option: TagName - WEB
@@ -97,7 +96,7 @@ public abstract class DefaultWebBackendParentComponent<S extends DefaultWebBacke
         super(options);
         baseComponentPart = options.getComponentFactory().createBaseComponent(((CoreBaseComponentOptions) (options.getBaseComponentPart())));
         addPart(ComponentPart.Type.BASE, baseComponentPart);
-        this.children = new ArrayList<>();
+        children = new ArrayList<>();
     }
 
     @Override
@@ -349,6 +348,6 @@ public abstract class DefaultWebBackendParentComponent<S extends DefaultWebBacke
     // Implementation
     @Override
     public void writeTo(PrintWriter writer) {
-        this.children.stream().forEach(c -> ((WebBackendComponent) (c)).writeTo(writer));
+        children.stream().forEach(c -> ((WebBackendComponent) (c)).writeTo(writer));
     }
 }

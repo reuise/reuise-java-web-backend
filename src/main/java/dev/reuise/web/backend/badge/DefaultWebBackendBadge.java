@@ -20,6 +20,8 @@ import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Set;
+import static dev.reuise.web.backend.badge.DefaultWebBackendBadgeImpl.writeEndTag;
+import static dev.reuise.web.backend.badge.DefaultWebBackendBadgeImpl.writeStartTag;
 // Option: Id - WEB
 // Option: TagName - WEB
 // Option: XmlNamespace - WEB
@@ -121,8 +123,8 @@ public abstract class DefaultWebBackendBadge<S extends DefaultWebBackendBadge<S,
     // Implementation
     public void writeTo(PrintWriter writer) {
         writeStartTag(writer);
-        if (this.label != null)
-            writer.write(this.label);
+        if (label != null)
+            writer.write(label);
 
         writeEndTag(writer);
     }

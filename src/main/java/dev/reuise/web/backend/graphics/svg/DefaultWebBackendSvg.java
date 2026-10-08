@@ -24,6 +24,9 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Set;
+import static dev.reuise.web.backend.graphics.svg.DefaultWebBackendSvgImpl.getUniqueId;
+import static dev.reuise.web.backend.graphics.svg.DefaultWebBackendSvgImpl.writeEndTag;
+import static dev.reuise.web.backend.graphics.svg.DefaultWebBackendSvgImpl.writeStartTag;
 // Option: Children - CORE
 // Option: Id - WEB
 // Option: TagName - WEB
@@ -383,15 +386,15 @@ public abstract class DefaultWebBackendSvg<S extends DefaultWebBackendSvg<S, O>,
 
     // Implementation
     public void loadFromResource(String path, Class<? extends Object> clazz) {
-        this.sourceResource = new ClassResource(path, clazz);
+        sourceResource = new ClassResource(path, clazz);
     }
 
     // Implementation
     @Override
     public void writeTo(PrintWriter writer) {
-        if (this.sourceResource != null) {
-            ClassLoader classloader = (this.sourceResource.getClazz() != null) ? this.sourceResource.getClazz().getClassLoader() : Thread.currentThread().getContextClassLoader();
-            try (InputStream in = classloader.getResourceAsStream(this.sourceResource.getPath())) {
+        if (sourceResource != null) {
+            ClassLoader classloader = (sourceResource.getClazz() != null) ? sourceResource.getClazz().getClassLoader() : Thread.currentThread().getContextClassLoader();
+            try (InputStream in = classloader.getResourceAsStream(sourceResource.getPath())) {
                 String contents = new String(in.readAllBytes(), StandardCharsets.UTF_8);
                 writer.append(replaceIds(contents));
             } catch (Exception e) {
@@ -399,7 +402,7 @@ public abstract class DefaultWebBackendSvg<S extends DefaultWebBackendSvg<S, O>,
             }
         } else {
             writeStartTag(writer, true);
-            this.parentComponentPart.writeTo(writer);
+            parentComponentPart.writeTo(writer);
             writeEndTag(writer);
         }
     }

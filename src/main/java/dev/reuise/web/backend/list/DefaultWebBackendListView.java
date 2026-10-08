@@ -362,8 +362,8 @@ public abstract class DefaultWebBackendListView<S extends DefaultWebBackendListV
     // Implementation
     @Override
     public void writeTo(PrintWriter writer) {
-        writeStartTag(writer, this.ordered ? "ol" : "ul", true);
+        writeStartTag(writer, ordered ? "ol" : "ul", true);
         this.parentComponentPart.writeTo(writer);
-        writeEndTag(writer, this.ordered ? "ol" : "ul");
+        writeEndTag(writer, ordered ? "ol" : "ul");
     }
 }

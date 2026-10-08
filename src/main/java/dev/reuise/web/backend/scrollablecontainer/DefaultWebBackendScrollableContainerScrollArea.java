@@ -22,6 +22,8 @@ import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Set;
+import static dev.reuise.web.backend.scrollablecontainer.DefaultWebBackendScrollableContainerScrollAreaImpl.writeEndTag;
+import static dev.reuise.web.backend.scrollablecontainer.DefaultWebBackendScrollableContainerScrollAreaImpl.writeStartTag;
 // Option: Children - CORE
 // Option: Id - WEB
 // Option: TagName - WEB
@@ -408,7 +410,7 @@ public abstract class DefaultWebBackendScrollableContainerScrollArea<S extends D
     @Override
     public void writeTo(PrintWriter writer) {
         writeStartTag(writer);
-        this.parentComponentPart.writeTo(writer);
+        parentComponentPart.writeTo(writer);
         writeEndTag(writer);
     }
 }

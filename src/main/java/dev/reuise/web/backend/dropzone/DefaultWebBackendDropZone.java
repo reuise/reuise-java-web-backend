@@ -21,6 +21,8 @@ import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Set;
+import static dev.reuise.web.backend.dropzone.DefaultWebBackendDropZoneImpl.writeEndTag;
+import static dev.reuise.web.backend.dropzone.DefaultWebBackendDropZoneImpl.writeStartTag;
 // Option: Children - CORE
 // Option: Id - WEB
 // Option: TagName - WEB

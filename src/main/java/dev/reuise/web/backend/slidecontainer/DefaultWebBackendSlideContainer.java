@@ -24,6 +24,8 @@ import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Set;
+import static dev.reuise.web.backend.slidecontainer.DefaultWebBackendSlideContainerImpl.writeEndTag;
+import static dev.reuise.web.backend.slidecontainer.DefaultWebBackendSlideContainerImpl.writeStartTag;
 // Option: Padding - CORE
 // Option: PaddingTop - CORE
 // Option: PaddingRight - CORE
@@ -416,7 +418,7 @@ public abstract class DefaultWebBackendSlideContainer<S extends DefaultWebBacken
     @Override
     public void writeTo(PrintWriter writer) {
         writeStartTag(writer);
-        this.parentComponentPart.writeTo(writer);
+        parentComponentPart.writeTo(writer);
         writeEndTag(writer);
     }
 }

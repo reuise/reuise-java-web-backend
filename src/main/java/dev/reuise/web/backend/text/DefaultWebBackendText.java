@@ -392,8 +392,8 @@ public abstract class DefaultWebBackendText<S extends DefaultWebBackendText<S, O
     @Override
     public void writeTo(PrintWriter writer) {
         // writeStartTag(writer);
-        if (this.text != null)
-            writer.write(this.text);
+        if (text != null)
+            writer.write(text);
 
         // writeEndTag(writer);
     }

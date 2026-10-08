@@ -21,6 +21,8 @@ import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Set;
+import static dev.reuise.web.backend.slidecontainer.DefaultWebBackendSlideContainerEdgeImpl.writeEndTag;
+import static dev.reuise.web.backend.slidecontainer.DefaultWebBackendSlideContainerEdgeImpl.writeStartTag;
 // Option: Children - CORE
 // Option: Id - WEB
 // Option: TagName - WEB
@@ -350,7 +352,7 @@ public abstract class DefaultWebBackendSlideContainerEdge<S extends DefaultWebBa
     @Override
     public void writeTo(PrintWriter writer) {
         writeStartTag(writer);
-        this.parentComponentPart.writeTo(writer);
+        parentComponentPart.writeTo(writer);
         writeEndTag(writer);
     }
 }

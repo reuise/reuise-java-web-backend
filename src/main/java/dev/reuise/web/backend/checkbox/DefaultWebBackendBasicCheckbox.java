@@ -20,6 +20,9 @@ import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Set;
+import static dev.reuise.web.backend.checkbox.DefaultWebBackendBasicCheckboxImpl.hasAttribute;
+import static dev.reuise.web.backend.checkbox.DefaultWebBackendBasicCheckboxImpl.self;
+import static dev.reuise.web.backend.checkbox.DefaultWebBackendBasicCheckboxImpl.setAttribute;
 // Option: Id - WEB
 // Option: TagName - WEB
 // Option: XmlNamespace - WEB

@@ -22,6 +22,8 @@ import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Set;
+import static dev.reuise.web.backend.text.DefaultWebBackendParagraphImpl.writeEndTag;
+import static dev.reuise.web.backend.text.DefaultWebBackendParagraphImpl.writeStartTag;
 // Option: Children - CORE
 // Option: Id - WEB
 // Option: TagName - WEB
@@ -371,10 +373,10 @@ public abstract class DefaultWebBackendParagraph<S extends DefaultWebBackendPara
     @Override
     public void writeTo(PrintWriter writer) {
         writeStartTag(writer);
-        if (this.text != null)
-            writer.write(this.text);
+        if (text != null)
+            writer.write(text);
 
-        this.parentComponentPart.writeTo(writer);
+        parentComponentPart.writeTo(writer);
         writeEndTag(writer);
     }
 }

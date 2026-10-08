@@ -21,6 +21,8 @@ import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Set;
+import static dev.reuise.web.backend.link.DefaultWebBackendNavigationLinkImpl.checkPathMatch;
+import static dev.reuise.web.backend.link.DefaultWebBackendNavigationLinkImpl.getUrl;
 // Option: UseHistoryApi - WEB
 // Option: Text - CORE
 // Option: Url - CORE

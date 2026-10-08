@@ -25,6 +25,9 @@ import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Set;
+import static dev.reuise.web.backend.tabs.DefaultWebBackendTabBarImpl.addTab;
+import static dev.reuise.web.backend.tabs.DefaultWebBackendTabBarImpl.removeTab;
+import static dev.reuise.web.backend.tabs.DefaultWebBackendTabBarImpl.self;
 // Option: Padding - CORE
 // Option: PaddingTop - CORE
 // Option: PaddingRight - CORE
@@ -117,7 +120,7 @@ public abstract class DefaultWebBackendTabBar<S extends DefaultWebBackendTabBar<
         if (child instanceof CoreTab)
             removeTab(((CoreTab) (child)));
 
-        this.parentComponentPart.remove(child);
+        parentComponentPart.remove(child);
     }
 
     protected final WebBackendContainerPart containerPart;

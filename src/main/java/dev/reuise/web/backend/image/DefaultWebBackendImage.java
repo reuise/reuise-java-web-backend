@@ -21,6 +21,7 @@ import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Set;
+import static dev.reuise.web.backend.image.DefaultWebBackendImageImpl.writeStartTag;
 // Option: Id - WEB
 // Option: TagName - WEB
 // Option: XmlNamespace - WEB

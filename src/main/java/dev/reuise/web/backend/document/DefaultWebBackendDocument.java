@@ -36,8 +36,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Function;
 import java.util.stream.Collectors;
+import static dev.reuise.web.backend.document.DefaultWebBackendDocumentImpl.self;
 // Option: Children - CORE
 // Option: Id - WEB
 // Option: TagName - WEB
@@ -213,7 +213,7 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
         parentComponentPart = options.getComponentFactory().createParentComponent(((CoreParentComponentOptions) (options.getParentComponentPart())));
         baseComponentPart = parentComponentPart.getBaseComponentPart();
         addPart(ComponentPart.Type.BASE, parentComponentPart);
-        this.commonStyles.setStyleSheetFactory(WebBackendStyleSheet::new);
+        commonStyles.setStyleSheetFactory(WebBackendStyleSheet::new);
     }
 
     public WebBackendParentComponentPart getParentComponentPart() {
@@ -1028,13 +1028,13 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
     // Implementation
     @Override
     public void writeTo(PrintWriter writer) {
-        writer.write(("<!DOCTYPE html><html lang=\"" + this.language) + "\">");
+        writer.write(("<!DOCTYPE html><html lang=\"" + language) + "\">");
         writer.write("<head>");
-        if ((this.frontendScript != null) && (!this.frontendScript.isEmpty())) {
-            writer.write(("<script type=\"text/javascript\" language=\"javascript\" src=\"" + this.frontendScript) + "\"></script>");
+        if ((frontendScript != null) && (!frontendScript.isEmpty())) {
+            writer.write(("<script type=\"text/javascript\" language=\"javascript\" src=\"" + frontendScript) + "\"></script>");
         }
-        if ((this.preconnect != null) && (!this.preconnect.isEmpty())) {
-            this.preconnect.stream().forEach(p -> {
+        if ((preconnect != null) && (!preconnect.isEmpty())) {
+            preconnect.stream().forEach(p -> {
                 writer.write(("<link rel=\"preconnect\" href=\"" + p.getUrl()) + "\"");
                 if (p.isCrossOrigin())
                     writer.write(" crossorigin");
@@ -1042,8 +1042,8 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
                 writer.write(">");
             });
         }
-        if ((this.dnsPrefetch != null) && (!this.dnsPrefetch.isEmpty())) {
-            this.dnsPrefetch.stream().forEach(p -> {
+        if ((dnsPrefetch != null) && (!dnsPrefetch.isEmpty())) {
+            dnsPrefetch.stream().forEach(p -> {
                 writer.write(("<link rel=\"dns-prefetch\" href=\"" + p.getUrl()) + "\"");
                 if (p.isCrossOrigin())
                     writer.write(" crossorigin");
@@ -1051,45 +1051,45 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
                 writer.write(">");
             });
         }
-        if (this.charset != null)
-            writer.write(("<meta charset=\"" + this.charset) + "\">");
+        if (charset != null)
+            writer.write(("<meta charset=\"" + charset) + "\">");
 
-        if (this.title != null)
-            writer.write(("<title>" + this.title) + "</title>");
+        if (title != null)
+            writer.write(("<title>" + title) + "</title>");
 
-        if (this.description != null)
-            writer.write(("<meta name=\"description\" content=\"" + this.description) + "\">");
+        if (description != null)
+            writer.write(("<meta name=\"description\" content=\"" + description) + "\">");
 
-        if ((this.keywords != null) && (!this.keywords.isEmpty()))
-            writer.write(("<meta name=\"keywords\" content=\"" + String.join(",", this.keywords)) + "\">");
+        if ((keywords != null) && (!keywords.isEmpty()))
+            writer.write(("<meta name=\"keywords\" content=\"" + String.join(",", keywords)) + "\">");
 
-        if (this.themeColor != null)
-            writer.write(("<meta name=\"theme-color\" content=\"" + this.themeColor) + "\">");
+        if (themeColor != null)
+            writer.write(("<meta name=\"theme-color\" content=\"" + themeColor) + "\">");
 
-        if (this.viewport != null)
-            writer.write(("<meta name=\"viewport\" content=\"" + this.viewport) + "\">");
+        if (viewport != null)
+            writer.write(("<meta name=\"viewport\" content=\"" + viewport) + "\">");
 
-        if (this.metadata != null)
-            this.metadata.forEach(m -> writer.write(((("<meta name=\"" + m.getName()) + "\" content=\"") + m.getContent()) + "\">"));
+        if (metadata != null)
+            metadata.forEach(m -> writer.write(((("<meta name=\"" + m.getName()) + "\" content=\"") + m.getContent()) + "\">"));
 
-        if (this.manifest != null)
-            writer.write(("<link rel=\"manifest\" href=\"" + this.manifest) + "\">");
+        if (manifest != null)
+            writer.write(("<link rel=\"manifest\" href=\"" + manifest) + "\">");
 
-        if (this.canonicalUrl != null)
-            writer.write(("<link rel=\"canonical\" href=\"" + this.canonicalUrl) + "\">");
+        if (canonicalUrl != null)
+            writer.write(("<link rel=\"canonical\" href=\"" + canonicalUrl) + "\">");
 
-        if ((this.externalStyleSheet != null) && (!this.externalStyleSheet.isEmpty())) {
-            this.externalStyleSheet.stream().forEach(s -> {
+        if ((externalStyleSheet != null) && (!externalStyleSheet.isEmpty())) {
+            externalStyleSheet.stream().forEach(s -> {
                 writer.write(("<link href=\"" + s.getUrl()) + "\"");
                 if (s.isAsync())
-                    writer.write(" rel=\"preload\" as=\"style\" onload=\"this.onload=null;this.rel=\'stylesheet\'\"");
+                    writer.write(" rel=\"preload\" as=\"style\" onload=\"this.onload=null;this.rel='stylesheet'\"");
                 else
                     writer.write(" rel=\"stylesheet\"");
 
                 writer.write(">");
             });
         }
-        Collection<StyleSheet> commonStyleSheets = this.commonStyles.getStyleSheets();
+        Collection<StyleSheet> commonStyleSheets = commonStyles.getStyleSheets();
         if (commonStyleSheets != null) {
             commonStyleSheets.stream().forEach(s -> {
                 String stateKey = s.getStateKey();
@@ -1107,8 +1107,8 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
                 }
             });
         }
-        if ((this.externalScript != null) && (!this.externalScript.isEmpty())) {
-            this.externalScript.stream().forEach(s -> {
+        if ((externalScript != null) && (!externalScript.isEmpty())) {
+            externalScript.stream().forEach(s -> {
                 writer.write("<script");
                 if (s.isDefer())
                     writer.write(" defer");
@@ -1135,8 +1135,8 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
                 writer.write("></script>");
             });
         }
-        if ((this.importMap != null) && (!this.importMap.isEmpty())) {
-            this.importMap.stream().forEach(m -> {
+        if ((importMap != null) && (!importMap.isEmpty())) {
+            importMap.stream().forEach(m -> {
                 writer.write("<script type=\"importmap\">");
                 Map<String, String> imports = m.getImports();
                 if ((imports != null) && (!imports.isEmpty())) {
@@ -1149,11 +1149,11 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
                 writer.write("</script>");
             });
         }
-        if ((this.script != null) && (!this.script.isEmpty())) {
-            this.script.stream().forEach(s -> writer.write(("<script>" + s) + "</script>"));
+        if ((script != null) && (!script.isEmpty())) {
+            script.stream().forEach(s -> writer.write(("<script>" + s) + "</script>"));
         }
-        if ((this.icon != null) && (!this.icon.isEmpty())) {
-            this.icon.stream().forEach(i -> {
+        if ((icon != null) && (!icon.isEmpty())) {
+            icon.stream().forEach(i -> {
                 String type = i.getType();
                 String path = i.getPath();
                 int w = i.getWidth();
@@ -1172,11 +1172,11 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
             });
         }
         writer.write("<script type=\"application/javascript\" language=\"javascript\">");
-        if (this.viewId != null)
-            writer.write(("var reuiseViewId=\"" + this.viewId) + "\";");
+        if (viewId != null)
+            writer.write(("var reuiseViewId=\"" + viewId) + "\";");
 
-        if ((this.model != null) && (!this.model.isEmpty())) {
-            String serializedModel = serializeModel(this.model);
+        if ((model != null) && (!model.isEmpty())) {
+            String serializedModel = serializeModel(model);
             if ((serializedModel != null) && (!serializedModel.isEmpty())) {
                 writer.write("var reuiseDocModel=");
                 writer.write(serializedModel);
@@ -1184,9 +1184,9 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
             }
         }
         writer.write("</script>");
-        if (this.structuredData != null) {
+        if (structuredData != null) {
             writer.write("<script type=\"application/ld+json\">");
-            writer.write(getStructuredDataTypes(this.structuredData.getTypes()));
+            writer.write(getStructuredDataTypes(structuredData.getTypes()));
             writer.write("</script>");
         }
         writer.write("</head>");

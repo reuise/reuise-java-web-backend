@@ -22,6 +22,8 @@ import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Set;
+// Option: Loading - CORE
+// Option: SkeletonOptions - CORE
 // Option: Text - CORE
 // Option: FontSize - CORE
 // Option: LineHeight - CORE

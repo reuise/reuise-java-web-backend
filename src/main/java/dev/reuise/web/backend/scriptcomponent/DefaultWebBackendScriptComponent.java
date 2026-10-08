@@ -21,6 +21,8 @@ import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Set;
+import static dev.reuise.web.backend.scriptcomponent.DefaultWebBackendScriptComponentImpl.writeEndTag;
+import static dev.reuise.web.backend.scriptcomponent.DefaultWebBackendScriptComponentImpl.writeStartTag;
 // Option: Children - CORE
 // Option: Id - WEB
 // Option: TagName - WEB
@@ -362,10 +364,10 @@ public abstract class DefaultWebBackendScriptComponent<S extends DefaultWebBacke
     // Implementation
     @Override
     public void writeTo(PrintWriter writer) {
-        boolean hasCode = (this.code != null) && (!this.code.isEmpty());
+        boolean hasCode = (code != null) && (!code.isEmpty());
         writeStartTag(writer);
         if (hasCode) {
-            writer.write(this.code);
+            writer.write(code);
         }
         writeEndTag(writer);
     }

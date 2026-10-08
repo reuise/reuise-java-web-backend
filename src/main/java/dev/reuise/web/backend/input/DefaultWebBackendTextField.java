@@ -26,6 +26,7 @@ import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Set;
+import static dev.reuise.web.backend.input.DefaultWebBackendTextFieldImpl.self;
 // Option: Children - CORE
 // Option: Id - WEB
 // Option: TagName - WEB
@@ -97,7 +98,7 @@ import java.util.Set;
 public abstract class DefaultWebBackendTextField<S extends DefaultWebBackendTextField<S, O>, O extends WebBackendTextFieldOptions> extends DefaultWebTextFieldPart<S, O> implements WebBackendComponentType<S, O> , WebBackendTextField {
     @Override
     public S addText(String text) {
-        this.input.addText(text);
+        input.addText(text);
         return self();
     }
 

@@ -22,6 +22,9 @@ import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Set;
+import static dev.reuise.web.backend.text.DefaultWebBackendHeadingImpl.getText;
+// Option: Loading - CORE
+// Option: SkeletonOptions - CORE
 // Option: Text - CORE
 // Option: FontSize - CORE
 // Option: LineHeight - CORE
@@ -375,12 +378,12 @@ public abstract class DefaultWebBackendHeading<S extends DefaultWebBackendHeadin
     // Implementation
     @Override
     public void writeTo(PrintWriter writer) {
-        writeStartTag(writer, "h" + this.level, true);
+        writeStartTag(writer, "h" + level, true);
         String text = getText();
         if (text != null)
             writer.write(text);
 
         this.parentComponentPart.writeTo(writer);
-        writeEndTag(writer, "h" + this.level);
+        writeEndTag(writer, "h" + level);
     }
 }

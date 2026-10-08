@@ -12,7 +12,6 @@ import dev.reuise.web.core.basecomponent.DefaultWebBaseComponentPart;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheet;
-import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,6 +19,8 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import static dev.reuise.web.backend.basecomponent.DefaultWebBackendBaseComponentImpl.self;
+import static dev.reuise.web.backend.basecomponent.DefaultWebBackendBaseComponentImpl.setData;
 public abstract class DefaultWebBackendBaseComponent<S extends DefaultWebBackendBaseComponent<S, O>, O extends WebBackendBaseComponentOptions> extends DefaultWebBaseComponentPart<S, O> implements WebBackendComponentType<S, O> , WebBackendBaseComponent {
     @Override
     public WebBackendBaseComponent getComponent() {
@@ -28,18 +29,18 @@ public abstract class DefaultWebBackendBaseComponent<S extends DefaultWebBackend
 
     @Override
     public String getUniqueId() {
-        if (this.uniqueId == null)
-            this.uniqueId = "reuise-B" + ComponentUtils.generateRandomString();
+        if (uniqueId == null)
+            uniqueId = "reuise-B" + ComponentUtils.generateRandomString();
 
-        return this.uniqueId;
+        return uniqueId;
     }
 
     @Override
     public String getUniqueStyleClass() {
-        if (this.uniqueStyleClass == null)
-            this.uniqueStyleClass = "reuise-style_B" + ComponentUtils.generateRandomString();
+        if (uniqueStyleClass == null)
+            uniqueStyleClass = "reuise-style_B" + ComponentUtils.generateRandomString();
 
-        return this.uniqueStyleClass;
+        return uniqueStyleClass;
     }
 
     protected void writeStartTag(PrintWriter writer, HtmlWriterOptions.HtmlWriterStartTagOptions opts) {
@@ -48,8 +49,8 @@ public abstract class DefaultWebBackendBaseComponent<S extends DefaultWebBackend
 
         writer.write("<" + opts.getTagName());
         // Id
-        if (this.id != null) {
-            writer.write((" id=\"" + escape(this.id)) + "\"");
+        if (id != null) {
+            writer.write((" id=\"" + escape(id)) + "\"");
         }
         // Classes
         List<String> allStyleClasses = getAllStyleClasses();
@@ -59,8 +60,8 @@ public abstract class DefaultWebBackendBaseComponent<S extends DefaultWebBackend
             writer.write("\"");
         }
         // Inline style
-        if (this.inlineStyle != null) {
-            String cssText = this.inlineStyle.getCssText();
+        if (inlineStyle != null) {
+            String cssText = inlineStyle.getCssText();
             if ((cssText != null) && (!cssText.isEmpty())) {
                 writer.write(" style=\"");
                 writer.write(cssText);
@@ -68,8 +69,8 @@ public abstract class DefaultWebBackendBaseComponent<S extends DefaultWebBackend
             }
         }
         // Attributes
-        if (this.attributes != null) {
-            this.attributes.entrySet().forEach(a -> {
+        if (attributes != null) {
+            attributes.entrySet().forEach(a -> {
                 writer.write(" " + a.getKey());
                 Object value = a.getValue();
                 if (value != null) {
@@ -90,8 +91,8 @@ public abstract class DefaultWebBackendBaseComponent<S extends DefaultWebBackend
         }
          */
         // Tooltip
-        if (this.tooltip != null) {
-            writer.write((" title=\"" + escape(this.tooltip)) + "\"");
+        if (tooltip != null) {
+            writer.write((" title=\"" + escape(tooltip)) + "\"");
         }
         if (opts.isClose())
             writer.write(">");
@@ -104,32 +105,32 @@ public abstract class DefaultWebBackendBaseComponent<S extends DefaultWebBackend
 
     private List<String> getAllStyleClasses() {
         List<String> allStyleClasses = null;
-        if ((this.baseStyleClass != null) && (!this.baseStyleClass.isEmpty())) {
+        if ((baseStyleClass != null) && (!baseStyleClass.isEmpty())) {
             if (allStyleClasses == null)
                 allStyleClasses = new ArrayList<>();
 
-            allStyleClasses.add(this.baseStyleClass);
+            allStyleClasses.add(baseStyleClass);
         }
-        if ((this.uniqueStyleClass != null) && (!this.uniqueStyleClass.isEmpty())) {
+        if ((uniqueStyleClass != null) && (!uniqueStyleClass.isEmpty())) {
             if (allStyleClasses == null)
                 allStyleClasses = new ArrayList<>();
 
-            allStyleClasses.add(this.uniqueStyleClass);
+            allStyleClasses.add(uniqueStyleClass);
         }
-        if ((this.styleClasses != null) && (!this.styleClasses.isEmpty())) {
+        if ((styleClasses != null) && (!styleClasses.isEmpty())) {
             if (allStyleClasses == null)
                 allStyleClasses = new ArrayList<>();
 
-            allStyleClasses.addAll(this.styleClasses);
+            allStyleClasses.addAll(styleClasses);
         }
         return allStyleClasses;
     }
 
     private void writeStyleSheets(PrintWriter writer) {
-        if (this.styles == null)
+        if (styles == null)
             return;
 
-        Collection<StyleSheet> styleSheets = this.styles.getStyleSheets();
+        Collection<StyleSheet> styleSheets = styles.getStyleSheets();
         if (styleSheets == null)
             return;
 
@@ -152,36 +153,36 @@ public abstract class DefaultWebBackendBaseComponent<S extends DefaultWebBackend
 
     @Override
     public S setAttribute(String attribute, String value) {
-        if (this.attributes == null)
-            this.attributes = new LinkedHashMap<>();
+        if (attributes == null)
+            attributes = new LinkedHashMap<>();
 
-        this.attributes.put(attribute.toLowerCase(), value);
+        attributes.put(attribute.toLowerCase(), value);
         return self();
     }
 
     @Override
     public S removeAttribute(String attribute) {
-        if (this.attributes == null)
+        if (attributes == null)
             return self();
 
-        this.attributes.remove(attribute);
+        attributes.remove(attribute);
         return self();
     }
 
     @Override
     public boolean hasAttribute(String attribute) {
-        if (this.attributes == null)
+        if (attributes == null)
             return false;
 
-        return this.attributes.containsKey(attribute);
+        return attributes.containsKey(attribute);
     }
 
     @Override
     public String getAttribute(String attribute) {
-        if (this.attributes == null)
+        if (attributes == null)
             return null;
 
-        return this.attributes.get(attribute);
+        return attributes.get(attribute);
     }
 
     /* @Override
@@ -243,7 +244,7 @@ public abstract class DefaultWebBackendBaseComponent<S extends DefaultWebBackend
     // Implementation
     // Implementation
     public boolean onPreInitialize(O options) {
-        this.styles.setStyleSheetFactory(WebBackendStyleSheet::new);
+        styles.setStyleSheetFactory(WebBackendStyleSheet::new);
         return super.onPreInitialize(options);
     }
 
@@ -253,8 +254,8 @@ public abstract class DefaultWebBackendBaseComponent<S extends DefaultWebBackend
     public void onInitialize(O options) {
         super.onInitialize(options);
         // Option values
-        if (this.storeInElementOptions != null) {
-            for (String opt : this.storeInElementOptions) {
+        if (storeInElementOptions != null) {
+            for (String opt : storeInElementOptions) {
                 Object value = options.getOptionValue(opt);
                 if (value != null)
                     /* value == null ? "null" : */
@@ -546,12 +547,12 @@ public abstract class DefaultWebBackendBaseComponent<S extends DefaultWebBackend
 
     // Implementation
     public void writeStartTag(PrintWriter writer, boolean close) {
-        writeStartTag(writer, this.tagName, close);
+        writeStartTag(writer, tagName, close);
     }
 
     // Implementation
     public void writeEndTag(PrintWriter writer) {
-        writeEndTag(writer, this.tagName);
+        writeEndTag(writer, tagName);
     }
 
     // Implementation

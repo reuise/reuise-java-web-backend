@@ -23,6 +23,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
+import static dev.reuise.web.backend.input.DefaultWebBackendBasicInputFieldImpl.isMultiline;
+import static dev.reuise.web.backend.input.DefaultWebBackendBasicInputFieldImpl.self;
+import static dev.reuise.web.backend.input.DefaultWebBackendBasicInputFieldImpl.writeEndTag;
+import static dev.reuise.web.backend.input.DefaultWebBackendBasicInputFieldImpl.writeStartTag;
 // Option: Id - WEB
 // Option: TagName - WEB
 // Option: XmlNamespace - WEB
@@ -96,7 +100,7 @@ public abstract class DefaultWebBackendBasicInputField<S extends DefaultWebBacke
 
     @Override
     public S addText(String text) {
-        this.value += text;
+        value += text;
         return self();
     }
 
@@ -137,16 +141,16 @@ public abstract class DefaultWebBackendBasicInputField<S extends DefaultWebBacke
     public void writeTo(PrintWriter writer) {
         writeStartTag(writer, false);
         boolean multiline = isMultiline();
-        if ((this.value != null) && (!multiline))
-            writer.write((" value=\"" + escape(this.value)) + "\"");
+        if ((value != null) && (!multiline))
+            writer.write((" value=\"" + escape(value)) + "\"");
 
-        if (this.pattern != null)
-            writer.write((" pattern=\"" + escape(this.pattern)) + "\"");
+        if (pattern != null)
+            writer.write((" pattern=\"" + escape(pattern)) + "\"");
 
         writer.write(">");
         if (multiline) {
-            if (this.value != null)
-                writer.write(this.value);
+            if (value != null)
+                writer.write(value);
 
             writeEndTag(writer);
         }
