@@ -14,6 +14,7 @@ import dev.reuise.web.backend.WebBackendComponentType;
 import dev.reuise.web.backend.basecomponent.WebBackendBaseComponentPart;
 import dev.reuise.web.backend.config.ReuiseWebBackendConfig;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPart;
+import dev.reuise.web.backend.style.StyleDeduplicationRegistry;
 import dev.reuise.web.backend.style.WebBackendStyleSheet;
 import dev.reuise.web.core.WebRootComponent;
 import dev.reuise.web.core.document.DefaultWebDocumentPart;
@@ -37,7 +38,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import static dev.reuise.web.backend.document.DefaultWebBackendDocumentImpl.self;
 // Option: Children - CORE
 // Option: Id - WEB
 // Option: TagName - WEB
@@ -1028,6 +1028,10 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
     // Implementation
     @Override
     public void writeTo(PrintWriter writer) {
+        // Scope component style deduplication to this single document render, so identical
+        // components on this page can share one <style> element without leaking state across
+        // unrelated requests.
+        StyleDeduplicationRegistry.reset();
         writer.write(("<!DOCTYPE html><html lang=\"" + language) + "\">");
         writer.write("<head>");
         if ((frontendScript != null) && (!frontendScript.isEmpty())) {

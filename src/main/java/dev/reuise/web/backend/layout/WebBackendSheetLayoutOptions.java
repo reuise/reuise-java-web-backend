@@ -5,7 +5,7 @@ import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPartOptio
 import dev.reuise.web.backend.splitcontainer.WebBackendSplitContainerOptions;
 import dev.reuise.web.backend.splitcontainer.WebBackendSplitContainerPartOptions;
 import dev.reuise.web.core.layout.WebSheetLayoutOptions;
-// Todo: Clean up uneeded interfaces
+// Todo: Clean up unneeded interfaces
 public interface WebBackendSheetLayoutOptions extends WebBackendContainerPartOptions , WebSheetLayoutOptions , WebBackendBaseComponentPartOptions , WebBackendSheetLayoutPartOptions , WebBackendSplitContainerOptions , WebBackendComponentOptions , WebBackendParentComponentPartOptions , WebBackendSplitContainerPartOptions {
     WebBackendSplitContainerPartOptions getSplitContainerPart();
 

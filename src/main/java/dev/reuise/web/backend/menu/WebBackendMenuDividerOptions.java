@@ -5,7 +5,7 @@ import dev.reuise.web.backend.list.WebBackendBasicListItemPartOptions;
 import dev.reuise.web.backend.list.WebBackendListItemPartOptions;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPartOptions;
 import dev.reuise.web.core.menu.WebMenuDividerOptions;
-// Todo: Clean up uneeded interfaces
+// Todo: Clean up unneeded interfaces
 public interface WebBackendMenuDividerOptions extends WebBackendListItemPartOptions , WebBackendMenuItemPartOptions , WebBackendBasicListItemPartOptions , WebBackendBaseComponentPartOptions , WebMenuDividerOptions , WebBackendMenuDividerPartOptions , WebBackendMenuItemOptions , WebBackendComponentOptions , WebBackendParentComponentPartOptions {
     WebBackendMenuItemPartOptions getMenuItemPart();
 

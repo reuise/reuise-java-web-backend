@@ -22,7 +22,6 @@ import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Set;
-import static dev.reuise.web.backend.text.DefaultWebBackendHeadingImpl.getText;
 // Option: Loading - CORE
 // Option: SkeletonOptions - CORE
 // Option: Text - CORE

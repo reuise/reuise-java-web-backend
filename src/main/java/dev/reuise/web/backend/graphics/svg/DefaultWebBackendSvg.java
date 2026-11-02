@@ -24,9 +24,6 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Set;
-import static dev.reuise.web.backend.graphics.svg.DefaultWebBackendSvgImpl.getUniqueId;
-import static dev.reuise.web.backend.graphics.svg.DefaultWebBackendSvgImpl.writeEndTag;
-import static dev.reuise.web.backend.graphics.svg.DefaultWebBackendSvgImpl.writeStartTag;
 // Option: Children - CORE
 // Option: Id - WEB
 // Option: TagName - WEB

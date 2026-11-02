@@ -7,7 +7,7 @@ import dev.reuise.web.backend.layout.WebBackendRowLayoutOptions;
 import dev.reuise.web.backend.layout.WebBackendRowLayoutPartOptions;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPartOptions;
 import dev.reuise.web.core.input.WebSegmentedTextFieldOptions;
-// Todo: Clean up uneeded interfaces
+// Todo: Clean up unneeded interfaces
 public interface WebBackendSegmentedTextFieldOptions extends WebSegmentedTextFieldOptions , WebBackendContainerPartOptions , WebBackendBaseComponentPartOptions , WebBackendRowLayoutPartOptions , WebBackendFlexContainerPartOptions , WebBackendSegmentedTextFieldPartOptions , WebBackendComponentOptions , WebBackendParentComponentPartOptions , WebBackendRowLayoutOptions {
     WebBackendRowLayoutPartOptions getRowLayoutPart();
 

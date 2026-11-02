@@ -1462,9 +1462,9 @@ public abstract class AbstractWebBackendDocumentOptions<S extends AbstractWebBac
     @Override
     public S removeExternalStyleSheet(ExternalStyleSheet externalStyleSheet) {
         List<ExternalStyleSheet> list = getExternalStyleSheet();
-        if (list == null) {
+        if (list == null)
             return self();
-        }
+
         list.remove(externalStyleSheet);
         return self();
     }
@@ -1472,9 +1472,9 @@ public abstract class AbstractWebBackendDocumentOptions<S extends AbstractWebBac
     @Override
     public S clearExternalStyleSheet() {
         List<ExternalStyleSheet> list = getExternalStyleSheet();
-        if (list == null) {
+        if (list == null)
             return self();
-        }
+
         list.clear();
         return self();
     }
@@ -1520,9 +1520,9 @@ public abstract class AbstractWebBackendDocumentOptions<S extends AbstractWebBac
     @Override
     public S removeExternalScript(ExternalScript externalScript) {
         List<ExternalScript> list = getExternalScript();
-        if (list == null) {
+        if (list == null)
             return self();
-        }
+
         list.remove(externalScript);
         return self();
     }
@@ -1530,9 +1530,9 @@ public abstract class AbstractWebBackendDocumentOptions<S extends AbstractWebBac
     @Override
     public S clearExternalScript() {
         List<ExternalScript> list = getExternalScript();
-        if (list == null) {
+        if (list == null)
             return self();
-        }
+
         list.clear();
         return self();
     }
@@ -1572,9 +1572,9 @@ public abstract class AbstractWebBackendDocumentOptions<S extends AbstractWebBac
     @Override
     public S removePreconnect(ExternalResource preconnect) {
         List<ExternalResource> list = getPreconnect();
-        if (list == null) {
+        if (list == null)
             return self();
-        }
+
         list.remove(preconnect);
         return self();
     }
@@ -1582,9 +1582,9 @@ public abstract class AbstractWebBackendDocumentOptions<S extends AbstractWebBac
     @Override
     public S clearPreconnect() {
         List<ExternalResource> list = getPreconnect();
-        if (list == null) {
+        if (list == null)
             return self();
-        }
+
         list.clear();
         return self();
     }
@@ -1624,9 +1624,9 @@ public abstract class AbstractWebBackendDocumentOptions<S extends AbstractWebBac
     @Override
     public S removeDnsPrefetch(ExternalResource dnsPrefetch) {
         List<ExternalResource> list = getDnsPrefetch();
-        if (list == null) {
+        if (list == null)
             return self();
-        }
+
         list.remove(dnsPrefetch);
         return self();
     }
@@ -1634,9 +1634,9 @@ public abstract class AbstractWebBackendDocumentOptions<S extends AbstractWebBac
     @Override
     public S clearDnsPrefetch() {
         List<ExternalResource> list = getDnsPrefetch();
-        if (list == null) {
+        if (list == null)
             return self();
-        }
+
         list.clear();
         return self();
     }
@@ -1676,9 +1676,9 @@ public abstract class AbstractWebBackendDocumentOptions<S extends AbstractWebBac
     @Override
     public S removeMetadata(Metadata metadata) {
         List<Metadata> list = getMetadata();
-        if (list == null) {
+        if (list == null)
             return self();
-        }
+
         list.remove(metadata);
         return self();
     }
@@ -1686,9 +1686,9 @@ public abstract class AbstractWebBackendDocumentOptions<S extends AbstractWebBac
     @Override
     public S clearMetadata() {
         List<Metadata> list = getMetadata();
-        if (list == null) {
+        if (list == null)
             return self();
-        }
+
         list.clear();
         return self();
     }
@@ -1696,9 +1696,9 @@ public abstract class AbstractWebBackendDocumentOptions<S extends AbstractWebBac
     @Override
     public boolean hasMetadata(Metadata metadata) {
         List<Metadata> list = getMetadata();
-        if (list == null) {
+        if (list == null)
             return false;
-        }
+
         return list.contains(metadata);
     }
 
@@ -1743,9 +1743,9 @@ public abstract class AbstractWebBackendDocumentOptions<S extends AbstractWebBac
     @Override
     public S removeImportMap(ImportMap importMap) {
         List<ImportMap> list = getImportMap();
-        if (list == null) {
+        if (list == null)
             return self();
-        }
+
         list.remove(importMap);
         return self();
     }
@@ -1753,9 +1753,9 @@ public abstract class AbstractWebBackendDocumentOptions<S extends AbstractWebBac
     @Override
     public S clearImportMap() {
         List<ImportMap> list = getImportMap();
-        if (list == null) {
+        if (list == null)
             return self();
-        }
+
         list.clear();
         return self();
     }
@@ -1801,9 +1801,9 @@ public abstract class AbstractWebBackendDocumentOptions<S extends AbstractWebBac
     @Override
     public S removeScript(String script) {
         List<String> list = getScript();
-        if (list == null) {
+        if (list == null)
             return self();
-        }
+
         list.remove(script);
         return self();
     }
@@ -1811,9 +1811,9 @@ public abstract class AbstractWebBackendDocumentOptions<S extends AbstractWebBac
     @Override
     public S clearScript() {
         List<String> list = getScript();
-        if (list == null) {
+        if (list == null)
             return self();
-        }
+
         list.clear();
         return self();
     }
@@ -1879,9 +1879,9 @@ public abstract class AbstractWebBackendDocumentOptions<S extends AbstractWebBac
     @Override
     public S removeIcon(DocumentIcon icon) {
         List<DocumentIcon> list = getIcon();
-        if (list == null) {
+        if (list == null)
             return self();
-        }
+
         list.remove(icon);
         return self();
     }
@@ -1889,9 +1889,9 @@ public abstract class AbstractWebBackendDocumentOptions<S extends AbstractWebBac
     @Override
     public S clearIcon() {
         List<DocumentIcon> list = getIcon();
-        if (list == null) {
+        if (list == null)
             return self();
-        }
+
         list.clear();
         return self();
     }

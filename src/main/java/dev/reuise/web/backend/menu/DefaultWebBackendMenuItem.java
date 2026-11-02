@@ -28,6 +28,8 @@ import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Set;
+// Option: Loading - CORE
+// Option: SkeletonOptions - CORE
 // Option: Label - CORE
 // Option: SecondaryLabel - CORE
 // Option: HasCheckbox - CORE

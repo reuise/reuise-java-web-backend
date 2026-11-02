@@ -7,7 +7,7 @@ import dev.reuise.web.backend.layout.WebBackendSurfaceOptions;
 import dev.reuise.web.backend.layout.WebBackendSurfacePartOptions;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPartOptions;
 import dev.reuise.web.core.card.WebCardOptions;
-// Todo: Clean up uneeded interfaces
+// Todo: Clean up unneeded interfaces
 public interface WebBackendCardOptions extends WebBackendContainerPartOptions , WebBackendCardPartOptions , WebBackendBaseComponentPartOptions , WebBackendSurfaceOptions , WebCardOptions , WebBackendFlexContainerPartOptions , WebBackendComponentOptions , WebBackendParentComponentPartOptions , WebBackendSurfacePartOptions {
     WebBackendSurfacePartOptions getSurfacePart();
 

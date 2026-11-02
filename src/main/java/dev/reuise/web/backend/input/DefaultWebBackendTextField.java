@@ -26,7 +26,6 @@ import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Set;
-import static dev.reuise.web.backend.input.DefaultWebBackendTextFieldImpl.self;
 // Option: Children - CORE
 // Option: Id - WEB
 // Option: TagName - WEB

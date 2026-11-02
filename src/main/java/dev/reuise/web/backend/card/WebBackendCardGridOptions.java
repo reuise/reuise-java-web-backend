@@ -5,7 +5,7 @@ import dev.reuise.web.backend.layout.WebBackendContainerOptions;
 import dev.reuise.web.backend.layout.WebBackendContainerPartOptions;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPartOptions;
 import dev.reuise.web.core.card.WebCardGridOptions;
-// Todo: Clean up uneeded interfaces
+// Todo: Clean up unneeded interfaces
 public interface WebBackendCardGridOptions extends WebBackendContainerPartOptions , WebCardGridOptions , WebBackendBaseComponentPartOptions , WebBackendCardGridPartOptions , WebBackendContainerOptions , WebBackendComponentOptions , WebBackendParentComponentPartOptions {
     WebBackendContainerPartOptions getContainerPart();
 

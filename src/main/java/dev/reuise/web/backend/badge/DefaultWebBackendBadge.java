@@ -20,8 +20,6 @@ import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Set;
-import static dev.reuise.web.backend.badge.DefaultWebBackendBadgeImpl.writeEndTag;
-import static dev.reuise.web.backend.badge.DefaultWebBackendBadgeImpl.writeStartTag;
 // Option: Id - WEB
 // Option: TagName - WEB
 // Option: XmlNamespace - WEB

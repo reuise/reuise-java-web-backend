@@ -5,7 +5,7 @@ import dev.reuise.web.backend.layout.WebBackendContainerOptions;
 import dev.reuise.web.backend.layout.WebBackendContainerPartOptions;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPartOptions;
 import dev.reuise.web.core.scrollablecontainer.WebScrollableContainerOptions;
-// Todo: Clean up uneeded interfaces
+// Todo: Clean up unneeded interfaces
 public interface WebBackendScrollableContainerOptions extends WebBackendContainerPartOptions , WebBackendBaseComponentPartOptions , WebBackendContainerOptions , WebBackendComponentOptions , WebBackendParentComponentPartOptions , WebScrollableContainerOptions , WebBackendScrollableContainerPartOptions {
     WebBackendContainerPartOptions getContainerPart();
 

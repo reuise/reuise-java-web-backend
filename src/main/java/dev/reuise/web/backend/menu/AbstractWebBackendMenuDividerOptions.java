@@ -15,6 +15,7 @@ import dev.reuise.core.link.CoreLinkOptions;
 import dev.reuise.core.option.ComponentCreator;
 import dev.reuise.core.option.ComponentOption;
 import dev.reuise.core.parentcomponent.CoreParentComponent;
+import dev.reuise.core.skeleton.CoreSkeletonOptions;
 import dev.reuise.core.text.CoreInlineText;
 import dev.reuise.core.text.CoreInlineTextOptions;
 import dev.reuise.core.theme.Theme;
@@ -37,6 +38,8 @@ import dev.reuise.webstyles.Style;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+// Option: Loading - CORE
+// Option: SkeletonOptions - CORE
 // Option: Label - CORE
 // Option: SecondaryLabel - CORE
 // Option: HasCheckbox - CORE
@@ -118,6 +121,38 @@ public abstract class AbstractWebBackendMenuDividerOptions<S extends AbstractWeb
 
     public WebBackendMenuItemPartOptions getMenuItemPart() {
         return menuItemPart;
+    }
+
+    @Override
+    public boolean isLoading() {
+        return listItemPart.isLoading();
+    }
+
+    @Override
+    public ComponentOption<Boolean> getLoadingOption() {
+        return listItemPart.getLoadingOption();
+    }
+
+    @Override
+    public S setLoading(Boolean loading) {
+        this.listItemPart.setLoading(loading);
+        return self();
+    }
+
+    @Override
+    public CoreSkeletonOptions getSkeletonOptions() {
+        return listItemPart.getSkeletonOptions();
+    }
+
+    @Override
+    public ComponentOption<CoreSkeletonOptions> getSkeletonOptionsOption() {
+        return listItemPart.getSkeletonOptionsOption();
+    }
+
+    @Override
+    public S setSkeletonOptions(CoreSkeletonOptions skeletonOptions) {
+        this.listItemPart.setSkeletonOptions(skeletonOptions);
+        return self();
     }
 
     @Override

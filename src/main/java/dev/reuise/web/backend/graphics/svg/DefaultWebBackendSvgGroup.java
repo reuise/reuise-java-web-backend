@@ -24,8 +24,6 @@ import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Set;
-import static dev.reuise.web.backend.graphics.svg.DefaultWebBackendSvgGroupImpl.writeEndTag;
-import static dev.reuise.web.backend.graphics.svg.DefaultWebBackendSvgGroupImpl.writeStartTag;
 // Option: SourceResource - WEB_BACKEND
 // Option: X - WEB
 // Option: Y - WEB

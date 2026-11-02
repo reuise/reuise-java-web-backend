@@ -21,8 +21,6 @@ import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Set;
-import static dev.reuise.web.backend.link.DefaultWebBackendLinkImpl.writeEndTag;
-import static dev.reuise.web.backend.link.DefaultWebBackendLinkImpl.writeStartTag;
 // Option: Children - CORE
 // Option: Id - WEB
 // Option: TagName - WEB

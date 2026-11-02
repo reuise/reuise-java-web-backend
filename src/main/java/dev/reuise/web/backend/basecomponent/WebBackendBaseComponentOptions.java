@@ -1,5 +1,5 @@
 package dev.reuise.web.backend.basecomponent;
 import dev.reuise.web.backend.WebBackendComponentOptions;
 import dev.reuise.web.core.basecomponent.WebBaseComponentOptions;
-// Todo: Clean up uneeded interfaces
+// Todo: Clean up unneeded interfaces
 public interface WebBackendBaseComponentOptions extends WebBackendBaseComponentPartOptions , WebBaseComponentOptions , WebBackendComponentOptions {}

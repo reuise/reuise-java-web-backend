@@ -25,9 +25,6 @@ import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Set;
-import static dev.reuise.web.backend.tabs.DefaultWebBackendTabBarImpl.addTab;
-import static dev.reuise.web.backend.tabs.DefaultWebBackendTabBarImpl.removeTab;
-import static dev.reuise.web.backend.tabs.DefaultWebBackendTabBarImpl.self;
 // Option: Padding - CORE
 // Option: PaddingTop - CORE
 // Option: PaddingRight - CORE

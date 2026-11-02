@@ -5,7 +5,7 @@ import dev.reuise.web.backend.layout.WebBackendContainerPartOptions;
 import dev.reuise.web.backend.layout.WebBackendFlexContainerPartOptions;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPartOptions;
 import dev.reuise.web.core.view.WebSheetViewOptions;
-// Todo: Clean up uneeded interfaces
+// Todo: Clean up unneeded interfaces
 public interface WebBackendSheetViewOptions extends WebBackendContainerPartOptions , WebBackendSheetViewPartOptions , WebSheetViewOptions , WebBackendViewPartOptions , WebBackendBaseComponentPartOptions , WebBackendFlexContainerPartOptions , WebBackendViewOptions , WebBackendComponentOptions , WebBackendParentComponentPartOptions {
     WebBackendViewPartOptions getViewPart();
 

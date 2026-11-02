@@ -7,10 +7,11 @@ import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleSheet;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 public class WebBackendStyleSheet implements StyleSheet {
     public WebBackendStyleSheet(State state) {
         if (state != null) {
-            stateKey = getStateKey();
+            stateKey = state.getStateKey();
             if (state instanceof MediaQuery)
                 stateQuery = ((MediaQuery) (state)).getQuery();
 
@@ -158,8 +159,8 @@ public class WebBackendStyleSheet implements StyleSheet {
     @Override
     public String getCssText() {
         StringBuilder sb = new StringBuilder();
-        rules.entrySet().stream().forEach((Map.Entry<String, Style> r) -> sb.append(((r.getKey() + "{") + r.getValue().getCssText()) + "}"));
-        atRules.entrySet().stream().forEach((Map.Entry<String, StyleSheet> r) -> sb.append(((("@" + r.getKey()) + "{") + r.getValue().getCssText()) + "}"));
+        new TreeMap<String, Style>(rules).entrySet().stream().forEach((Map.Entry<String, Style> r) -> sb.append(((r.getKey() + "{") + r.getValue().getCssText()) + "}"));
+        new TreeMap<String, StyleSheet>(atRules).entrySet().stream().forEach((Map.Entry<String, StyleSheet> r) -> sb.append(((("@" + r.getKey()) + "{") + r.getValue().getCssText()) + "}"));
         return sb.toString();
     }
 }

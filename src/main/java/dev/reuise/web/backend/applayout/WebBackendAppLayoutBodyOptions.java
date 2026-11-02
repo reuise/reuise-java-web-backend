@@ -6,7 +6,7 @@ import dev.reuise.web.backend.layout.WebBackendFlexContainerOptions;
 import dev.reuise.web.backend.layout.WebBackendFlexContainerPartOptions;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPartOptions;
 import dev.reuise.web.core.applayout.WebAppLayoutBodyOptions;
-// Todo: Clean up uneeded interfaces
+// Todo: Clean up unneeded interfaces
 public interface WebBackendAppLayoutBodyOptions extends WebAppLayoutBodyOptions , WebBackendContainerPartOptions , WebBackendBaseComponentPartOptions , WebBackendFlexContainerOptions , WebBackendFlexContainerPartOptions , WebBackendComponentOptions , WebBackendParentComponentPartOptions , WebBackendAppLayoutBodyPartOptions {
     WebBackendFlexContainerPartOptions getFlexContainerPart();
 

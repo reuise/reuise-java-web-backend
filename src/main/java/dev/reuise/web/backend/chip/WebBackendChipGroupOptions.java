@@ -6,7 +6,7 @@ import dev.reuise.web.backend.layout.WebBackendFieldSetOptions;
 import dev.reuise.web.backend.layout.WebBackendFieldSetPartOptions;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPartOptions;
 import dev.reuise.web.core.chip.WebChipGroupOptions;
-// Todo: Clean up uneeded interfaces
+// Todo: Clean up unneeded interfaces
 public interface WebBackendChipGroupOptions extends WebChipGroupOptions , WebBackendContainerPartOptions , WebBackendFieldSetOptions , WebBackendChipGroupPartOptions , WebBackendBaseComponentPartOptions , WebBackendFieldSetPartOptions , WebBackendComponentOptions , WebBackendParentComponentPartOptions {
     WebBackendFieldSetPartOptions getFieldSetPart();
 

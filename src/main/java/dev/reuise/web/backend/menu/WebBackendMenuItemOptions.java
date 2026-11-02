@@ -6,7 +6,7 @@ import dev.reuise.web.backend.list.WebBackendListItemOptions;
 import dev.reuise.web.backend.list.WebBackendListItemPartOptions;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPartOptions;
 import dev.reuise.web.core.menu.WebMenuItemOptions;
-// Todo: Clean up uneeded interfaces
+// Todo: Clean up unneeded interfaces
 public interface WebBackendMenuItemOptions extends WebBackendListItemPartOptions , WebBackendMenuItemPartOptions , WebBackendBasicListItemPartOptions , WebBackendBaseComponentPartOptions , WebBackendListItemOptions , WebMenuItemOptions , WebBackendComponentOptions , WebBackendParentComponentPartOptions {
     WebBackendListItemPartOptions getListItemPart();
 

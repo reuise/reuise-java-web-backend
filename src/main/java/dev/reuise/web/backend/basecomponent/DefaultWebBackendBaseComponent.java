@@ -6,6 +6,7 @@ import dev.reuise.core.State;
 import dev.reuise.core.option.OptionApplicator;
 import dev.reuise.web.backend.WebBackendComponentFactory;
 import dev.reuise.web.backend.WebBackendComponentType;
+import dev.reuise.web.backend.style.StyleDeduplicationRegistry;
 import dev.reuise.web.backend.style.WebBackendStyleSheet;
 import dev.reuise.web.core.WebRootComponent;
 import dev.reuise.web.core.basecomponent.DefaultWebBaseComponentPart;
@@ -16,11 +17,10 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import static dev.reuise.web.backend.basecomponent.DefaultWebBackendBaseComponentImpl.self;
-import static dev.reuise.web.backend.basecomponent.DefaultWebBackendBaseComponentImpl.setData;
 public abstract class DefaultWebBackendBaseComponent<S extends DefaultWebBackendBaseComponent<S, O>, O extends WebBackendBaseComponentOptions> extends DefaultWebBaseComponentPart<S, O> implements WebBackendComponentType<S, O> , WebBackendBaseComponent {
     @Override
     public WebBackendBaseComponent getComponent() {
@@ -126,29 +126,58 @@ public abstract class DefaultWebBackendBaseComponent<S extends DefaultWebBackend
         return allStyleClasses;
     }
 
+    // Combines every state (base style, each breakpoint, each interaction) of this component
+    // into a single payload and writes at most one <style> element for it. Breakpoint content is
+    // wrapped in a real CSS @media block instead of relying on the <style media="..."> attribute,
+    // since one element can no longer carry a different media condition per state. Identical
+    // payloads across components on the same page are deduplicated via
+    // StyleDeduplicationRegistry so only the first occurrence emits markup; later identical
+    // components simply reuse its class.
     private void writeStyleSheets(PrintWriter writer) {
         if (styles == null)
             return;
 
         Collection<StyleSheet> styleSheets = styles.getStyleSheets();
-        if (styleSheets == null)
+        if ((styleSheets == null) || styleSheets.isEmpty())
             return;
 
-        styleSheets.stream().forEach(s -> {
-            String stateKey = s.getStateKey();
+        List<StyleSheet> sortedStyleSheets = new ArrayList<>(styleSheets);
+        sortedStyleSheets.sort(Comparator.comparing(s -> {
             String stateQuery = s.getStateQuery();
+            String stateKey = s.getStateKey();
+            return ((stateQuery != null ? stateQuery : "") + "|") + (stateKey != null ? stateKey : "");
+        }));
+        StringBuilder combined = new StringBuilder();
+        sortedStyleSheets.forEach(s -> {
             String cssText = s.getCssText();
-            if ((cssText != null) && (!cssText.isEmpty())) {
-                writer.write("<style");
-                writer.write((" id=\"" + (getStyleSheetId() + ((stateKey != null) && (!stateKey.isEmpty()) ? "_" + stateKey : ""))) + "\"");
-                if ((stateQuery != null) && (!stateQuery.isEmpty()))
-                    writer.write((" media=\"" + stateQuery) + "\"");
+            if ((cssText == null) || cssText.isEmpty())
+                return;
 
-                writer.write(">");
-                writer.write(s.getCssText());
-                writer.write("</style>");
-            }
+            String stateQuery = s.getStateQuery();
+            if ((stateQuery != null) && (!stateQuery.isEmpty()))
+                combined.append("@media ").append(stateQuery).append('{').append(cssText).append('}');
+            else
+                combined.append(cssText);
+
         });
+        if (combined.length() == 0)
+            return;
+
+        String actualCss = combined.toString();
+        // The generated content is identical across components except for each one's own random
+        // unique style class embedded in its selectors, so normalize that out before hashing.
+        String dedupKey = actualCss.replace(getUniqueStyleClass(), "&");
+        String sharedStyleClass = StyleDeduplicationRegistry.lookup(dedupKey);
+        if (sharedStyleClass != null) {
+            uniqueStyleClass = sharedStyleClass;
+            return;
+        }
+        StyleDeduplicationRegistry.register(dedupKey, getUniqueStyleClass());
+        writer.write("<style");
+        writer.write((" id=\"" + getStyleSheetId()) + "\"");
+        writer.write(">");
+        writer.write(actualCss);
+        writer.write("</style>");
     }
 
     @Override
