@@ -4,6 +4,7 @@ import dev.reuise.core.ComponentType;
 import dev.reuise.core.CoreComponent;
 import dev.reuise.core.CoreComponentOptions;
 import dev.reuise.core.Html;
+import dev.reuise.core.HtmlEscaper;
 import dev.reuise.core.Interaction;
 import dev.reuise.core.RootComponent;
 import dev.reuise.core.State;
@@ -25,6 +26,7 @@ import java.util.Set;
 // Option: Loading - CORE
 // Option: SkeletonOptions - CORE
 // Option: Text - CORE
+// Option: HtmlContent - CORE
 // Option: FontSize - CORE
 // Option: LineHeight - CORE
 // Option: FontWeight - CORE
@@ -179,9 +181,7 @@ public abstract class DefaultWebBackendTextBlock<S extends DefaultWebBackendText
     public void writeTo(PrintWriter writer) {
         writeStartTag(writer);
         String text = this.getText();
-        if (text != null)
-            writer.write(text);
-
+        writer.write(getHtmlContent() != null ? getHtmlContent().toString() : HtmlEscaper.text(text));
         writeEndTag(writer);
     }
 

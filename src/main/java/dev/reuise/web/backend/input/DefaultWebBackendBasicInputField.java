@@ -3,6 +3,7 @@ import dev.reuise.core.ComponentPart;
 import dev.reuise.core.ComponentType;
 import dev.reuise.core.CoreComponent;
 import dev.reuise.core.CoreComponentOptions;
+import dev.reuise.core.HtmlEscaper;
 import dev.reuise.core.Interaction;
 import dev.reuise.core.RootComponent;
 import dev.reuise.core.State;
@@ -90,10 +91,6 @@ import java.util.Set;
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
 public abstract class DefaultWebBackendBasicInputField<S extends DefaultWebBackendBasicInputField<S, O>, O extends WebBackendBasicInputFieldOptions> extends DefaultWebBasicInputFieldPart<S, O> implements WebBackendComponentType<S, O> , WebBackendBasicInputField {
-    private String escape(String str) {
-        return str != null ? str.replace("\"", "\\\\\"") : null;
-    }
-
     @Override
     public S addText(String text) {
         value += text;
@@ -138,15 +135,15 @@ public abstract class DefaultWebBackendBasicInputField<S extends DefaultWebBacke
         writeStartTag(writer, false);
         boolean multiline = isMultiline();
         if ((value != null) && (!multiline))
-            writer.write((" value=\"" + escape(value)) + "\"");
+            writer.write((" value=\"" + HtmlEscaper.attribute(value)) + "\"");
 
         if (pattern != null)
-            writer.write((" pattern=\"" + escape(pattern)) + "\"");
+            writer.write((" pattern=\"" + HtmlEscaper.attribute(pattern)) + "\"");
 
         writer.write(">");
         if (multiline) {
             if (value != null)
-                writer.write(value);
+                writer.write(HtmlEscaper.text(value));
 
             writeEndTag(writer);
         }

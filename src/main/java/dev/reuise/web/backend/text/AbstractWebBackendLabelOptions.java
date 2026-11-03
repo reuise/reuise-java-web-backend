@@ -19,6 +19,7 @@ import java.util.Map;
 // Option: Loading - CORE
 // Option: SkeletonOptions - CORE
 // Option: Text - CORE
+// Option: HtmlContent - CORE
 // Option: FontSize - CORE
 // Option: LineHeight - CORE
 // Option: FontWeight - CORE
@@ -144,6 +145,22 @@ public abstract class AbstractWebBackendLabelOptions<S extends AbstractWebBacken
     @Override
     public S setText(String text) {
         this.textPart.setText(text);
+        return self();
+    }
+
+    @Override
+    public Html getHtmlContent() {
+        return textPart.getHtmlContent();
+    }
+
+    @Override
+    public ComponentOption<Html> getHtmlContentOption() {
+        return textPart.getHtmlContentOption();
+    }
+
+    @Override
+    public S setHtmlContent(Html htmlContent) {
+        this.textPart.setHtmlContent(htmlContent);
         return self();
     }
 

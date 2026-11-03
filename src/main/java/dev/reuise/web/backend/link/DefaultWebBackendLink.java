@@ -3,6 +3,7 @@ import dev.reuise.core.ComponentPart;
 import dev.reuise.core.ComponentType;
 import dev.reuise.core.CoreComponent;
 import dev.reuise.core.CoreComponentOptions;
+import dev.reuise.core.HtmlEscaper;
 import dev.reuise.core.Interaction;
 import dev.reuise.core.RootComponent;
 import dev.reuise.core.State;
@@ -368,8 +369,10 @@ public abstract class DefaultWebBackendLink<S extends DefaultWebBackendLink<S, O
         return url;
     }
 
+    // Implementation
     @Override
     public S setUrl(String url) {
+        HtmlEscaper.url(url);
         this.url = url;
         return self();
     }
@@ -390,14 +393,14 @@ public abstract class DefaultWebBackendLink<S extends DefaultWebBackendLink<S, O
     public void writeTo(PrintWriter writer) {
         writeStartTag(writer, false);
         if (target != null)
-            writer.write((" target=\"" + target) + "\"");
+            writer.write((" target=\"" + HtmlEscaper.attribute(target)) + "\"");
 
         if (url != null)
-            writer.write((" href=\"" + url) + "\"");
+            writer.write((" href=\"" + HtmlEscaper.attribute(HtmlEscaper.url(url))) + "\"");
 
         writer.write(">");
         if (text != null)
-            writer.write(text);
+            writer.write(HtmlEscaper.text(text));
 
         parentComponentPart.writeTo(writer);
         writeEndTag(writer);

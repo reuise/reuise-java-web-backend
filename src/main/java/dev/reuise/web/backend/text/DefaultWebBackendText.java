@@ -3,6 +3,7 @@ import dev.reuise.core.ComponentPart;
 import dev.reuise.core.ComponentType;
 import dev.reuise.core.CoreComponent;
 import dev.reuise.core.CoreComponentOptions;
+import dev.reuise.core.HtmlEscaper;
 import dev.reuise.core.Interaction;
 import dev.reuise.core.RootComponent;
 import dev.reuise.core.ScreenSizeValues;
@@ -354,9 +355,11 @@ public abstract class DefaultWebBackendText<S extends DefaultWebBackendText<S, O
         return text;
     }
 
+    // Implementation
     @Override
     public S setText(String text) {
         this.text = text;
+        setHtmlContent(null);
         return self();
     }
 
@@ -392,9 +395,7 @@ public abstract class DefaultWebBackendText<S extends DefaultWebBackendText<S, O
     @Override
     public void writeTo(PrintWriter writer) {
         // writeStartTag(writer);
-        if (text != null)
-            writer.write(text);
-
+        writer.write(getHtmlContent() != null ? getHtmlContent().toString() : HtmlEscaper.text(text));
         // writeEndTag(writer);
     }
 }

@@ -3,6 +3,7 @@ import dev.reuise.core.ComponentPart;
 import dev.reuise.core.ComponentType;
 import dev.reuise.core.CoreComponent;
 import dev.reuise.core.CoreComponentOptions;
+import dev.reuise.core.HtmlEscaper;
 import dev.reuise.core.Interaction;
 import dev.reuise.core.RootComponent;
 import dev.reuise.core.State;
@@ -128,11 +129,12 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
     }
 
     private String getStructuredDataTypes(List<StructuredDataType> types) {
-        return types.stream().map(this::getStructuredDataType).collect(Collectors.joining(","));
+        return types.stream().map(this::getStructuredDataType).collect(Collectors.joining(",", "[", "]"));
     }
 
     private String getStructuredDataType(StructuredDataType type) {
-        return ((((("{\"@context\":\"" + type.getContext()) + "\",\"@type\":\"") + type.getType()) + "\",") + getStructuredDataProperties(type)) + "}";
+        String properties = getStructuredDataProperties(type);
+        return (((("{\"@context\":" + jsonString(type.getContext())) + ",\"@type\":") + jsonString(type.getType())) + (properties.isEmpty() ? "" : "," + properties)) + "}";
     }
 
     private String getStructuredDataProperties(StructuredDataType type) {
@@ -140,7 +142,34 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
     }
 
     private String getStructuredDataProperty(Map.Entry<String, String> e) {
-        return ((("\"" + e.getKey()) + "\":\"") + e.getValue()) + "\"";
+        return (jsonString(e.getKey()) + ":") + jsonString(e.getValue());
+    }
+
+    private String jsonString(String value) {
+        if (value == null)
+            return "null";
+
+        StringBuilder json = new StringBuilder("\"");
+        for (int i = 0; i < value.length(); i++) {
+            char c = value.charAt(i);
+            if ((c == '"') || (c == '\\'))
+                json.append('\\').append(c);
+            else if (c < 32) {
+                String hex = Integer.toHexString(c);
+                json.append("\\u");
+                for (int padding = hex.length(); padding < 4; padding++)
+                    json.append('0');
+
+                json.append(hex);
+            } else
+                json.append(c);
+
+        }
+        return scriptData(json.append('"').toString());
+    }
+
+    private String scriptData(String json) {
+        return json.replace("<", "\\u003c").replace(">", "\\u003e").replace("&", "\\u0026").replace("?", "\\u2028").replace("?", "\\u2029");
     }
 
     @Override
@@ -1032,14 +1061,14 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
         // components on this page can share one <style> element without leaking state across
         // unrelated requests.
         StyleDeduplicationRegistry.reset();
-        writer.write(("<!DOCTYPE html><html lang=\"" + language) + "\">");
+        writer.write(("<!DOCTYPE html><html lang=\"" + HtmlEscaper.attribute(language)) + "\">");
         writer.write("<head>");
         if ((frontendScript != null) && (!frontendScript.isEmpty())) {
-            writer.write(("<script type=\"text/javascript\" language=\"javascript\" src=\"" + frontendScript) + "\"></script>");
+            writer.write(("<script type=\"text/javascript\" language=\"javascript\" src=\"" + HtmlEscaper.attribute(frontendScript)) + "\"></script>");
         }
         if ((preconnect != null) && (!preconnect.isEmpty())) {
             preconnect.stream().forEach(p -> {
-                writer.write(("<link rel=\"preconnect\" href=\"" + p.getUrl()) + "\"");
+                writer.write(("<link rel=\"preconnect\" href=\"" + HtmlEscaper.attribute(p.getUrl())) + "\"");
                 if (p.isCrossOrigin())
                     writer.write(" crossorigin");
 
@@ -1048,7 +1077,7 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
         }
         if ((dnsPrefetch != null) && (!dnsPrefetch.isEmpty())) {
             dnsPrefetch.stream().forEach(p -> {
-                writer.write(("<link rel=\"dns-prefetch\" href=\"" + p.getUrl()) + "\"");
+                writer.write(("<link rel=\"dns-prefetch\" href=\"" + HtmlEscaper.attribute(p.getUrl())) + "\"");
                 if (p.isCrossOrigin())
                     writer.write(" crossorigin");
 
@@ -1056,35 +1085,35 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
             });
         }
         if (charset != null)
-            writer.write(("<meta charset=\"" + charset) + "\">");
+            writer.write(("<meta charset=\"" + HtmlEscaper.attribute(charset)) + "\">");
 
         if (title != null)
-            writer.write(("<title>" + title) + "</title>");
+            writer.write(("<title>" + HtmlEscaper.text(title)) + "</title>");
 
         if (description != null)
-            writer.write(("<meta name=\"description\" content=\"" + description) + "\">");
+            writer.write(("<meta name=\"description\" content=\"" + HtmlEscaper.attribute(description)) + "\">");
 
         if ((keywords != null) && (!keywords.isEmpty()))
-            writer.write(("<meta name=\"keywords\" content=\"" + String.join(",", keywords)) + "\">");
+            writer.write(("<meta name=\"keywords\" content=\"" + HtmlEscaper.attribute(String.join(",", keywords))) + "\">");
 
         if (themeColor != null)
-            writer.write(("<meta name=\"theme-color\" content=\"" + themeColor) + "\">");
+            writer.write(("<meta name=\"theme-color\" content=\"" + HtmlEscaper.attribute(themeColor)) + "\">");
 
         if (viewport != null)
-            writer.write(("<meta name=\"viewport\" content=\"" + viewport) + "\">");
+            writer.write(("<meta name=\"viewport\" content=\"" + HtmlEscaper.attribute(viewport)) + "\">");
 
         if (metadata != null)
-            metadata.forEach(m -> writer.write(((("<meta name=\"" + m.getName()) + "\" content=\"") + m.getContent()) + "\">"));
+            metadata.forEach(m -> writer.write(((("<meta name=\"" + HtmlEscaper.attribute(m.getName())) + "\" content=\"") + HtmlEscaper.attribute(m.getContent())) + "\">"));
 
         if (manifest != null)
-            writer.write(("<link rel=\"manifest\" href=\"" + manifest) + "\">");
+            writer.write(("<link rel=\"manifest\" href=\"" + HtmlEscaper.attribute(manifest)) + "\">");
 
         if (canonicalUrl != null)
-            writer.write(("<link rel=\"canonical\" href=\"" + canonicalUrl) + "\">");
+            writer.write(("<link rel=\"canonical\" href=\"" + HtmlEscaper.attribute(canonicalUrl)) + "\">");
 
         if ((externalStyleSheet != null) && (!externalStyleSheet.isEmpty())) {
             externalStyleSheet.stream().forEach(s -> {
-                writer.write(("<link href=\"" + s.getUrl()) + "\"");
+                writer.write(("<link href=\"" + HtmlEscaper.attribute(s.getUrl())) + "\"");
                 if (s.isAsync())
                     writer.write(" rel=\"preload\" as=\"style\" onload=\"this.onload=null;this.rel='stylesheet'\"");
                 else
@@ -1101,9 +1130,9 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
                 String cssText = s.getCssText();
                 if ((cssText != null) && (!cssText.isEmpty())) {
                     writer.write("<style");
-                    writer.write((" id=\"reuise-commonstyles" + ((stateKey != null) && (!stateKey.isEmpty()) ? "_" + stateKey : "")) + "\"");
+                    writer.write((" id=\"reuise-commonstyles" + ((stateKey != null) && (!stateKey.isEmpty()) ? "_" + HtmlEscaper.attribute(stateKey) : "")) + "\"");
                     if ((stateQuery != null) && (!stateQuery.isEmpty()))
-                        writer.write((" media=\"" + stateQuery) + "\"");
+                        writer.write((" media=\"" + HtmlEscaper.attribute(stateQuery)) + "\"");
 
                     writer.write(">");
                     writer.write(s.getCssText());
@@ -1122,19 +1151,19 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
 
                 String url = s.getUrl();
                 if (url != null)
-                    writer.write((" src=\"" + url) + "\"");
+                    writer.write((" src=\"" + HtmlEscaper.attribute(url)) + "\"");
 
                 String type = s.getType();
                 if (type != null)
-                    writer.write((" type=\"" + type) + "\"");
+                    writer.write((" type=\"" + HtmlEscaper.attribute(type)) + "\"");
 
                 String language = s.getLanguage();
                 if (language != null)
-                    writer.write((" language=\"" + language) + "\"");
+                    writer.write((" language=\"" + HtmlEscaper.attribute(language)) + "\"");
 
                 String crossOrigin = s.getCrossOrigin();
                 if (crossOrigin != null)
-                    writer.write((" crossorigin=\"" + crossOrigin) + "\"");
+                    writer.write((" crossorigin=\"" + HtmlEscaper.attribute(crossOrigin)) + "\"");
 
                 writer.write("></script>");
             });
@@ -1145,9 +1174,7 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
                 Map<String, String> imports = m.getImports();
                 if ((imports != null) && (!imports.isEmpty())) {
                     writer.write("{\"imports\": {");
-                    imports.entrySet().stream().forEach(e -> {
-                        writer.write(((("\"" + e.getKey()) + "\":\"") + e.getValue()) + "\"");
-                    });
+                    writer.write(imports.entrySet().stream().map(e -> (jsonString(e.getKey()) + ":") + jsonString(e.getValue())).collect(Collectors.joining(",")));
                     writer.write("}}");
                 }
                 writer.write("</script>");
@@ -1164,26 +1191,26 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
                 int h = i.getHeight();
                 writer.write("<link rel=\"icon\"");
                 if (type != null)
-                    writer.write((" type=\"" + type) + "\"");
+                    writer.write((" type=\"" + HtmlEscaper.attribute(type)) + "\"");
 
                 if ((w != (-1)) && (h != (-1)))
                     writer.write((((" sizes=\"" + w) + "x") + h) + "\"");
 
                 if (path != null)
-                    writer.write((" href=\"" + path) + "\"");
+                    writer.write((" href=\"" + HtmlEscaper.attribute(path)) + "\"");
 
                 writer.write(">");
             });
         }
         writer.write("<script type=\"application/javascript\" language=\"javascript\">");
         if (viewId != null)
-            writer.write(("var reuiseViewId=\"" + viewId) + "\";");
+            writer.write(("var reuiseViewId=" + jsonString(viewId)) + ";");
 
         if ((model != null) && (!model.isEmpty())) {
             String serializedModel = serializeModel(model);
             if ((serializedModel != null) && (!serializedModel.isEmpty())) {
                 writer.write("var reuiseDocModel=");
-                writer.write(serializedModel);
+                writer.write(scriptData(serializedModel));
                 writer.write(";");
             }
         }

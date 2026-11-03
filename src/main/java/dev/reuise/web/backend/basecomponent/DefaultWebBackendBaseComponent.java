@@ -1,5 +1,6 @@
 package dev.reuise.web.backend.basecomponent;
 import dev.reuise.core.ComponentUtils;
+import dev.reuise.core.HtmlEscaper;
 import dev.reuise.core.RootComponent;
 import dev.reuise.core.ScreenSizeValues;
 import dev.reuise.core.State;
@@ -50,13 +51,13 @@ public abstract class DefaultWebBackendBaseComponent<S extends DefaultWebBackend
         writer.write("<" + opts.getTagName());
         // Id
         if (id != null) {
-            writer.write((" id=\"" + escape(id)) + "\"");
+            writer.write((" id=\"" + HtmlEscaper.attribute(id)) + "\"");
         }
         // Classes
         List<String> allStyleClasses = getAllStyleClasses();
         if ((allStyleClasses != null) && (!allStyleClasses.isEmpty())) {
             writer.write(" class=\"");
-            writer.write(String.join(" ", allStyleClasses));
+            writer.write(HtmlEscaper.attribute(String.join(" ", allStyleClasses)));
             writer.write("\"");
         }
         // Inline style
@@ -64,18 +65,18 @@ public abstract class DefaultWebBackendBaseComponent<S extends DefaultWebBackend
             String cssText = inlineStyle.getCssText();
             if ((cssText != null) && (!cssText.isEmpty())) {
                 writer.write(" style=\"");
-                writer.write(cssText);
+                writer.write(HtmlEscaper.attribute(cssText));
                 writer.write("\"");
             }
         }
         // Attributes
         if (attributes != null) {
             attributes.entrySet().forEach(a -> {
-                writer.write(" " + a.getKey());
+                writer.write(" " + HtmlEscaper.attributeName(a.getKey()));
                 Object value = a.getValue();
                 if (value != null) {
                     writer.write("=\"");
-                    writer.write(escape(value.toString()));
+                    writer.write(HtmlEscaper.attribute(value.toString()));
                     writer.write("\"");
                 }
             });
@@ -92,15 +93,11 @@ public abstract class DefaultWebBackendBaseComponent<S extends DefaultWebBackend
          */
         // Tooltip
         if (tooltip != null) {
-            writer.write((" title=\"" + escape(tooltip)) + "\"");
+            writer.write((" title=\"" + HtmlEscaper.attribute(tooltip)) + "\"");
         }
         if (opts.isClose())
             writer.write(">");
 
-    }
-
-    private String escape(String str) {
-        return str != null ? str.replace("\"", "\\\\\"") : null;
     }
 
     private List<String> getAllStyleClasses() {
@@ -174,7 +171,7 @@ public abstract class DefaultWebBackendBaseComponent<S extends DefaultWebBackend
         }
         StyleDeduplicationRegistry.register(dedupKey, getUniqueStyleClass());
         writer.write("<style");
-        writer.write((" id=\"" + getStyleSheetId()) + "\"");
+        writer.write((" id=\"" + HtmlEscaper.attribute(getStyleSheetId())) + "\"");
         writer.write(">");
         writer.write(actualCss);
         writer.write("</style>");
@@ -182,6 +179,7 @@ public abstract class DefaultWebBackendBaseComponent<S extends DefaultWebBackend
 
     @Override
     public S setAttribute(String attribute, String value) {
+        HtmlEscaper.attributeName(attribute);
         if (attributes == null)
             attributes = new LinkedHashMap<>();
 
