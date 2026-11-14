@@ -13,6 +13,7 @@ import dev.reuise.web.backend.WebBackendComponentFactory;
 import dev.reuise.web.backend.WebBackendComponentType;
 import dev.reuise.web.backend.basecomponent.WebBackendBaseComponentPart;
 import dev.reuise.web.backend.button.WebBackendButton;
+import dev.reuise.web.backend.button.WebBackendButtonBar;
 import dev.reuise.web.backend.layout.WebBackendContainer;
 import dev.reuise.web.backend.layout.WebBackendFlexContainer;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPart;
@@ -183,7 +184,7 @@ public abstract class DefaultWebBackendMessageDialog<S extends DefaultWebBackend
     }
 
     @Override
-    public WebBackendFlexContainer getFooter() {
+    public WebBackendButtonBar getFooter() {
         return dialogPart.getFooter();
     }
 

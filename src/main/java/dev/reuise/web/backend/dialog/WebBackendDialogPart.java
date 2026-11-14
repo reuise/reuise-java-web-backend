@@ -1,6 +1,7 @@
 package dev.reuise.web.backend.dialog;
 import dev.reuise.web.backend.WebBackendComponentPart;
 import dev.reuise.web.backend.button.WebBackendButton;
+import dev.reuise.web.backend.button.WebBackendButtonBar;
 import dev.reuise.web.backend.layout.WebBackendContainer;
 import dev.reuise.web.backend.layout.WebBackendFlexContainer;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPart;
@@ -15,7 +16,7 @@ public interface WebBackendDialogPart extends WebBackendComponentPart , WebBacke
 
     WebBackendFlexContainer getBody();
 
-    WebBackendFlexContainer getFooter();
+    WebBackendButtonBar getFooter();
 
     WebBackendContainer getScrim();
 

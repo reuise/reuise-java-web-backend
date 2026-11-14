@@ -16,6 +16,7 @@ import dev.reuise.web.backend.WebBackendComponentFactory;
 import dev.reuise.web.backend.WebBackendComponentType;
 import dev.reuise.web.backend.basecomponent.WebBackendBaseComponentPart;
 import dev.reuise.web.backend.button.WebBackendButton;
+import dev.reuise.web.backend.button.WebBackendButtonBar;
 import dev.reuise.web.backend.layout.WebBackendContainer;
 import dev.reuise.web.backend.layout.WebBackendFlexContainer;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPart;
@@ -29,7 +30,6 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 // Option: Children - CORE
 // Option: Id - WEB
@@ -105,8 +105,6 @@ public abstract class DefaultWebBackendDialog<S extends DefaultWebBackendDialog<
     protected final WebBackendParentComponentPart parentComponentPart;
 
     protected final WebBackendBaseComponentPart baseComponentPart;
-
-    protected List<CoreButton> actions;
 
     protected DefaultWebBackendDialog(O options) {
         super(options);
@@ -427,8 +425,8 @@ public abstract class DefaultWebBackendDialog<S extends DefaultWebBackendDialog<
     }
 
     @Override
-    public WebBackendFlexContainer getFooter() {
-        return ((WebBackendFlexContainer) (super.getFooter()));
+    public WebBackendButtonBar getFooter() {
+        return ((WebBackendButtonBar) (super.getFooter()));
     }
 
     @Override
@@ -458,41 +456,8 @@ public abstract class DefaultWebBackendDialog<S extends DefaultWebBackendDialog<
     }
 
     @Override
-    public List<CoreButton> getActions() {
-        return actions;
-    }
-
-    @Override
-    public S setActions(List<CoreButton> actions) {
-        // Create copy of
-        this.actions = new ArrayList<CoreButton>(actions);
-        return self();
-    }
-
-    @Override
-    public S addAction(CoreButton action) {
-        if (this.actions == null) {
-            setActions(new ArrayList<CoreButton>());
-        }
-        this.actions.add(action);
-        return self();
-    }
-
-    @Override
     public S setAction(CoreButton action) {
         setActions(new ArrayList<CoreButton>(Arrays.asList(action)));
-        return self();
-    }
-
-    @Override
-    public S removeAction(CoreButton action) {
-        this.actions.remove(action);
-        return self();
-    }
-
-    @Override
-    public S clearActions() {
-        this.actions.clear();
         return self();
     }
 

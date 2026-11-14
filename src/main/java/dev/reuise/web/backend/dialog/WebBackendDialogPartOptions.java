@@ -3,6 +3,8 @@ import dev.reuise.core.State;
 import dev.reuise.core.option.ComponentCreator;
 import dev.reuise.web.backend.WebBackendComponentFactory;
 import dev.reuise.web.backend.button.WebBackendButton;
+import dev.reuise.web.backend.button.WebBackendButtonBar;
+import dev.reuise.web.backend.button.WebBackendButtonBarOptions;
 import dev.reuise.web.backend.button.WebBackendButtonOptions;
 import dev.reuise.web.backend.layout.WebBackendContainer;
 import dev.reuise.web.backend.layout.WebBackendContainerOptions;
@@ -31,7 +33,7 @@ public interface WebBackendDialogPartOptions extends WebDialogPartOptions {
 
     WebBackendDialogPartOptions setBodyCreator(ComponentCreator<? extends WebBackendFlexContainer, ? extends WebBackendFlexContainerOptions> bodyCreator);
 
-    WebBackendDialogPartOptions setFooterCreator(ComponentCreator<? extends WebBackendFlexContainer, ? extends WebBackendFlexContainerOptions> footerCreator);
+    WebBackendDialogPartOptions setFooterCreator(ComponentCreator<? extends WebBackendButtonBar, ? extends WebBackendButtonBarOptions> footerCreator);
 
     WebBackendDialogPartOptions setScrimCreator(ComponentCreator<? extends WebBackendContainer, ? extends WebBackendContainerOptions> scrimCreator);
 
