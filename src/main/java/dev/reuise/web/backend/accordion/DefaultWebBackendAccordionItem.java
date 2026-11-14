@@ -13,7 +13,10 @@ import dev.reuise.core.theme.Theme;
 import dev.reuise.web.backend.WebBackendComponentFactory;
 import dev.reuise.web.backend.WebBackendComponentType;
 import dev.reuise.web.backend.basecomponent.WebBackendBaseComponentPart;
+import dev.reuise.web.backend.button.WebBackendButton;
+import dev.reuise.web.backend.layout.WebBackendContainer;
 import dev.reuise.web.backend.layout.WebBackendContainerPart;
+import dev.reuise.web.backend.layout.WebBackendFlexContainer;
 import dev.reuise.web.backend.layout.WebBackendFlexContainerPart;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPart;
 import dev.reuise.web.core.WebRootComponent;
@@ -31,6 +34,7 @@ import java.util.Set;
 // Option: RowGap - CORE
 // Option: Gap - CORE
 // Option: Wrap - CORE
+// Option: Animation - WEB
 // Option: Padding - CORE
 // Option: PaddingTop - CORE
 // Option: PaddingRight - CORE
@@ -67,6 +71,8 @@ import java.util.Set;
 // Option: MaxHeight - CORE
 // Option: RequiredLayoutComponent - CORE
 // Option: Parent - CORE
+// Option: LocaleContext - CORE
+// Option: LinkUrlResolver - CORE
 // Option: Wrapper - CORE
 // Option: Theme - CORE
 // Option: Visible - CORE
@@ -76,6 +82,8 @@ import java.util.Set;
 // Option: DebugId - CORE
 // base comp: flexContainer
 // base comp: container
+// add composition for container: startAnimation
+// add composition for container: cancelAnimation
 // add composition for container: addMarkdown
 // base comp: parentComponent
 // base comp: baseComponent
@@ -142,7 +150,17 @@ public abstract class DefaultWebBackendAccordionItem<S extends DefaultWebBackend
 
     @Override
     public void setRootComponent(RootComponent rootComponent) {
+        super.setRootComponent(rootComponent);
         this.flexContainerPart.setRootComponent(rootComponent);
+        if (header != null)
+            header.setRootComponent(rootComponent);
+
+        if (toggle != null)
+            toggle.setRootComponent(rootComponent);
+
+        if (content != null)
+            content.setRootComponent(rootComponent);
+
     }
 
     @Override
@@ -152,6 +170,16 @@ public abstract class DefaultWebBackendAccordionItem<S extends DefaultWebBackend
 
     @Override
     public S setTheme(Theme theme) {
+        super.setTheme(theme);
+        if (header != null)
+            header.setTheme(theme);
+
+        if (toggle != null)
+            toggle.setTheme(theme);
+
+        if (content != null)
+            content.setTheme(theme);
+
         this.flexContainerPart.setTheme(theme);
         return self();
     }
@@ -159,6 +187,16 @@ public abstract class DefaultWebBackendAccordionItem<S extends DefaultWebBackend
     @Override
     public S setBackdropFilter(BackdropFilter backdropFilter, Object value) {
         this.containerPart.setBackdropFilter(backdropFilter, value);
+        return self();
+    }
+
+    public S startAnimation() {
+        flexContainerPart.startAnimation();
+        return self();
+    }
+
+    public S cancelAnimation() {
+        flexContainerPart.cancelAnimation();
         return self();
     }
 
@@ -386,6 +424,21 @@ public abstract class DefaultWebBackendAccordionItem<S extends DefaultWebBackend
         super.onInitializeComponentType(rootComponent);
         flexContainerPart.onInitializeComponentType(rootComponent);
         onInitializeCommonStyle(((WebRootComponent) (rootComponent)).getCommonStyles());
+    }
+
+    @Override
+    public WebBackendFlexContainer getHeader() {
+        return ((WebBackendFlexContainer) (super.getHeader()));
+    }
+
+    @Override
+    public WebBackendButton getToggle() {
+        return ((WebBackendButton) (super.getToggle()));
+    }
+
+    @Override
+    public WebBackendContainer getContent() {
+        return ((WebBackendContainer) (super.getContent()));
     }
 
     public void onInitializeCommonStyle(StyleBuilder commonStyles) {

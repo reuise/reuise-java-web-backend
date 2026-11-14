@@ -12,6 +12,7 @@ import dev.reuise.core.theme.Theme;
 import dev.reuise.web.backend.WebBackendComponentFactory;
 import dev.reuise.web.backend.WebBackendComponentType;
 import dev.reuise.web.backend.basecomponent.WebBackendBaseComponentPart;
+import dev.reuise.web.backend.icon.WebBackendIcon;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPart;
 import dev.reuise.web.core.WebRootComponent;
 import dev.reuise.web.core.link.DefaultWebNavigationLinkPart;
@@ -25,6 +26,7 @@ import java.util.Set;
 // Option: Text - CORE
 // Option: Url - CORE
 // Option: Target - CORE
+// Option: ExternalIndicator - CORE
 // Option: Children - CORE
 // Option: Id - WEB
 // Option: TagName - WEB
@@ -53,6 +55,8 @@ import java.util.Set;
 // Option: MaxHeight - CORE
 // Option: RequiredLayoutComponent - CORE
 // Option: Parent - CORE
+// Option: LocaleContext - CORE
+// Option: LinkUrlResolver - CORE
 // Option: Wrapper - CORE
 // Option: Theme - CORE
 // Option: Visible - CORE
@@ -137,7 +141,7 @@ public abstract class DefaultWebBackendNavigationLink<S extends DefaultWebBacken
         this.baseComponentPart.setRootComponent(rootComponent);
         String urlPath = ((WebRootComponent) (rootComponent)).getPath();
         String urlOpt = getUrl();
-        setActive(checkPathMatch(urlOpt, urlPath));
+        setActive(checkPathMatch(urlPath, urlOpt));
     }
 
     @Override
@@ -149,6 +153,16 @@ public abstract class DefaultWebBackendNavigationLink<S extends DefaultWebBacken
     public S setTheme(Theme theme) {
         this.linkPart.setTheme(theme);
         return self();
+    }
+
+    @Override
+    public WebBackendIcon getStartIcon() {
+        return linkPart.getStartIcon();
+    }
+
+    @Override
+    public WebBackendIcon getEndIcon() {
+        return linkPart.getEndIcon();
     }
 
     public WebBackendParentComponentPart getParentComponentPart() {
@@ -372,10 +386,9 @@ public abstract class DefaultWebBackendNavigationLink<S extends DefaultWebBacken
         super.onInitializeCommonStyle(commonStyles);
     }
 
+    // Implementation
     @Override
     public void writeTo(PrintWriter writer) {
-        writeStartTag(writer);
-        parentComponentPart.writeTo(writer);
-        writeEndTag(writer);
+        getLinkPart().writeTo(writer);
     }
 }

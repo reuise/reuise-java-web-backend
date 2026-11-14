@@ -1,6 +1,8 @@
 package dev.reuise.web.backend.accordion;
+import dev.reuise.core.ComponentAnimation;
 import dev.reuise.core.CoreComponent;
 import dev.reuise.core.CoreComponentOptions;
+import dev.reuise.core.LocaleContext;
 import dev.reuise.core.ScreenSizeValues;
 import dev.reuise.core.State;
 import dev.reuise.core.basecomponent.CoreBaseComponent;
@@ -22,6 +24,7 @@ import dev.reuise.webstyles.Style;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 // Option: Direction - CORE
 // Option: JustifyContent - CORE
 // Option: AlignItems - CORE
@@ -29,6 +32,7 @@ import java.util.Map;
 // Option: RowGap - CORE
 // Option: Gap - CORE
 // Option: Wrap - CORE
+// Option: Animation - WEB
 // Option: Padding - CORE
 // Option: PaddingTop - CORE
 // Option: PaddingRight - CORE
@@ -65,6 +69,8 @@ import java.util.Map;
 // Option: MaxHeight - CORE
 // Option: RequiredLayoutComponent - CORE
 // Option: Parent - CORE
+// Option: LocaleContext - CORE
+// Option: LinkUrlResolver - CORE
 // Option: Wrapper - CORE
 // Option: Theme - CORE
 // Option: Visible - CORE
@@ -466,6 +472,22 @@ public abstract class AbstractWebBackendAccordionOptions<S extends AbstractWebBa
 
     public WebBackendFlexContainerPartOptions getFlexContainerPart() {
         return flexContainerPart;
+    }
+
+    @Override
+    public ComponentAnimation getAnimation() {
+        return containerPart.getAnimation();
+    }
+
+    @Override
+    public ComponentOption<ComponentAnimation> getAnimationOption() {
+        return containerPart.getAnimationOption();
+    }
+
+    @Override
+    public S setAnimation(ComponentAnimation animation) {
+        this.containerPart.setAnimation(animation);
+        return self();
     }
 
     @Override
@@ -1827,6 +1849,38 @@ public abstract class AbstractWebBackendAccordionOptions<S extends AbstractWebBa
     @Override
     public S setParent(CoreComponent parent) {
         this.baseComponentPart.setParent(parent);
+        return self();
+    }
+
+    @Override
+    public LocaleContext getLocaleContext() {
+        return baseComponentPart.getLocaleContext();
+    }
+
+    @Override
+    public ComponentOption<LocaleContext> getLocaleContextOption() {
+        return baseComponentPart.getLocaleContextOption();
+    }
+
+    @Override
+    public S setLocaleContext(LocaleContext localeContext) {
+        this.baseComponentPart.setLocaleContext(localeContext);
+        return self();
+    }
+
+    @Override
+    public Function<String, String> getLinkUrlResolver() {
+        return baseComponentPart.getLinkUrlResolver();
+    }
+
+    @Override
+    public ComponentOption<Function<String, String>> getLinkUrlResolverOption() {
+        return baseComponentPart.getLinkUrlResolverOption();
+    }
+
+    @Override
+    public S setLinkUrlResolver(Function<String, String> linkUrlResolver) {
+        this.baseComponentPart.setLinkUrlResolver(linkUrlResolver);
         return self();
     }
 

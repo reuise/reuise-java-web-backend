@@ -1,6 +1,7 @@
 package dev.reuise.web.backend.bottomappbar;
 import dev.reuise.core.CoreComponent;
 import dev.reuise.core.CoreComponentOptions;
+import dev.reuise.core.LocaleContext;
 import dev.reuise.core.ScreenSizeValues;
 import dev.reuise.core.State;
 import dev.reuise.core.basecomponent.CoreBaseComponent;
@@ -14,6 +15,7 @@ import dev.reuise.webstyles.Style;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 // Option: Id - WEB
 // Option: TagName - WEB
 // Option: XmlNamespace - WEB
@@ -41,6 +43,8 @@ import java.util.Map;
 // Option: MaxHeight - CORE
 // Option: RequiredLayoutComponent - CORE
 // Option: Parent - CORE
+// Option: LocaleContext - CORE
+// Option: LinkUrlResolver - CORE
 // Option: Wrapper - CORE
 // Option: Theme - CORE
 // Option: Visible - CORE
@@ -986,6 +990,38 @@ public abstract class AbstractWebBackendBottomAppBarOptions<S extends AbstractWe
     @Override
     public S setParent(CoreComponent parent) {
         this.baseComponentPart.setParent(parent);
+        return self();
+    }
+
+    @Override
+    public LocaleContext getLocaleContext() {
+        return baseComponentPart.getLocaleContext();
+    }
+
+    @Override
+    public ComponentOption<LocaleContext> getLocaleContextOption() {
+        return baseComponentPart.getLocaleContextOption();
+    }
+
+    @Override
+    public S setLocaleContext(LocaleContext localeContext) {
+        this.baseComponentPart.setLocaleContext(localeContext);
+        return self();
+    }
+
+    @Override
+    public Function<String, String> getLinkUrlResolver() {
+        return baseComponentPart.getLinkUrlResolver();
+    }
+
+    @Override
+    public ComponentOption<Function<String, String>> getLinkUrlResolverOption() {
+        return baseComponentPart.getLinkUrlResolverOption();
+    }
+
+    @Override
+    public S setLinkUrlResolver(Function<String, String> linkUrlResolver) {
+        this.baseComponentPart.setLinkUrlResolver(linkUrlResolver);
         return self();
     }
 

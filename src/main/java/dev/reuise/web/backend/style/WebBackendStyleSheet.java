@@ -80,6 +80,8 @@ public class WebBackendStyleSheet implements StyleSheet {
 
     @Override
     public StyleSheet addAtRule(String atRule, State state) {
+        java.util.Objects.requireNonNull(atRule, "atRule");
+        atRule = dev.reuise.webstyles.AtRule.normalize(atRule);
         String selector = null;
         if (state instanceof Interaction)
             selector = ((Interaction) (state)).getSelector(atRule);
@@ -123,6 +125,7 @@ public class WebBackendStyleSheet implements StyleSheet {
     }
 
     public StyleSheet getAtRule(String atRule) {
+        atRule = dev.reuise.webstyles.AtRule.normalize(atRule);
         if (atRule == null)
             return null;
 
@@ -131,6 +134,7 @@ public class WebBackendStyleSheet implements StyleSheet {
 
     @Override
     public void setAtRule(String atRule, StyleSheet styleSheet) {
+        atRule = dev.reuise.webstyles.AtRule.normalize(atRule);
         if (atRule == null)
             return;
 

@@ -35,6 +35,7 @@ import java.util.Set;
 // Option: SplitPosition - CORE
 // Option: MinSplitPosition - CORE
 // Option: MaxSplitPosition - CORE
+// Option: Animation - WEB
 // Option: Padding - CORE
 // Option: PaddingTop - CORE
 // Option: PaddingRight - CORE
@@ -71,6 +72,8 @@ import java.util.Set;
 // Option: MaxHeight - CORE
 // Option: RequiredLayoutComponent - CORE
 // Option: Parent - CORE
+// Option: LocaleContext - CORE
+// Option: LinkUrlResolver - CORE
 // Option: Wrapper - CORE
 // Option: Theme - CORE
 // Option: Visible - CORE
@@ -84,6 +87,8 @@ import java.util.Set;
 // add composition for sheetLayout: setMaxSheetSize
 // base comp: splitContainer
 // base comp: container
+// add composition for container: startAnimation
+// add composition for container: cancelAnimation
 // add composition for container: addMarkdown
 // base comp: parentComponent
 // base comp: baseComponent
@@ -222,6 +227,16 @@ public abstract class DefaultWebBackendSheetRouteLayout<S extends DefaultWebBack
     @Override
     public S setBackdropFilter(BackdropFilter backdropFilter, Object value) {
         this.containerPart.setBackdropFilter(backdropFilter, value);
+        return self();
+    }
+
+    public S startAnimation() {
+        sheetLayoutPart.startAnimation();
+        return self();
+    }
+
+    public S cancelAnimation() {
+        sheetLayoutPart.cancelAnimation();
         return self();
     }
 

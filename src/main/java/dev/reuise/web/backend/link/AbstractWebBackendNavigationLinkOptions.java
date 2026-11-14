@@ -1,13 +1,19 @@
 package dev.reuise.web.backend.link;
 import dev.reuise.core.CoreComponent;
 import dev.reuise.core.CoreComponentOptions;
+import dev.reuise.core.LocaleContext;
 import dev.reuise.core.ScreenSizeValues;
 import dev.reuise.core.State;
 import dev.reuise.core.basecomponent.CoreBaseComponent;
+import dev.reuise.core.icon.CoreIcon;
+import dev.reuise.core.icon.CoreIconOptions;
+import dev.reuise.core.option.ComponentCreator;
 import dev.reuise.core.option.ComponentOption;
 import dev.reuise.core.parentcomponent.CoreParentComponent;
 import dev.reuise.core.theme.Theme;
 import dev.reuise.web.backend.basecomponent.WebBackendBaseComponentPartOptions;
+import dev.reuise.web.backend.icon.WebBackendIcon;
+import dev.reuise.web.backend.icon.WebBackendIconOptions;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPartOptions;
 import dev.reuise.web.core.link.AbstractWebNavigationLinkOptions;
 import dev.reuise.webstyles.Style;
@@ -16,10 +22,12 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 // Option: UseHistoryApi - WEB
 // Option: Text - CORE
 // Option: Url - CORE
 // Option: Target - CORE
+// Option: ExternalIndicator - CORE
 // Option: Children - CORE
 // Option: Id - WEB
 // Option: TagName - WEB
@@ -48,6 +56,8 @@ import java.util.Map;
 // Option: MaxHeight - CORE
 // Option: RequiredLayoutComponent - CORE
 // Option: Parent - CORE
+// Option: LocaleContext - CORE
+// Option: LinkUrlResolver - CORE
 // Option: Wrapper - CORE
 // Option: Theme - CORE
 // Option: Visible - CORE
@@ -155,9 +165,79 @@ public abstract class AbstractWebBackendNavigationLinkOptions<S extends Abstract
     }
 
     @Override
+    public String getExternalIndicator() {
+        return linkPart.getExternalIndicator();
+    }
+
+    @Override
+    public ComponentOption<String> getExternalIndicatorOption() {
+        return linkPart.getExternalIndicatorOption();
+    }
+
+    @Override
+    public S setExternalIndicator(String externalIndicator) {
+        this.linkPart.setExternalIndicator(externalIndicator);
+        return self();
+    }
+
+    @Override
     public S setUrl(String url, Boolean useHistoryApi) {
         this.linkPart.setUrl(url, useHistoryApi);
         return self();
+    }
+
+    @Override
+    public CoreIconOptions getStartIconOptions() {
+        return linkPart.getStartIconOptions();
+    }
+
+    @Override
+    public S setStartIconOptions(CoreIconOptions startIconOptions) {
+        this.linkPart.setStartIconOptions(startIconOptions);
+        return self();
+    }
+
+    @Override
+    public ComponentCreator<? extends CoreIcon, ? extends CoreIconOptions> getStartIconCreator() {
+        return linkPart.getStartIconCreator();
+    }
+
+    @Override
+    public S setStartIconCreator(ComponentCreator<? extends WebBackendIcon, ? extends WebBackendIconOptions> startIconCreator) {
+        this.linkPart.setStartIconCreator(startIconCreator);
+        return self();
+    }
+
+    @Override
+    public boolean hasStartIconOptions() {
+        return linkPart.hasStartIconOptions();
+    }
+
+    @Override
+    public CoreIconOptions getEndIconOptions() {
+        return linkPart.getEndIconOptions();
+    }
+
+    @Override
+    public S setEndIconOptions(CoreIconOptions endIconOptions) {
+        this.linkPart.setEndIconOptions(endIconOptions);
+        return self();
+    }
+
+    @Override
+    public ComponentCreator<? extends CoreIcon, ? extends CoreIconOptions> getEndIconCreator() {
+        return linkPart.getEndIconCreator();
+    }
+
+    @Override
+    public S setEndIconCreator(ComponentCreator<? extends WebBackendIcon, ? extends WebBackendIconOptions> endIconCreator) {
+        this.linkPart.setEndIconCreator(endIconCreator);
+        return self();
+    }
+
+    @Override
+    public boolean hasEndIconOptions() {
+        return linkPart.hasEndIconOptions();
     }
 
     public WebBackendLinkPartOptions getLinkPart() {
@@ -1113,6 +1193,38 @@ public abstract class AbstractWebBackendNavigationLinkOptions<S extends Abstract
     @Override
     public S setParent(CoreComponent parent) {
         this.baseComponentPart.setParent(parent);
+        return self();
+    }
+
+    @Override
+    public LocaleContext getLocaleContext() {
+        return baseComponentPart.getLocaleContext();
+    }
+
+    @Override
+    public ComponentOption<LocaleContext> getLocaleContextOption() {
+        return baseComponentPart.getLocaleContextOption();
+    }
+
+    @Override
+    public S setLocaleContext(LocaleContext localeContext) {
+        this.baseComponentPart.setLocaleContext(localeContext);
+        return self();
+    }
+
+    @Override
+    public Function<String, String> getLinkUrlResolver() {
+        return baseComponentPart.getLinkUrlResolver();
+    }
+
+    @Override
+    public ComponentOption<Function<String, String>> getLinkUrlResolverOption() {
+        return baseComponentPart.getLinkUrlResolverOption();
+    }
+
+    @Override
+    public S setLinkUrlResolver(Function<String, String> linkUrlResolver) {
+        this.baseComponentPart.setLinkUrlResolver(linkUrlResolver);
         return self();
     }
 

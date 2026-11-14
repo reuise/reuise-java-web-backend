@@ -1,6 +1,7 @@
 package dev.reuise.web.backend.basecomponent;
 import dev.reuise.core.ComponentUtils;
 import dev.reuise.core.HtmlEscaper;
+import dev.reuise.core.LinkUrlResolverState;
 import dev.reuise.core.RootComponent;
 import dev.reuise.core.ScreenSizeValues;
 import dev.reuise.core.State;
@@ -71,10 +72,20 @@ public abstract class DefaultWebBackendBaseComponent<S extends DefaultWebBackend
         }
         // Attributes
         if (attributes != null) {
+            boolean navigation = LinkUrlResolverState.isNavigation(getComponent());
             attributes.entrySet().forEach(a -> {
+                if (navigation && LinkUrlResolverState.ORIGINAL_HREF.equalsIgnoreCase(a.getKey()))
+                    return;
+
                 writer.write(" " + HtmlEscaper.attributeName(a.getKey()));
                 Object value = a.getValue();
                 if (value != null) {
+                    if (navigation && "href".equalsIgnoreCase(a.getKey())) {
+                        String raw = value.toString();
+                        writer.write(("=\"" + HtmlEscaper.attribute(LinkUrlResolverState.resolve(((LinkUrlResolverState) (this)), raw))) + "\"");
+                        writer.write((((" " + LinkUrlResolverState.ORIGINAL_HREF) + "=\"") + HtmlEscaper.attribute(raw)) + "\"");
+                        return;
+                    }
                     writer.write("=\"");
                     writer.write(HtmlEscaper.attribute(value.toString()));
                     writer.write("\"");
@@ -183,7 +194,7 @@ public abstract class DefaultWebBackendBaseComponent<S extends DefaultWebBackend
         if (attributes == null)
             attributes = new LinkedHashMap<>();
 
-        attributes.put(attribute.toLowerCase(), value);
+        attributes.put(svgAttributeName(attribute), value);
         return self();
     }
 
@@ -192,7 +203,7 @@ public abstract class DefaultWebBackendBaseComponent<S extends DefaultWebBackend
         if (attributes == null)
             return self();
 
-        attributes.remove(attribute);
+        attributes.remove(svgAttributeLookupName(attribute));
         return self();
     }
 
@@ -201,7 +212,7 @@ public abstract class DefaultWebBackendBaseComponent<S extends DefaultWebBackend
         if (attributes == null)
             return false;
 
-        return attributes.containsKey(attribute);
+        return attributes.containsKey(svgAttributeLookupName(attribute));
     }
 
     @Override
@@ -209,7 +220,15 @@ public abstract class DefaultWebBackendBaseComponent<S extends DefaultWebBackend
         if (attributes == null)
             return null;
 
-        return attributes.get(attribute);
+        return attributes.get(svgAttributeLookupName(attribute));
+    }
+
+    private String svgAttributeLookupName(String attribute) {
+        return "svg".equalsIgnoreCase(tagName) && "viewBox".equalsIgnoreCase(attribute) ? "viewBox" : attribute;
+    }
+
+    private String svgAttributeName(String attribute) {
+        return "svg".equalsIgnoreCase(tagName) && "viewBox".equalsIgnoreCase(attribute) ? "viewBox" : attribute.toLowerCase();
     }
 
     /* @Override

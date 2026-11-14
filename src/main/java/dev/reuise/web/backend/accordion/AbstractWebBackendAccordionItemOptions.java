@@ -1,27 +1,44 @@
 package dev.reuise.web.backend.accordion;
+import dev.reuise.core.ComponentAnimation;
 import dev.reuise.core.CoreComponent;
 import dev.reuise.core.CoreComponentOptions;
+import dev.reuise.core.LocaleContext;
 import dev.reuise.core.ScreenSizeValues;
 import dev.reuise.core.State;
 import dev.reuise.core.basecomponent.CoreBaseComponent;
+import dev.reuise.core.button.CoreButton;
+import dev.reuise.core.button.CoreButtonOptions;
 import dev.reuise.core.layout.AlignItems;
 import dev.reuise.core.layout.BackdropFilter;
 import dev.reuise.core.layout.BackdropFilterSetting;
+import dev.reuise.core.layout.CoreContainer;
+import dev.reuise.core.layout.CoreContainerOptions;
+import dev.reuise.core.layout.CoreFlexContainer;
+import dev.reuise.core.layout.CoreFlexContainerOptions;
 import dev.reuise.core.layout.FlexDirection;
 import dev.reuise.core.layout.JustifyContent;
+import dev.reuise.core.option.ComponentCreator;
 import dev.reuise.core.option.ComponentOption;
 import dev.reuise.core.parentcomponent.CoreParentComponent;
 import dev.reuise.core.theme.Theme;
 import dev.reuise.web.backend.basecomponent.WebBackendBaseComponentPartOptions;
+import dev.reuise.web.backend.button.WebBackendButton;
+import dev.reuise.web.backend.button.WebBackendButtonOptions;
+import dev.reuise.web.backend.layout.WebBackendContainer;
+import dev.reuise.web.backend.layout.WebBackendContainerOptions;
 import dev.reuise.web.backend.layout.WebBackendContainerPartOptions;
+import dev.reuise.web.backend.layout.WebBackendFlexContainer;
 import dev.reuise.web.backend.layout.WebBackendFlexContainerOptions;
 import dev.reuise.web.backend.layout.WebBackendFlexContainerPartOptions;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPartOptions;
 import dev.reuise.web.core.accordion.AbstractWebAccordionItemOptions;
 import dev.reuise.webstyles.Style;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 // Option: Direction - CORE
 // Option: JustifyContent - CORE
 // Option: AlignItems - CORE
@@ -29,6 +46,7 @@ import java.util.Map;
 // Option: RowGap - CORE
 // Option: Gap - CORE
 // Option: Wrap - CORE
+// Option: Animation - WEB
 // Option: Padding - CORE
 // Option: PaddingTop - CORE
 // Option: PaddingRight - CORE
@@ -65,6 +83,8 @@ import java.util.Map;
 // Option: MaxHeight - CORE
 // Option: RequiredLayoutComponent - CORE
 // Option: Parent - CORE
+// Option: LocaleContext - CORE
+// Option: LinkUrlResolver - CORE
 // Option: Wrapper - CORE
 // Option: Theme - CORE
 // Option: Visible - CORE
@@ -80,6 +100,12 @@ public abstract class AbstractWebBackendAccordionItemOptions<S extends AbstractW
     protected final WebBackendParentComponentPartOptions parentComponentPart;
 
     protected final WebBackendBaseComponentPartOptions baseComponentPart;
+
+    protected ComponentCreator<? extends CoreFlexContainer, ? extends CoreFlexContainerOptions> headerCreator;
+
+    protected ComponentCreator<? extends CoreButton, ? extends CoreButtonOptions> toggleCreator;
+
+    protected ComponentCreator<? extends CoreContainer, ? extends CoreContainerOptions> contentCreator;
 
     protected AbstractWebBackendAccordionItemOptions() {
         this(null);
@@ -102,6 +128,8 @@ public abstract class AbstractWebBackendAccordionItemOptions<S extends AbstractW
 
         setTagName("div");
         setStyleClass("reuise-accordionitem");
+        setStoreInElementOptions(new ArrayList(Arrays.asList("expanded", "toggleAtEnd")));
+        setDirection(FlexDirection.COLUMN);
         return true;
     }
 
@@ -465,6 +493,22 @@ public abstract class AbstractWebBackendAccordionItemOptions<S extends AbstractW
 
     public WebBackendFlexContainerPartOptions getFlexContainerPart() {
         return flexContainerPart;
+    }
+
+    @Override
+    public ComponentAnimation getAnimation() {
+        return containerPart.getAnimation();
+    }
+
+    @Override
+    public ComponentOption<ComponentAnimation> getAnimationOption() {
+        return containerPart.getAnimationOption();
+    }
+
+    @Override
+    public S setAnimation(ComponentAnimation animation) {
+        this.containerPart.setAnimation(animation);
+        return self();
     }
 
     @Override
@@ -1830,6 +1874,38 @@ public abstract class AbstractWebBackendAccordionItemOptions<S extends AbstractW
     }
 
     @Override
+    public LocaleContext getLocaleContext() {
+        return baseComponentPart.getLocaleContext();
+    }
+
+    @Override
+    public ComponentOption<LocaleContext> getLocaleContextOption() {
+        return baseComponentPart.getLocaleContextOption();
+    }
+
+    @Override
+    public S setLocaleContext(LocaleContext localeContext) {
+        this.baseComponentPart.setLocaleContext(localeContext);
+        return self();
+    }
+
+    @Override
+    public Function<String, String> getLinkUrlResolver() {
+        return baseComponentPart.getLinkUrlResolver();
+    }
+
+    @Override
+    public ComponentOption<Function<String, String>> getLinkUrlResolverOption() {
+        return baseComponentPart.getLinkUrlResolverOption();
+    }
+
+    @Override
+    public S setLinkUrlResolver(Function<String, String> linkUrlResolver) {
+        this.baseComponentPart.setLinkUrlResolver(linkUrlResolver);
+        return self();
+    }
+
+    @Override
     public CoreParentComponent getWrapper() {
         return baseComponentPart.getWrapper();
     }
@@ -2094,6 +2170,60 @@ public abstract class AbstractWebBackendAccordionItemOptions<S extends AbstractW
         baseComponentPart.merge(other);
         if (((WebBackendAccordionItemOptions) (other)) instanceof WebBackendAccordionItemOptions) {
             WebBackendAccordionItemOptions otherWebBackendAccordionItemOptions = ((WebBackendAccordionItemOptions) (other));
+            CoreFlexContainerOptions otherHeaderOptions = otherWebBackendAccordionItemOptions.getHeaderOptions();
+            if (otherHeaderOptions != null)
+                setHeaderOptions(otherHeaderOptions);
+
+            CoreButtonOptions otherToggleOptions = otherWebBackendAccordionItemOptions.getToggleOptions();
+            if (otherToggleOptions != null)
+                setToggleOptions(otherToggleOptions);
+
+            CoreContainerOptions otherContentOptions = otherWebBackendAccordionItemOptions.getContentOptions();
+            if (otherContentOptions != null)
+                setContentOptions(otherContentOptions);
+
         }
+    }
+
+    public ComponentCreator<? extends CoreFlexContainer, ? extends CoreFlexContainerOptions> getHeaderCreator() {
+        return headerCreator;
+    }
+
+    public S setHeaderCreator(ComponentCreator<? extends WebBackendFlexContainer, ? extends WebBackendFlexContainerOptions> headerCreator) {
+        this.headerCreator = headerCreator;
+        return self();
+    }
+
+    protected WebBackendFlexContainerOptions createDefaultHeaderOptions() {
+        WebBackendFlexContainerOptions options = ((WebBackendFlexContainerOptions) (super.createDefaultHeaderOptions()));
+        return options;
+    }
+
+    public ComponentCreator<? extends CoreButton, ? extends CoreButtonOptions> getToggleCreator() {
+        return toggleCreator;
+    }
+
+    public S setToggleCreator(ComponentCreator<? extends WebBackendButton, ? extends WebBackendButtonOptions> toggleCreator) {
+        this.toggleCreator = toggleCreator;
+        return self();
+    }
+
+    protected WebBackendButtonOptions createDefaultToggleOptions() {
+        WebBackendButtonOptions options = ((WebBackendButtonOptions) (super.createDefaultToggleOptions()));
+        return options;
+    }
+
+    public ComponentCreator<? extends CoreContainer, ? extends CoreContainerOptions> getContentCreator() {
+        return contentCreator;
+    }
+
+    public S setContentCreator(ComponentCreator<? extends WebBackendContainer, ? extends WebBackendContainerOptions> contentCreator) {
+        this.contentCreator = contentCreator;
+        return self();
+    }
+
+    protected WebBackendContainerOptions createDefaultContentOptions() {
+        WebBackendContainerOptions options = ((WebBackendContainerOptions) (super.createDefaultContentOptions()));
+        return options;
     }
 }

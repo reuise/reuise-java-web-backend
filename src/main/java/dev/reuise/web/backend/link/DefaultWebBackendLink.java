@@ -5,14 +5,17 @@ import dev.reuise.core.CoreComponent;
 import dev.reuise.core.CoreComponentOptions;
 import dev.reuise.core.HtmlEscaper;
 import dev.reuise.core.Interaction;
+import dev.reuise.core.LinkUrlResolverState;
 import dev.reuise.core.RootComponent;
 import dev.reuise.core.State;
 import dev.reuise.core.option.OptionApplicator;
 import dev.reuise.core.parentcomponent.CoreParentComponentOptions;
 import dev.reuise.core.theme.Theme;
+import dev.reuise.web.backend.WebBackendComponent;
 import dev.reuise.web.backend.WebBackendComponentFactory;
 import dev.reuise.web.backend.WebBackendComponentType;
 import dev.reuise.web.backend.basecomponent.WebBackendBaseComponentPart;
+import dev.reuise.web.backend.icon.WebBackendIcon;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPart;
 import dev.reuise.web.core.WebRootComponent;
 import dev.reuise.web.core.link.DefaultWebLinkPart;
@@ -50,6 +53,8 @@ import java.util.Set;
 // Option: MaxHeight - CORE
 // Option: RequiredLayoutComponent - CORE
 // Option: Parent - CORE
+// Option: LocaleContext - CORE
+// Option: LinkUrlResolver - CORE
 // Option: Wrapper - CORE
 // Option: Theme - CORE
 // Option: Visible - CORE
@@ -122,7 +127,14 @@ public abstract class DefaultWebBackendLink<S extends DefaultWebBackendLink<S, O
 
     @Override
     public void setRootComponent(RootComponent rootComponent) {
+        super.setRootComponent(rootComponent);
         this.parentComponentPart.setRootComponent(rootComponent);
+        if (startIcon != null)
+            startIcon.setRootComponent(rootComponent);
+
+        if (endIcon != null)
+            endIcon.setRootComponent(rootComponent);
+
     }
 
     @Override
@@ -132,6 +144,13 @@ public abstract class DefaultWebBackendLink<S extends DefaultWebBackendLink<S, O
 
     @Override
     public S setTheme(Theme theme) {
+        super.setTheme(theme);
+        if (startIcon != null)
+            startIcon.setTheme(theme);
+
+        if (endIcon != null)
+            endIcon.setTheme(theme);
+
         this.parentComponentPart.setTheme(theme);
         return self();
     }
@@ -349,6 +368,16 @@ public abstract class DefaultWebBackendLink<S extends DefaultWebBackendLink<S, O
         onInitializeCommonStyle(((WebRootComponent) (rootComponent)).getCommonStyles());
     }
 
+    @Override
+    public WebBackendIcon getStartIcon() {
+        return ((WebBackendIcon) (super.getStartIcon()));
+    }
+
+    @Override
+    public WebBackendIcon getEndIcon() {
+        return ((WebBackendIcon) (super.getEndIcon()));
+    }
+
     public void onInitializeCommonStyle(StyleBuilder commonStyles) {
         super.onInitializeCommonStyle(commonStyles);
     }
@@ -395,14 +424,27 @@ public abstract class DefaultWebBackendLink<S extends DefaultWebBackendLink<S, O
         if (target != null)
             writer.write((" target=\"" + HtmlEscaper.attribute(target)) + "\"");
 
-        if (url != null)
-            writer.write((" href=\"" + HtmlEscaper.attribute(HtmlEscaper.url(url))) + "\"");
-
+        if (url != null) {
+            writer.write((" href=\"" + HtmlEscaper.attribute(LinkUrlResolverState.resolve(((LinkUrlResolverState) (getBaseComponentPart())), url))) + "\"");
+            writer.write((((" " + LinkUrlResolverState.ORIGINAL_HREF) + "=\"") + HtmlEscaper.attribute(url)) + "\"");
+        }
         writer.write(">");
+        CoreComponent startIcon = getStartIcon();
+        CoreComponent endIcon = getEndIcon();
+        if ((startIcon != null) && parentComponentPart.getChildren().contains(startIcon))
+            ((WebBackendComponent) (startIcon)).writeTo(writer);
+
         if (text != null)
             writer.write(HtmlEscaper.text(text));
 
-        parentComponentPart.writeTo(writer);
+        if ((endIcon != null) && parentComponentPart.getChildren().contains(endIcon))
+            ((WebBackendComponent) (endIcon)).writeTo(writer);
+
+        for (CoreComponent child : parentComponentPart.getChildren()) {
+            if ((child != startIcon) && (child != endIcon))
+                ((WebBackendComponent) (child)).writeTo(writer);
+
+        }
         writeEndTag(writer);
     }
 }

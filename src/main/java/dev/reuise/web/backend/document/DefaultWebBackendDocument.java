@@ -7,6 +7,7 @@ import dev.reuise.core.HtmlEscaper;
 import dev.reuise.core.Interaction;
 import dev.reuise.core.RootComponent;
 import dev.reuise.core.State;
+import dev.reuise.core.TextDirection;
 import dev.reuise.core.option.OptionApplicator;
 import dev.reuise.core.parentcomponent.CoreParentComponentOptions;
 import dev.reuise.core.theme.Theme;
@@ -32,6 +33,7 @@ import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheet;
 import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -67,6 +69,8 @@ import java.util.stream.Collectors;
 // Option: MaxHeight - CORE
 // Option: RequiredLayoutComponent - CORE
 // Option: Parent - CORE
+// Option: LocaleContext - CORE
+// Option: LinkUrlResolver - CORE
 // Option: Wrapper - CORE
 // Option: Theme - CORE
 // Option: Visible - CORE
@@ -108,6 +112,8 @@ import java.util.stream.Collectors;
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
 public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocument<S, O>, O extends WebBackendDocumentOptions> extends DefaultWebDocumentPart<S, O> implements WebBackendComponentType<S, O> , WebBackendDocument {
+    private final List<Map.Entry<String, String>> alternateLanguageLinks = new ArrayList<>();
+
     @Override
     public S addMetadata(String name, String value) {
         return addMetadata(new Metadata(name, value));
@@ -169,7 +175,7 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
     }
 
     private String scriptData(String json) {
-        return json.replace("<", "\\u003c").replace(">", "\\u003e").replace("&", "\\u0026").replace("?", "\\u2028").replace("?", "\\u2029");
+        return json.replace("<", "\\u003c").replace(">", "\\u003e").replace("&", "\\u0026").replace(" ", "\\u2028").replace(" ", "\\u2029");
     }
 
     @Override
@@ -223,6 +229,8 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
     protected String themeColor;
 
     protected String language;
+
+    protected TextDirection textDirection;
 
     protected String path;
 
@@ -957,14 +965,44 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
         return self();
     }
 
+    // Implementation
     @Override
     public String getLanguage() {
-        return language;
+        String attributeValue = getAttribute("lang");
+        return attributeValue == null ? language : attributeValue;
     }
 
+    // Implementation
     @Override
     public S setLanguage(String language) {
-        this.language = language;
+        if (language == null)
+            return self();
+
+        setLocaleContext(getLocaleContext().withLanguageTag(language));
+        this.language = getLocaleContext().getLanguageTag();
+        return self();
+    }
+
+    // Implementation
+    @Override
+    public TextDirection getTextDirection() {
+        String attributeValue = getAttribute("dir");
+        if ("ltr".equals(attributeValue))
+            return TextDirection.LTR;
+
+        if ("rtl".equals(attributeValue))
+            return TextDirection.RTL;
+
+        if ("auto".equals(attributeValue))
+            return TextDirection.AUTO;
+
+        return null;
+    }
+
+    // Implementation
+    @Override
+    public S setTextDirection(TextDirection textDirection) {
+        setLocaleContext(getLocaleContext().withTextDirection(textDirection));
         return self();
     }
 
@@ -1055,13 +1093,47 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
     }
 
     // Implementation
+    public S addAlternateLanguageLink(String languageTag, String url) {
+        if ((languageTag == null) || languageTag.isBlank())
+            throw new IllegalArgumentException("Language tag must not be blank");
+
+        if ((url == null) || url.isBlank())
+            throw new IllegalArgumentException("Alternate-language URL must not be blank");
+
+        alternateLanguageLinks.add(new AbstractMap.SimpleImmutableEntry<>(languageTag, url));
+        return self();
+    }
+
+    // Implementation
     @Override
     public void writeTo(PrintWriter writer) {
         // Scope component style deduplication to this single document render, so identical
         // components on this page can share one <style> element without leaking state across
         // unrelated requests.
         StyleDeduplicationRegistry.reset();
-        writer.write(("<!DOCTYPE html><html lang=\"" + HtmlEscaper.attribute(language)) + "\">");
+        writer.write(("<!DOCTYPE html><html lang=\"" + HtmlEscaper.attribute(getLanguage())) + "\"");
+        String textDirection = getAttribute("dir");
+        if (textDirection != null)
+            writer.write((" dir=\"" + HtmlEscaper.attribute(textDirection)) + "\"");
+
+        String localeSnapshot = getAttribute("data-reuise-locale");
+        if (localeSnapshot != null)
+            writer.write((" data-reuise-locale=\"" + HtmlEscaper.attribute(localeSnapshot)) + "\"");
+
+        Map<String, String> attributes = getBaseComponentPart().getAttributes();
+        if (attributes != null) {
+            attributes.forEach((name, value) -> {
+                HtmlEscaper.attributeName(name);
+                if (("lang".equalsIgnoreCase(name) || "dir".equalsIgnoreCase(name)) || "data-reuise-locale".equalsIgnoreCase(name))
+                    return;
+
+                writer.write(" " + name);
+                if (value != null)
+                    writer.write(("=\"" + HtmlEscaper.attribute(value)) + "\"");
+
+            });
+        }
+        writer.write(">");
         writer.write("<head>");
         if ((frontendScript != null) && (!frontendScript.isEmpty())) {
             writer.write(("<script type=\"text/javascript\" language=\"javascript\" src=\"" + HtmlEscaper.attribute(frontendScript)) + "\"></script>");
@@ -1110,6 +1182,9 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
 
         if (canonicalUrl != null)
             writer.write(("<link rel=\"canonical\" href=\"" + HtmlEscaper.attribute(canonicalUrl)) + "\">");
+
+        for (Map.Entry<String, String> link : alternateLanguageLinks)
+            writer.write(((("<link rel=\"alternate\" hreflang=\"" + HtmlEscaper.attribute(link.getKey())) + "\" href=\"") + HtmlEscaper.attribute(link.getValue())) + "\">");
 
         if ((externalStyleSheet != null) && (!externalStyleSheet.isEmpty())) {
             externalStyleSheet.stream().forEach(s -> {

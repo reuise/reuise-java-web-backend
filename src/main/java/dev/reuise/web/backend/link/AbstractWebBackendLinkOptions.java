@@ -1,13 +1,19 @@
 package dev.reuise.web.backend.link;
 import dev.reuise.core.CoreComponent;
 import dev.reuise.core.CoreComponentOptions;
+import dev.reuise.core.LocaleContext;
 import dev.reuise.core.ScreenSizeValues;
 import dev.reuise.core.State;
 import dev.reuise.core.basecomponent.CoreBaseComponent;
+import dev.reuise.core.icon.CoreIcon;
+import dev.reuise.core.icon.CoreIconOptions;
+import dev.reuise.core.option.ComponentCreator;
 import dev.reuise.core.option.ComponentOption;
 import dev.reuise.core.parentcomponent.CoreParentComponent;
 import dev.reuise.core.theme.Theme;
 import dev.reuise.web.backend.basecomponent.WebBackendBaseComponentPartOptions;
+import dev.reuise.web.backend.icon.WebBackendIcon;
+import dev.reuise.web.backend.icon.WebBackendIconOptions;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentOptions;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPartOptions;
 import dev.reuise.web.core.link.AbstractWebLinkOptions;
@@ -17,6 +23,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 // Option: Children - CORE
 // Option: Id - WEB
 // Option: TagName - WEB
@@ -45,6 +52,8 @@ import java.util.Map;
 // Option: MaxHeight - CORE
 // Option: RequiredLayoutComponent - CORE
 // Option: Parent - CORE
+// Option: LocaleContext - CORE
+// Option: LinkUrlResolver - CORE
 // Option: Wrapper - CORE
 // Option: Theme - CORE
 // Option: Visible - CORE
@@ -56,6 +65,10 @@ public abstract class AbstractWebBackendLinkOptions<S extends AbstractWebBackend
     protected final WebBackendParentComponentPartOptions parentComponentPart;
 
     protected final WebBackendBaseComponentPartOptions baseComponentPart;
+
+    protected ComponentCreator<? extends CoreIcon, ? extends CoreIconOptions> startIconCreator;
+
+    protected ComponentCreator<? extends CoreIcon, ? extends CoreIconOptions> endIconCreator;
 
     protected AbstractWebBackendLinkOptions() {
         this(null);
@@ -76,7 +89,7 @@ public abstract class AbstractWebBackendLinkOptions<S extends AbstractWebBackend
 
         setTagName("a");
         setBaseStyleClass("reuise-link");
-        setStoreInElementOptions(new ArrayList(Arrays.asList("useHistoryApi")));
+        setStoreInElementOptions(new ArrayList(Arrays.asList("externalIndicator", "useHistoryApi")));
         return true;
     }
 
@@ -1037,6 +1050,38 @@ public abstract class AbstractWebBackendLinkOptions<S extends AbstractWebBackend
     }
 
     @Override
+    public LocaleContext getLocaleContext() {
+        return baseComponentPart.getLocaleContext();
+    }
+
+    @Override
+    public ComponentOption<LocaleContext> getLocaleContextOption() {
+        return baseComponentPart.getLocaleContextOption();
+    }
+
+    @Override
+    public S setLocaleContext(LocaleContext localeContext) {
+        this.baseComponentPart.setLocaleContext(localeContext);
+        return self();
+    }
+
+    @Override
+    public Function<String, String> getLinkUrlResolver() {
+        return baseComponentPart.getLinkUrlResolver();
+    }
+
+    @Override
+    public ComponentOption<Function<String, String>> getLinkUrlResolverOption() {
+        return baseComponentPart.getLinkUrlResolverOption();
+    }
+
+    @Override
+    public S setLinkUrlResolver(Function<String, String> linkUrlResolver) {
+        this.baseComponentPart.setLinkUrlResolver(linkUrlResolver);
+        return self();
+    }
+
+    @Override
     public CoreParentComponent getWrapper() {
         return baseComponentPart.getWrapper();
     }
@@ -1301,6 +1346,42 @@ public abstract class AbstractWebBackendLinkOptions<S extends AbstractWebBackend
         baseComponentPart.merge(other);
         if (((WebBackendLinkOptions) (other)) instanceof WebBackendLinkOptions) {
             WebBackendLinkOptions otherWebBackendLinkOptions = ((WebBackendLinkOptions) (other));
+            CoreIconOptions otherStartIconOptions = otherWebBackendLinkOptions.getStartIconOptions();
+            if (otherStartIconOptions != null)
+                setStartIconOptions(otherStartIconOptions);
+
+            CoreIconOptions otherEndIconOptions = otherWebBackendLinkOptions.getEndIconOptions();
+            if (otherEndIconOptions != null)
+                setEndIconOptions(otherEndIconOptions);
+
         }
+    }
+
+    public ComponentCreator<? extends CoreIcon, ? extends CoreIconOptions> getStartIconCreator() {
+        return startIconCreator;
+    }
+
+    public S setStartIconCreator(ComponentCreator<? extends WebBackendIcon, ? extends WebBackendIconOptions> startIconCreator) {
+        this.startIconCreator = startIconCreator;
+        return self();
+    }
+
+    protected WebBackendIconOptions createDefaultStartIconOptions() {
+        WebBackendIconOptions options = ((WebBackendIconOptions) (super.createDefaultStartIconOptions()));
+        return options;
+    }
+
+    public ComponentCreator<? extends CoreIcon, ? extends CoreIconOptions> getEndIconCreator() {
+        return endIconCreator;
+    }
+
+    public S setEndIconCreator(ComponentCreator<? extends WebBackendIcon, ? extends WebBackendIconOptions> endIconCreator) {
+        this.endIconCreator = endIconCreator;
+        return self();
+    }
+
+    protected WebBackendIconOptions createDefaultEndIconOptions() {
+        WebBackendIconOptions options = ((WebBackendIconOptions) (super.createDefaultEndIconOptions()));
+        return options;
     }
 }
