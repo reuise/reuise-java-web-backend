@@ -14,11 +14,13 @@ import dev.reuise.web.backend.WebBackendComponentType;
 import dev.reuise.web.backend.basecomponent.WebBackendBaseComponentPart;
 import dev.reuise.web.core.WebRootComponent;
 import dev.reuise.web.core.badge.DefaultWebBadgePart;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 // Option: Id - WEB
 // Option: TagName - WEB
@@ -88,7 +90,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendBadge<S extends DefaultWebBackendBadge<S, O>, O extends WebBackendBadgeOptions> extends DefaultWebBadgePart<S, O> implements WebBackendComponentType<S, O> , WebBackendBadge {
+public abstract class DefaultWebBackendBadge<S extends DefaultWebBackendBadge<S, O>, O extends WebBackendBadgeOptions> extends DefaultWebBadgePart<S, O> implements ClientConfigurationSource , WebBackendComponentType<S, O> , WebBackendBadge {
     protected final WebBackendBaseComponentPart baseComponentPart;
 
     protected String label;
@@ -358,5 +360,14 @@ public abstract class DefaultWebBackendBadge<S extends DefaultWebBackendBadge<S,
     public S setLabel(String label) {
         this.label = label;
         return self();
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        values.put("label", getLabel());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("Badge", values);
     }
 }

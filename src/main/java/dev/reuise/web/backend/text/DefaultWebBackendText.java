@@ -16,12 +16,14 @@ import dev.reuise.web.backend.WebBackendComponentType;
 import dev.reuise.web.backend.basecomponent.WebBackendBaseComponentPart;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPart;
 import dev.reuise.web.core.WebRootComponent;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.web.core.text.DefaultWebTextPart;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 // Option: Children - CORE
 // Option: Id - WEB
@@ -93,7 +95,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendText<S extends DefaultWebBackendText<S, O>, O extends WebBackendTextOptions> extends DefaultWebTextPart<S, O> implements WebBackendComponentType<S, O> , WebBackendText {
+public abstract class DefaultWebBackendText<S extends DefaultWebBackendText<S, O>, O extends WebBackendTextOptions> extends DefaultWebTextPart<S, O> implements ClientConfigurationSource , WebBackendComponentType<S, O> , WebBackendText {
     protected final WebBackendParentComponentPart parentComponentPart;
 
     protected final WebBackendBaseComponentPart baseComponentPart;
@@ -399,5 +401,16 @@ public abstract class DefaultWebBackendText<S extends DefaultWebBackendText<S, O
         // writeStartTag(writer);
         writer.write(getHtmlContent() != null ? getHtmlContent().toString() : HtmlEscaper.text(text));
         // writeEndTag(writer);
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        values.put("loading", isLoading());
+        values.put("text", getText());
+        values.put("highlightText", getHighlightText());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("Text", values);
     }
 }

@@ -16,12 +16,14 @@ import dev.reuise.web.backend.WebBackendComponentType;
 import dev.reuise.web.backend.basecomponent.WebBackendBaseComponentPart;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPart;
 import dev.reuise.web.core.WebRootComponent;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.web.core.text.DefaultWebTextBlockPart;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 // Option: Loading - CORE
 // Option: SkeletonOptions - CORE
@@ -104,7 +106,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendTextBlock<S extends DefaultWebBackendTextBlock<S, O>, O extends WebBackendTextBlockOptions> extends DefaultWebTextBlockPart<S, O> implements WebBackendComponentType<S, O> , WebBackendTextBlock {
+public abstract class DefaultWebBackendTextBlock<S extends DefaultWebBackendTextBlock<S, O>, O extends WebBackendTextBlockOptions> extends DefaultWebTextBlockPart<S, O> implements ClientConfigurationSource , WebBackendComponentType<S, O> , WebBackendTextBlock {
     protected final WebBackendTextPart textPart;
 
     protected final WebBackendParentComponentPart parentComponentPart;
@@ -384,5 +386,16 @@ public abstract class DefaultWebBackendTextBlock<S extends DefaultWebBackendText
 
     public void onInitializeCommonStyle(StyleBuilder commonStyles) {
         super.onInitializeCommonStyle(commonStyles);
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        values.put("loading", isLoading());
+        values.put("text", getText());
+        values.put("highlightText", getHighlightText());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("TextBlock", values);
     }
 }

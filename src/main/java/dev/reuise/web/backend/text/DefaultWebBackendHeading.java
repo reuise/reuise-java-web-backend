@@ -16,12 +16,14 @@ import dev.reuise.web.backend.WebBackendComponentType;
 import dev.reuise.web.backend.basecomponent.WebBackendBaseComponentPart;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPart;
 import dev.reuise.web.core.WebRootComponent;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.web.core.text.DefaultWebHeadingPart;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 // Option: Loading - CORE
 // Option: SkeletonOptions - CORE
@@ -104,7 +106,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendHeading<S extends DefaultWebBackendHeading<S, O>, O extends WebBackendHeadingOptions> extends DefaultWebHeadingPart<S, O> implements WebBackendHeading , WebBackendComponentType<S, O> {
+public abstract class DefaultWebBackendHeading<S extends DefaultWebBackendHeading<S, O>, O extends WebBackendHeadingOptions> extends DefaultWebHeadingPart<S, O> implements ClientConfigurationSource , WebBackendHeading , WebBackendComponentType<S, O> {
     protected final WebBackendTextPart textPart;
 
     protected final WebBackendParentComponentPart parentComponentPart;
@@ -386,5 +388,17 @@ public abstract class DefaultWebBackendHeading<S extends DefaultWebBackendHeadin
         writer.write(getHtmlContent() != null ? getHtmlContent().toString() : HtmlEscaper.text(text));
         this.parentComponentPart.writeTo(writer);
         writeEndTag(writer, "h" + level);
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        values.put("loading", isLoading());
+        values.put("text", getText());
+        values.put("highlightText", getHighlightText());
+        values.put("level", getLevel());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("Heading", values);
     }
 }

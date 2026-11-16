@@ -15,6 +15,7 @@ import dev.reuise.web.backend.WebBackendComponentFactory;
 import dev.reuise.web.backend.WebBackendComponentType;
 import dev.reuise.web.backend.basecomponent.WebBackendBaseComponentPart;
 import dev.reuise.web.core.WebRootComponent;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.web.core.input.DefaultWebBasicInputFieldPart;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
@@ -23,6 +24,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 // Option: Id - WEB
 // Option: TagName - WEB
@@ -92,7 +94,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendBasicInputField<S extends DefaultWebBackendBasicInputField<S, O>, O extends WebBackendBasicInputFieldOptions> extends DefaultWebBasicInputFieldPart<S, O> implements WebBackendComponentType<S, O> , WebBackendBasicInputField {
+public abstract class DefaultWebBackendBasicInputField<S extends DefaultWebBackendBasicInputField<S, O>, O extends WebBackendBasicInputFieldOptions> extends DefaultWebBasicInputFieldPart<S, O> implements ClientConfigurationSource , WebBackendComponentType<S, O> , WebBackendBasicInputField {
     @Override
     public S addText(String text) {
         value += text;
@@ -401,5 +403,19 @@ public abstract class DefaultWebBackendBasicInputField<S extends DefaultWebBacke
     public S setValidator(InputValidator validator) {
         setValidators(new ArrayList<InputValidator>(Arrays.asList(validator)));
         return self();
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        values.put("value", getValue());
+        values.put("placeholder", getPlaceholder());
+        values.put("pattern", getPattern());
+        values.put("multiline", isMultiline());
+        values.put("maxLines", getMaxLines());
+        values.put("error", isError());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("BasicInputField", values);
     }
 }

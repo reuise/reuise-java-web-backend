@@ -21,12 +21,14 @@ import dev.reuise.web.backend.list.WebBackendListItemPart;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPart;
 import dev.reuise.web.backend.text.WebBackendInlineText;
 import dev.reuise.web.core.WebRootComponent;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.web.core.menu.DefaultWebMenuItemPart;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 // Option: Loading - CORE
 // Option: SkeletonOptions - CORE
@@ -107,7 +109,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendMenuItem<S extends DefaultWebBackendMenuItem<S, O>, O extends WebBackendMenuItemOptions> extends DefaultWebMenuItemPart<S, O> implements WebBackendMenuItem , WebBackendComponentType<S, O> {
+public abstract class DefaultWebBackendMenuItem<S extends DefaultWebBackendMenuItem<S, O>, O extends WebBackendMenuItemOptions> extends DefaultWebMenuItemPart<S, O> implements WebBackendMenuItem , ClientConfigurationSource , WebBackendComponentType<S, O> {
     protected final WebBackendListItemPart listItemPart;
 
     protected final WebBackendBasicListItemPart basicListItemPart;
@@ -439,5 +441,19 @@ public abstract class DefaultWebBackendMenuItem<S extends DefaultWebBackendMenuI
         writeStartTag(writer);
         parentComponentPart.writeTo(writer);
         writeEndTag(writer);
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        values.put("url", getUrl());
+        values.put("loading", isLoading());
+        values.put("label", getLabel());
+        values.put("secondaryLabel", getSecondaryLabel());
+        values.put("hasCheckbox", isHasCheckbox());
+        values.put("toggleCheckboxOnClick", isToggleCheckboxOnClick());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("MenuItem", values);
     }
 }

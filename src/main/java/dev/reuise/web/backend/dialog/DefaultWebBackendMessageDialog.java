@@ -20,11 +20,13 @@ import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPart;
 import dev.reuise.web.backend.text.WebBackendHeading;
 import dev.reuise.web.core.WebRootComponent;
 import dev.reuise.web.core.dialog.DefaultWebMessageDialogPart;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 // Option: Title - CORE
 // Option: Open - CORE
@@ -108,7 +110,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendMessageDialog<S extends DefaultWebBackendMessageDialog<S, O>, O extends WebBackendMessageDialogOptions> extends DefaultWebMessageDialogPart<S, O> implements WebBackendComponentType<S, O> , WebBackendMessageDialog {
+public abstract class DefaultWebBackendMessageDialog<S extends DefaultWebBackendMessageDialog<S, O>, O extends WebBackendMessageDialogOptions> extends DefaultWebMessageDialogPart<S, O> implements ClientConfigurationSource , WebBackendComponentType<S, O> , WebBackendMessageDialog {
     protected final WebBackendDialogPart dialogPart;
 
     protected final WebBackendParentComponentPart parentComponentPart;
@@ -426,5 +428,19 @@ public abstract class DefaultWebBackendMessageDialog<S extends DefaultWebBackend
 
     public void onInitializeCommonStyle(StyleBuilder commonStyles) {
         super.onInitializeCommonStyle(commonStyles);
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        values.put("title", getTitle());
+        values.put("open", isOpen());
+        values.put("removeOnClose", isRemoveOnClose());
+        values.put("hasAcceptButton", isHasAcceptButton());
+        values.put("hasCancelButton", isHasCancelButton());
+        values.put("text", getText());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("MessageDialog", values);
     }
 }

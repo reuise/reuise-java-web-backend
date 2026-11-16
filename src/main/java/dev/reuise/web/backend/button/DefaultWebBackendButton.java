@@ -17,11 +17,13 @@ import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPart;
 import dev.reuise.web.backend.text.WebBackendInlineText;
 import dev.reuise.web.core.WebRootComponent;
 import dev.reuise.web.core.button.DefaultWebButtonPart;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 // Option: Children - CORE
 // Option: Id - WEB
@@ -93,7 +95,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendButton<S extends DefaultWebBackendButton<S, O>, O extends WebBackendButtonOptions> extends DefaultWebButtonPart<S, O> implements WebBackendComponentType<S, O> , WebBackendButton {
+public abstract class DefaultWebBackendButton<S extends DefaultWebBackendButton<S, O>, O extends WebBackendButtonOptions> extends DefaultWebButtonPart<S, O> implements ClientConfigurationSource , WebBackendComponentType<S, O> , WebBackendButton {
     protected final WebBackendParentComponentPart parentComponentPart;
 
     protected final WebBackendBaseComponentPart baseComponentPart;
@@ -404,5 +406,26 @@ public abstract class DefaultWebBackendButton<S extends DefaultWebBackendButton<
         writeStartTag(writer, hasAttribute("href") ? "a" : "button", true);
         this.parentComponentPart.writeTo(writer);
         writeEndTag(writer, hasAttribute("href") ? "a" : "button");
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        values.put("hoverScale", getHoverScale());
+        values.put("border", getBorder());
+        values.put("borderColor", getBorderColor());
+        values.put("borderWidth", getBorderWidth());
+        values.put("borderRadius", getBorderRadius());
+        values.put("background", getBackground());
+        values.put("backgroundColor", getBackgroundColor());
+        values.put("useHistoryApi", isUseHistoryApi());
+        values.put("loading", isLoading());
+        values.put("label", getLabel());
+        values.put("size", getSize() == null ? null : getSize().name());
+        values.put("type", getType() == null ? null : getType().name());
+        values.put("target", getTarget());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("Button", values);
     }
 }

@@ -17,6 +17,7 @@ import dev.reuise.web.backend.layout.WebBackendContainerPart;
 import dev.reuise.web.backend.layout.WebBackendFlexContainerPart;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPart;
 import dev.reuise.web.core.WebRootComponent;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.web.core.view.DefaultWebViewPart;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
@@ -116,7 +117,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendView<S extends DefaultWebBackendView<S, O>, O extends WebBackendViewOptions> extends DefaultWebViewPart<S, O> implements WebBackendComponentType<S, O> , WebBackendView {
+public abstract class DefaultWebBackendView<S extends DefaultWebBackendView<S, O>, O extends WebBackendViewOptions> extends DefaultWebViewPart<S, O> implements ClientConfigurationSource , WebBackendComponentType<S, O> , WebBackendView {
     @Override
     public String getParameter(String parameter) {
         return null;
@@ -427,5 +428,15 @@ public abstract class DefaultWebBackendView<S extends DefaultWebBackendView<S, O
         writeStartTag(writer);
         parentComponentPart.writeTo(writer);
         writeEndTag(writer);
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        values.put("title", getTitle());
+        values.put("revealed", isRevealed());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("View", values);
     }
 }

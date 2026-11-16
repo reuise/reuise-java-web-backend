@@ -18,12 +18,14 @@ import dev.reuise.web.backend.layout.WebBackendContainerPart;
 import dev.reuise.web.backend.layout.WebBackendFlexContainerPart;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPart;
 import dev.reuise.web.core.WebRootComponent;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.web.core.navigation.DefaultWebNavigationTreePart;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 // Option: Direction - CORE
 // Option: JustifyContent - CORE
@@ -117,7 +119,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendNavigationTree<S extends DefaultWebBackendNavigationTree<S, O>, O extends WebBackendNavigationTreeOptions> extends DefaultWebNavigationTreePart<S, O> implements WebBackendNavigationTree , WebBackendComponentType<S, O> {
+public abstract class DefaultWebBackendNavigationTree<S extends DefaultWebBackendNavigationTree<S, O>, O extends WebBackendNavigationTreeOptions> extends DefaultWebNavigationTreePart<S, O> implements WebBackendNavigationTree , ClientConfigurationSource , WebBackendComponentType<S, O> {
     protected final WebBackendAccordionPart accordionPart;
 
     protected final WebBackendFlexContainerPart flexContainerPart;
@@ -421,5 +423,13 @@ public abstract class DefaultWebBackendNavigationTree<S extends DefaultWebBacken
         writeStartTag(writer);
         parentComponentPart.writeTo(writer);
         writeEndTag(writer);
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("NavigationTree", values);
     }
 }

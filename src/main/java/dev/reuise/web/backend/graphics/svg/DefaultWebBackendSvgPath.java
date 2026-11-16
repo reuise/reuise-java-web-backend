@@ -18,11 +18,13 @@ import dev.reuise.web.core.graphics.svg.DefaultWebSvgPathPart;
 import dev.reuise.web.core.graphics.svg.WebSvgPath;
 import dev.reuise.web.core.graphics.svg.WebSvgPathOptions;
 import dev.reuise.web.core.graphics.svg.WebSvgShapeOptions;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 // Option: Fill - WEB
 // Option: Stroke - WEB
@@ -111,7 +113,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendSvgPath<S extends DefaultWebBackendSvgPath<S, O>, O extends WebBackendSvgPathOptions> extends DefaultWebSvgPathPart<S, O> implements WebBackendComponentType<S, O> , WebBackendSvgPath {
+public abstract class DefaultWebBackendSvgPath<S extends DefaultWebBackendSvgPath<S, O>, O extends WebBackendSvgPathOptions> extends DefaultWebSvgPathPart<S, O> implements ClientConfigurationSource , WebBackendComponentType<S, O> , WebBackendSvgPath {
     protected final WebBackendSvgShapePart svgShapePart;
 
     protected final WebBackendSvgPart svgPart;
@@ -431,5 +433,13 @@ public abstract class DefaultWebBackendSvgPath<S extends DefaultWebBackendSvgPat
 
     public void onInitializeCommonStyle(StyleBuilder commonStyles) {
         super.onInitializeCommonStyle(commonStyles);
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("SvgPath", values);
     }
 }

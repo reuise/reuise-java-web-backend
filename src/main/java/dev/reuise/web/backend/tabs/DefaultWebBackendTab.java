@@ -18,12 +18,14 @@ import dev.reuise.web.backend.link.WebBackendLink;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPart;
 import dev.reuise.web.backend.text.WebBackendInlineText;
 import dev.reuise.web.core.WebRootComponent;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.web.core.tabs.DefaultWebTabPart;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 // Option: Children - CORE
 // Option: Id - WEB
@@ -95,7 +97,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendTab<S extends DefaultWebBackendTab<S, O>, O extends WebBackendTabOptions> extends DefaultWebTabPart<S, O> implements WebBackendComponentType<S, O> , WebBackendTab {
+public abstract class DefaultWebBackendTab<S extends DefaultWebBackendTab<S, O>, O extends WebBackendTabOptions> extends DefaultWebTabPart<S, O> implements ClientConfigurationSource , WebBackendComponentType<S, O> , WebBackendTab {
     protected final WebBackendParentComponentPart parentComponentPart;
 
     protected final WebBackendBaseComponentPart baseComponentPart;
@@ -416,5 +418,17 @@ public abstract class DefaultWebBackendTab<S extends DefaultWebBackendTab<S, O>,
         writeStartTag(writer);
         parentComponentPart.writeTo(writer);
         writeEndTag(writer);
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        values.put("label", getLabel());
+        values.put("url", getUrl());
+        values.put("badgeVisible", isBadgeVisible());
+        values.put("badgeLabel", getBadgeLabel());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("Tab", values);
     }
 }

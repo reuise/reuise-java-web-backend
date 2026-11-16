@@ -16,12 +16,14 @@ import dev.reuise.web.backend.WebBackendComponentType;
 import dev.reuise.web.backend.basecomponent.WebBackendBaseComponentPart;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPart;
 import dev.reuise.web.core.WebRootComponent;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.web.core.layout.DefaultWebContainerPart;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 // Option: Children - CORE
 // Option: Id - WEB
@@ -93,7 +95,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendContainer<S extends DefaultWebBackendContainer<S, O>, O extends WebBackendContainerOptions> extends DefaultWebContainerPart<S, O> implements WebBackendComponentType<S, O> , WebBackendContainer {
+public abstract class DefaultWebBackendContainer<S extends DefaultWebBackendContainer<S, O>, O extends WebBackendContainerOptions> extends DefaultWebContainerPart<S, O> implements ClientConfigurationSource , WebBackendComponentType<S, O> , WebBackendContainer {
     protected final WebBackendParentComponentPart parentComponentPart;
 
     protected final WebBackendBaseComponentPart baseComponentPart;
@@ -412,5 +414,13 @@ public abstract class DefaultWebBackendContainer<S extends DefaultWebBackendCont
         writeStartTag(writer);
         this.parentComponentPart.writeTo(writer);
         writeEndTag(writer);
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("Container", values);
     }
 }

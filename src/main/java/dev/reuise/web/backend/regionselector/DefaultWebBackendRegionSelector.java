@@ -18,6 +18,7 @@ import dev.reuise.web.backend.menu.WebBackendMenu;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPart;
 import dev.reuise.web.backend.selectmenu.WebBackendSelectMenuPart;
 import dev.reuise.web.core.WebRootComponent;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.web.core.regionselector.DefaultWebRegionSelectorPart;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
@@ -26,6 +27,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 // Option: Items - CORE
 // Option: Children - CORE
@@ -100,7 +102,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendRegionSelector<S extends DefaultWebBackendRegionSelector<S, O>, O extends WebBackendRegionSelectorOptions> extends DefaultWebRegionSelectorPart<S, O> implements WebBackendRegionSelector , WebBackendComponentType<S, O> {
+public abstract class DefaultWebBackendRegionSelector<S extends DefaultWebBackendRegionSelector<S, O>, O extends WebBackendRegionSelectorOptions> extends DefaultWebRegionSelectorPart<S, O> implements WebBackendRegionSelector , ClientConfigurationSource , WebBackendComponentType<S, O> {
     protected final WebBackendSelectMenuPart selectMenuPart;
 
     protected final WebBackendParentComponentPart parentComponentPart;
@@ -395,5 +397,14 @@ public abstract class DefaultWebBackendRegionSelector<S extends DefaultWebBacken
         writeStartTag(writer);
         parentComponentPart.writeTo(writer);
         writeEndTag(writer);
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        values.put("defaultFromBrowser", isDefaultFromBrowser());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("RegionSelector", values);
     }
 }

@@ -19,12 +19,14 @@ import dev.reuise.web.backend.link.WebBackendLink;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPart;
 import dev.reuise.web.backend.text.WebBackendInlineText;
 import dev.reuise.web.core.WebRootComponent;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.web.core.list.DefaultWebListItemPart;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 // Option: Url - CORE
 // Option: Children - CORE
@@ -98,7 +100,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendListItem<S extends DefaultWebBackendListItem<S, O>, O extends WebBackendListItemOptions> extends DefaultWebListItemPart<S, O> implements WebBackendComponentType<S, O> , WebBackendListItem {
+public abstract class DefaultWebBackendListItem<S extends DefaultWebBackendListItem<S, O>, O extends WebBackendListItemOptions> extends DefaultWebListItemPart<S, O> implements ClientConfigurationSource , WebBackendComponentType<S, O> , WebBackendListItem {
     protected final WebBackendBasicListItemPart basicListItemPart;
 
     protected final WebBackendParentComponentPart parentComponentPart;
@@ -447,5 +449,19 @@ public abstract class DefaultWebBackendListItem<S extends DefaultWebBackendListI
         writeStartTag(writer);
         this.parentComponentPart.writeTo(writer);
         writeEndTag(writer);
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        values.put("url", getUrl());
+        values.put("loading", isLoading());
+        values.put("label", getLabel());
+        values.put("secondaryLabel", getSecondaryLabel());
+        values.put("hasCheckbox", isHasCheckbox());
+        values.put("toggleCheckboxOnClick", isToggleCheckboxOnClick());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("ListItem", values);
     }
 }

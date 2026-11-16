@@ -18,12 +18,14 @@ import dev.reuise.web.backend.splitcontainer.WebBackendSplitContainerDivider;
 import dev.reuise.web.backend.splitcontainer.WebBackendSplitContainerPanel;
 import dev.reuise.web.backend.splitcontainer.WebBackendSplitContainerPart;
 import dev.reuise.web.core.WebRootComponent;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.web.core.layout.DefaultWebSheetLayoutPart;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 // Option: Direction - CORE
 // Option: ReverseDirection - CORE
@@ -115,7 +117,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendSheetLayout<S extends DefaultWebBackendSheetLayout<S, O>, O extends WebBackendSheetLayoutOptions> extends DefaultWebSheetLayoutPart<S, O> implements WebBackendSheetLayout , WebBackendComponentType<S, O> {
+public abstract class DefaultWebBackendSheetLayout<S extends DefaultWebBackendSheetLayout<S, O>, O extends WebBackendSheetLayoutOptions> extends DefaultWebSheetLayoutPart<S, O> implements WebBackendSheetLayout , ClientConfigurationSource , WebBackendComponentType<S, O> {
     protected final WebBackendSplitContainerPart splitContainerPart;
 
     protected final WebBackendContainerPart containerPart;
@@ -432,5 +434,14 @@ public abstract class DefaultWebBackendSheetLayout<S extends DefaultWebBackendSh
         writeStartTag(writer);
         parentComponentPart.writeTo(writer);
         writeEndTag(writer);
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        values.put("resizable", isResizable());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("SheetLayout", values);
     }
 }

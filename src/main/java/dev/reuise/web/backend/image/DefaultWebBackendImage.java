@@ -14,12 +14,14 @@ import dev.reuise.web.backend.WebBackendComponentType;
 import dev.reuise.web.backend.basecomponent.WebBackendBaseComponentPart;
 import dev.reuise.web.backend.link.WebBackendLink;
 import dev.reuise.web.core.WebRootComponent;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.web.core.image.DefaultWebImagePart;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 // Option: Id - WEB
 // Option: TagName - WEB
@@ -89,7 +91,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendImage<S extends DefaultWebBackendImage<S, O>, O extends WebBackendImageOptions> extends DefaultWebImagePart<S, O> implements WebBackendComponentType<S, O> , WebBackendImage {
+public abstract class DefaultWebBackendImage<S extends DefaultWebBackendImage<S, O>, O extends WebBackendImageOptions> extends DefaultWebImagePart<S, O> implements ClientConfigurationSource , WebBackendComponentType<S, O> , WebBackendImage {
     protected final WebBackendBaseComponentPart baseComponentPart;
 
     protected DefaultWebBackendImage(O options) {
@@ -349,5 +351,14 @@ public abstract class DefaultWebBackendImage<S extends DefaultWebBackendImage<S,
 
     public void onInitializeCommonStyle(StyleBuilder commonStyles) {
         super.onInitializeCommonStyle(commonStyles);
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        values.put("linkUrl", getLinkUrl());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("Image", values);
     }
 }

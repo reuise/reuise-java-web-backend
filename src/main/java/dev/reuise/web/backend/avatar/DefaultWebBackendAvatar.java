@@ -19,11 +19,13 @@ import dev.reuise.web.backend.image.WebBackendImage;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPart;
 import dev.reuise.web.core.WebRootComponent;
 import dev.reuise.web.core.avatar.DefaultWebAvatarPart;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 // Option: Children - CORE
 // Option: Id - WEB
@@ -95,7 +97,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendAvatar<S extends DefaultWebBackendAvatar<S, O>, O extends WebBackendAvatarOptions> extends DefaultWebAvatarPart<S, O> implements WebBackendComponentType<S, O> , WebBackendAvatar {
+public abstract class DefaultWebBackendAvatar<S extends DefaultWebBackendAvatar<S, O>, O extends WebBackendAvatarOptions> extends DefaultWebAvatarPart<S, O> implements ClientConfigurationSource , WebBackendComponentType<S, O> , WebBackendAvatar {
     protected final WebBackendParentComponentPart parentComponentPart;
 
     protected final WebBackendBaseComponentPart baseComponentPart;
@@ -388,5 +390,17 @@ public abstract class DefaultWebBackendAvatar<S extends DefaultWebBackendAvatar<
         writeStartTag(writer);
         parentComponentPart.writeTo(writer);
         writeEndTag(writer);
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        values.put("url", getUrl());
+        values.put("displayName", getDisplayName());
+        values.put("shape", getShape() == null ? null : getShape().name());
+        values.put("badgeVisible", isBadgeVisible());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("Avatar", values);
     }
 }

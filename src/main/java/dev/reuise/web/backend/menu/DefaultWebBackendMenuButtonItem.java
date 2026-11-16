@@ -18,13 +18,22 @@ import dev.reuise.web.backend.icon.WebBackendIcon;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPart;
 import dev.reuise.web.backend.text.WebBackendInlineText;
 import dev.reuise.web.core.WebRootComponent;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.web.core.menu.DefaultWebMenuButtonItemPart;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
+// Option: HoverScale - WEB
+// Option: Border - WEB
+// Option: BorderColor - WEB
+// Option: BorderWidth - WEB
+// Option: BorderRadius - WEB
+// Option: Background - WEB
+// Option: BackgroundColor - WEB
 // Option: UseHistoryApi - WEB
 // Option: Loading - CORE
 // Option: SkeletonOptions - CORE
@@ -105,7 +114,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendMenuButtonItem<S extends DefaultWebBackendMenuButtonItem<S, O>, O extends WebBackendMenuButtonItemOptions> extends DefaultWebMenuButtonItemPart<S, O> implements WebBackendComponentType<S, O> , WebBackendMenuButtonItem {
+public abstract class DefaultWebBackendMenuButtonItem<S extends DefaultWebBackendMenuButtonItem<S, O>, O extends WebBackendMenuButtonItemOptions> extends DefaultWebMenuButtonItemPart<S, O> implements ClientConfigurationSource , WebBackendComponentType<S, O> , WebBackendMenuButtonItem {
     protected final WebBackendButtonPart buttonPart;
 
     protected final WebBackendParentComponentPart parentComponentPart;
@@ -121,6 +130,18 @@ public abstract class DefaultWebBackendMenuButtonItem<S extends DefaultWebBacken
         parentComponentPart = buttonPart.getParentComponentPart();
         baseComponentPart = parentComponentPart.getBaseComponentPart();
         addPart(ComponentPart.Type.BASE, buttonPart);
+    }
+
+    @Override
+    public S setBorder(boolean enabled) {
+        this.buttonPart.setBorder(enabled);
+        return self();
+    }
+
+    @Override
+    public S setBackground(boolean enabled) {
+        this.buttonPart.setBackground(enabled);
+        return self();
     }
 
     @Override
@@ -399,5 +420,26 @@ public abstract class DefaultWebBackendMenuButtonItem<S extends DefaultWebBacken
         writeStartTag(writer);
         parentComponentPart.writeTo(writer);
         writeEndTag(writer);
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        values.put("hoverScale", getHoverScale());
+        values.put("border", getBorder());
+        values.put("borderColor", getBorderColor());
+        values.put("borderWidth", getBorderWidth());
+        values.put("borderRadius", getBorderRadius());
+        values.put("background", getBackground());
+        values.put("backgroundColor", getBackgroundColor());
+        values.put("useHistoryApi", isUseHistoryApi());
+        values.put("loading", isLoading());
+        values.put("label", getLabel());
+        values.put("size", getSize() == null ? null : getSize().name());
+        values.put("type", getType() == null ? null : getType().name());
+        values.put("target", getTarget());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("MenuButtonItem", values);
     }
 }

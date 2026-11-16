@@ -15,12 +15,14 @@ import dev.reuise.web.backend.WebBackendComponentType;
 import dev.reuise.web.backend.basecomponent.WebBackendBaseComponentPart;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPart;
 import dev.reuise.web.core.WebRootComponent;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.web.core.layout.DefaultWebFieldSetPart;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 // Option: Animation - WEB
 // Option: Padding - CORE
@@ -105,7 +107,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendFieldSet<S extends DefaultWebBackendFieldSet<S, O>, O extends WebBackendFieldSetOptions> extends DefaultWebFieldSetPart<S, O> implements WebBackendFieldSet , WebBackendComponentType<S, O> {
+public abstract class DefaultWebBackendFieldSet<S extends DefaultWebBackendFieldSet<S, O>, O extends WebBackendFieldSetOptions> extends DefaultWebFieldSetPart<S, O> implements WebBackendFieldSet , ClientConfigurationSource , WebBackendComponentType<S, O> {
     protected final WebBackendContainerPart containerPart;
 
     protected final WebBackendParentComponentPart parentComponentPart;
@@ -408,5 +410,14 @@ public abstract class DefaultWebBackendFieldSet<S extends DefaultWebBackendField
         writeStartTag(writer);
         parentComponentPart.writeTo(writer);
         writeEndTag(writer);
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        values.put("label", getLabel());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("FieldSet", values);
     }
 }

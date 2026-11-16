@@ -18,12 +18,14 @@ import dev.reuise.web.backend.layout.WebBackendFlexContainerPart;
 import dev.reuise.web.backend.layout.WebBackendRowLayoutPart;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPart;
 import dev.reuise.web.core.WebRootComponent;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.web.core.input.DefaultWebSegmentedTextFieldPart;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 // Option: Direction - CORE
 // Option: JustifyContent - CORE
@@ -117,7 +119,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendSegmentedTextField<S extends DefaultWebBackendSegmentedTextField<S, O>, O extends WebBackendSegmentedTextFieldOptions> extends DefaultWebSegmentedTextFieldPart<S, O> implements WebBackendSegmentedTextField , WebBackendComponentType<S, O> {
+public abstract class DefaultWebBackendSegmentedTextField<S extends DefaultWebBackendSegmentedTextField<S, O>, O extends WebBackendSegmentedTextFieldOptions> extends DefaultWebSegmentedTextFieldPart<S, O> implements WebBackendSegmentedTextField , ClientConfigurationSource , WebBackendComponentType<S, O> {
     protected final WebBackendRowLayoutPart rowLayoutPart;
 
     protected final WebBackendFlexContainerPart flexContainerPart;
@@ -421,5 +423,14 @@ public abstract class DefaultWebBackendSegmentedTextField<S extends DefaultWebBa
         writeStartTag(writer);
         parentComponentPart.writeTo(writer);
         writeEndTag(writer);
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        values.put("segments", getSegments());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("SegmentedTextField", values);
     }
 }

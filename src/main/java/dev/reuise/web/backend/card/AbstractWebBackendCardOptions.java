@@ -40,6 +40,8 @@ import dev.reuise.web.backend.text.WebBackendTextBlock;
 import dev.reuise.web.backend.text.WebBackendTextBlockOptions;
 import dev.reuise.web.core.card.AbstractWebCardOptions;
 import dev.reuise.webstyles.Style;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -152,6 +154,7 @@ public abstract class AbstractWebBackendCardOptions<S extends AbstractWebBackend
         setTagName("div");
         setBaseStyleClass("reuise-card");
         setDirection(((FlexDirection) (null)));
+        setStoreInElementOptions(new ArrayList(Arrays.asList("hoverScale")));
         return true;
     }
 

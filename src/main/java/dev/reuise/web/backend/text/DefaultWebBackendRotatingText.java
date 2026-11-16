@@ -13,6 +13,7 @@ import dev.reuise.web.backend.WebBackendComponentFactory;
 import dev.reuise.web.backend.WebBackendComponentType;
 import dev.reuise.web.backend.basecomponent.WebBackendBaseComponentPart;
 import dev.reuise.web.core.WebRootComponent;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.web.core.text.DefaultWebRotatingTextPart;
 import dev.reuise.web.core.text.RotatingTextMarkup;
 import dev.reuise.webstyles.Style;
@@ -91,7 +92,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendRotatingText<S extends DefaultWebBackendRotatingText<S, O>, O extends WebBackendRotatingTextOptions> extends DefaultWebRotatingTextPart<S, O> implements WebBackendComponentType<S, O> , WebBackendRotatingText {
+public abstract class DefaultWebBackendRotatingText<S extends DefaultWebBackendRotatingText<S, O>, O extends WebBackendRotatingTextOptions> extends DefaultWebRotatingTextPart<S, O> implements ClientConfigurationSource , WebBackendComponentType<S, O> , WebBackendRotatingText {
     @Override
     public S setItems(List<Map<String, String>> items) {
         RotatingTextMarkup.validate(items);
@@ -355,5 +356,16 @@ public abstract class DefaultWebBackendRotatingText<S extends DefaultWebBackendR
 
     public void onInitializeCommonStyle(StyleBuilder commonStyles) {
         super.onInitializeCommonStyle(commonStyles);
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        values.put("dwellMillis", getDwellMillis());
+        values.put("transitionMillis", getTransitionMillis());
+        values.put("paused", isPaused());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("RotatingText", values);
     }
 }

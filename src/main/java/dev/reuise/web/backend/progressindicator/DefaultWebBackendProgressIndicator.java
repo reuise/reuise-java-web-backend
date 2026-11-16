@@ -15,12 +15,14 @@ import dev.reuise.web.backend.basecomponent.WebBackendBaseComponentPart;
 import dev.reuise.web.backend.layout.WebBackendContainer;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPart;
 import dev.reuise.web.core.WebRootComponent;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.web.core.progressindicator.DefaultWebProgressIndicatorPart;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 // Option: Children - CORE
 // Option: Id - WEB
@@ -92,7 +94,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendProgressIndicator<S extends DefaultWebBackendProgressIndicator<S, O>, O extends WebBackendProgressIndicatorOptions> extends DefaultWebProgressIndicatorPart<S, O> implements WebBackendComponentType<S, O> , WebBackendProgressIndicator {
+public abstract class DefaultWebBackendProgressIndicator<S extends DefaultWebBackendProgressIndicator<S, O>, O extends WebBackendProgressIndicatorOptions> extends DefaultWebProgressIndicatorPart<S, O> implements ClientConfigurationSource , WebBackendComponentType<S, O> , WebBackendProgressIndicator {
     protected final WebBackendParentComponentPart parentComponentPart;
 
     protected final WebBackendBaseComponentPart baseComponentPart;
@@ -367,5 +369,18 @@ public abstract class DefaultWebBackendProgressIndicator<S extends DefaultWebBac
         writeStartTag(writer);
         parentComponentPart.writeTo(writer);
         writeEndTag(writer);
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        values.put("layout", getLayout() == null ? null : getLayout().name());
+        values.put("timing", getTiming() == null ? null : getTiming().name());
+        values.put("progress", getProgress());
+        values.put("started", isStarted());
+        values.put("visibilityBehaviour", getVisibilityBehaviour() == null ? null : getVisibilityBehaviour().name());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("ProgressIndicator", values);
     }
 }

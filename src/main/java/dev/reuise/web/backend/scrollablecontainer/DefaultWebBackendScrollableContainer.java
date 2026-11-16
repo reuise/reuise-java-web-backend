@@ -17,12 +17,14 @@ import dev.reuise.web.backend.layout.WebBackendContainer;
 import dev.reuise.web.backend.layout.WebBackendContainerPart;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPart;
 import dev.reuise.web.core.WebRootComponent;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.web.core.scrollablecontainer.DefaultWebScrollableContainerPart;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 // Option: Animation - WEB
 // Option: Padding - CORE
@@ -107,7 +109,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendScrollableContainer<S extends DefaultWebBackendScrollableContainer<S, O>, O extends WebBackendScrollableContainerOptions> extends DefaultWebScrollableContainerPart<S, O> implements WebBackendComponentType<S, O> , WebBackendScrollableContainer {
+public abstract class DefaultWebBackendScrollableContainer<S extends DefaultWebBackendScrollableContainer<S, O>, O extends WebBackendScrollableContainerOptions> extends DefaultWebScrollableContainerPart<S, O> implements ClientConfigurationSource , WebBackendComponentType<S, O> , WebBackendScrollableContainer {
     protected final WebBackendContainerPart containerPart;
 
     protected final WebBackendParentComponentPart parentComponentPart;
@@ -433,5 +435,17 @@ public abstract class DefaultWebBackendScrollableContainer<S extends DefaultWebB
         writeStartTag(writer);
         parentComponentPart.writeTo(writer);
         writeEndTag(writer);
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        values.put("scrollDirection", getScrollDirection() == null ? null : getScrollDirection().name());
+        values.put("showScrollBars", isShowScrollBars());
+        values.put("scrollAreaBorderRadius", getScrollAreaBorderRadius());
+        values.put("scrollAreaFillColor", getScrollAreaFillColor());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("ScrollableContainer", values);
     }
 }

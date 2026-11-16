@@ -95,7 +95,7 @@ public abstract class AbstractWebBackendButtonOptions<S extends AbstractWebBacke
 
         setTagName("button");
         setBaseStyleClass("reuise-button");
-        setStoreInElementOptions(new ArrayList(Arrays.asList("useHistoryApi")));
+        setStoreInElementOptions(new ArrayList(Arrays.asList("hoverScale", "border", "borderColor", "borderWidth", "borderRadius", "background", "backgroundColor", "useHistoryApi")));
         return true;
     }
 

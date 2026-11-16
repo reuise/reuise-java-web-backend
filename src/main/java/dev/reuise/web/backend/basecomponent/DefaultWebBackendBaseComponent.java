@@ -12,6 +12,9 @@ import dev.reuise.web.backend.style.StyleDeduplicationRegistry;
 import dev.reuise.web.backend.style.WebBackendStyleSheet;
 import dev.reuise.web.core.WebRootComponent;
 import dev.reuise.web.core.basecomponent.DefaultWebBaseComponentPart;
+import dev.reuise.web.core.document.HydrationJson;
+import dev.reuise.web.core.hydration.ClientConfiguration;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheet;
@@ -23,7 +26,7 @@ import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-public abstract class DefaultWebBackendBaseComponent<S extends DefaultWebBackendBaseComponent<S, O>, O extends WebBackendBaseComponentOptions> extends DefaultWebBaseComponentPart<S, O> implements WebBackendComponentType<S, O> , WebBackendBaseComponent {
+public abstract class DefaultWebBackendBaseComponent<S extends DefaultWebBackendBaseComponent<S, O>, O extends WebBackendBaseComponentOptions> extends DefaultWebBaseComponentPart<S, O> implements ClientConfigurationSource , WebBackendComponentType<S, O> , WebBackendBaseComponent {
     @Override
     public WebBackendBaseComponent getComponent() {
         return ((WebBackendBaseComponent) (super.getComponent()));
@@ -49,6 +52,9 @@ public abstract class DefaultWebBackendBaseComponent<S extends DefaultWebBackend
         if (opts.isWriteStyleSheets())
             writeStyleSheets(writer);
 
+        if (getComponent() instanceof ClientConfigurationSource) {
+            setAttribute(ClientConfiguration.ATTRIBUTE, HydrationJson.encode(((ClientConfigurationSource) (getComponent())).getClientConfiguration()));
+        }
         writer.write("<" + opts.getTagName());
         // Id
         if (id != null) {
@@ -604,5 +610,13 @@ public abstract class DefaultWebBackendBaseComponent<S extends DefaultWebBackend
     // Implementation
     public void writeEndTag(PrintWriter writer, String tagName) {
         writer.write(String.format("</%s>", tagName));
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("BaseComponent", values);
     }
 }

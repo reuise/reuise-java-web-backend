@@ -15,12 +15,14 @@ import dev.reuise.web.backend.WebBackendComponentType;
 import dev.reuise.web.backend.basecomponent.WebBackendBaseComponentPart;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPart;
 import dev.reuise.web.core.WebRootComponent;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.web.core.layout.DefaultWebColumnLayoutPart;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 // Option: Direction - CORE
 // Option: JustifyContent - CORE
@@ -113,7 +115,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendColumnLayout<S extends DefaultWebBackendColumnLayout<S, O>, O extends WebBackendColumnLayoutOptions> extends DefaultWebColumnLayoutPart<S, O> implements WebBackendColumnLayout , WebBackendComponentType<S, O> {
+public abstract class DefaultWebBackendColumnLayout<S extends DefaultWebBackendColumnLayout<S, O>, O extends WebBackendColumnLayoutOptions> extends DefaultWebColumnLayoutPart<S, O> implements ClientConfigurationSource , WebBackendColumnLayout , WebBackendComponentType<S, O> {
     protected final WebBackendFlexContainerPart flexContainerPart;
 
     protected final WebBackendContainerPart containerPart;
@@ -410,5 +412,13 @@ public abstract class DefaultWebBackendColumnLayout<S extends DefaultWebBackendC
         writeStartTag(writer);
         parentComponentPart.writeTo(writer);
         writeEndTag(writer);
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("ColumnLayout", values);
     }
 }

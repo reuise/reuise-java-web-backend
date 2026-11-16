@@ -17,11 +17,13 @@ import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPart;
 import dev.reuise.web.backend.text.WebBackendInlineText;
 import dev.reuise.web.core.WebRootComponent;
 import dev.reuise.web.core.divider.DefaultWebDividerPart;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 // Option: Children - CORE
 // Option: Id - WEB
@@ -93,7 +95,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendDivider<S extends DefaultWebBackendDivider<S, O>, O extends WebBackendDividerOptions> extends DefaultWebDividerPart<S, O> implements WebBackendComponentType<S, O> , WebBackendDivider {
+public abstract class DefaultWebBackendDivider<S extends DefaultWebBackendDivider<S, O>, O extends WebBackendDividerOptions> extends DefaultWebDividerPart<S, O> implements ClientConfigurationSource , WebBackendComponentType<S, O> , WebBackendDivider {
     protected final WebBackendParentComponentPart parentComponentPart;
 
     protected final WebBackendBaseComponentPart baseComponentPart;
@@ -403,5 +405,17 @@ public abstract class DefaultWebBackendDivider<S extends DefaultWebBackendDivide
         writeStartTag(writer);
         parentComponentPart.writeTo(writer);
         writeEndTag(writer);
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        values.put("label", getLabel());
+        values.put("labelAlignment", getLabelAlignment() == null ? null : getLabelAlignment().name());
+        values.put("thickness", getThickness());
+        values.put("direction", getDirection() == null ? null : getDirection().name());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("Divider", values);
     }
 }

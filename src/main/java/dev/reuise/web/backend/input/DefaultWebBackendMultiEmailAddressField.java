@@ -19,12 +19,14 @@ import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPart;
 import dev.reuise.web.backend.text.WebBackendInlineText;
 import dev.reuise.web.backend.text.WebBackendLabel;
 import dev.reuise.web.core.WebRootComponent;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.web.core.input.DefaultWebMultiEmailAddressFieldPart;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 // Option: Multiple - CORE
 // Option: Values - CORE
@@ -109,7 +111,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendMultiEmailAddressField<S extends DefaultWebBackendMultiEmailAddressField<S, O>, O extends WebBackendMultiEmailAddressFieldOptions> extends DefaultWebMultiEmailAddressFieldPart<S, O> implements WebBackendComponentType<S, O> , WebBackendMultiEmailAddressField {
+public abstract class DefaultWebBackendMultiEmailAddressField<S extends DefaultWebBackendMultiEmailAddressField<S, O>, O extends WebBackendMultiEmailAddressFieldOptions> extends DefaultWebMultiEmailAddressFieldPart<S, O> implements ClientConfigurationSource , WebBackendComponentType<S, O> , WebBackendMultiEmailAddressField {
     protected final WebBackendChipFieldPart chipFieldPart;
 
     protected final WebBackendTextFieldPart textFieldPart;
@@ -438,5 +440,20 @@ public abstract class DefaultWebBackendMultiEmailAddressField<S extends DefaultW
         writeStartTag(writer);
         parentComponentPart.writeTo(writer);
         writeEndTag(writer);
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        values.put("size", getSize() == null ? null : getSize().name());
+        values.put("error", isError());
+        values.put("supportingText", getSupportingText());
+        values.put("label", getLabel());
+        values.put("labelPlacement", getLabelPlacement() == null ? null : getLabelPlacement().name());
+        values.put("multiple", isMultiple());
+        values.put("allowDuplicates", isAllowDuplicates());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("MultiEmailAddressField", values);
     }
 }

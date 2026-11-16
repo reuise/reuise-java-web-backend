@@ -14,11 +14,13 @@ import dev.reuise.web.backend.WebBackendComponentType;
 import dev.reuise.web.backend.basecomponent.WebBackendBaseComponentPart;
 import dev.reuise.web.core.WebRootComponent;
 import dev.reuise.web.core.filepicker.DefaultWebFilePickerPart;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 // Option: Id - WEB
 // Option: TagName - WEB
@@ -88,7 +90,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendFilePicker<S extends DefaultWebBackendFilePicker<S, O>, O extends WebBackendFilePickerOptions> extends DefaultWebFilePickerPart<S, O> implements WebBackendComponentType<S, O> , WebBackendFilePicker {
+public abstract class DefaultWebBackendFilePicker<S extends DefaultWebBackendFilePicker<S, O>, O extends WebBackendFilePickerOptions> extends DefaultWebFilePickerPart<S, O> implements ClientConfigurationSource , WebBackendComponentType<S, O> , WebBackendFilePicker {
     protected final WebBackendBaseComponentPart baseComponentPart;
 
     protected DefaultWebBackendFilePicker(O options) {
@@ -340,5 +342,15 @@ public abstract class DefaultWebBackendFilePicker<S extends DefaultWebBackendFil
 
     public void onInitializeCommonStyle(StyleBuilder commonStyles) {
         super.onInitializeCommonStyle(commonStyles);
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        values.put("accept", getAccept());
+        values.put("multiple", isMultiple());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("FilePicker", values);
     }
 }

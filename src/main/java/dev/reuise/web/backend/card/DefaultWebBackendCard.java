@@ -24,6 +24,7 @@ import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPart;
 import dev.reuise.web.backend.text.WebBackendTextBlock;
 import dev.reuise.web.core.WebRootComponent;
 import dev.reuise.web.core.card.DefaultWebCardPart;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheetFactory;
@@ -31,6 +32,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 // Option: Type - CORE
 // Option: Direction - CORE
@@ -125,7 +127,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendCard<S extends DefaultWebBackendCard<S, O>, O extends WebBackendCardOptions> extends DefaultWebCardPart<S, O> implements WebBackendComponentType<S, O> , WebBackendCard {
+public abstract class DefaultWebBackendCard<S extends DefaultWebBackendCard<S, O>, O extends WebBackendCardOptions> extends DefaultWebCardPart<S, O> implements ClientConfigurationSource , WebBackendComponentType<S, O> , WebBackendCard {
     protected final WebBackendSurfacePart surfacePart;
 
     protected final WebBackendFlexContainerPart flexContainerPart;
@@ -547,5 +549,22 @@ public abstract class DefaultWebBackendCard<S extends DefaultWebBackendCard<S, O
         writeStartTag(writer);
         parentComponentPart.writeTo(writer);
         writeEndTag(writer);
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        values.put("type", getType() == null ? null : getType().name());
+        values.put("hoverScale", getHoverScale());
+        values.put("imageAltText", getImageAltText());
+        values.put("heading", getHeading());
+        values.put("subHeading", getSubHeading());
+        values.put("text", getText());
+        values.put("orientation", getOrientation() == null ? null : getOrientation().name());
+        values.put("url", getUrl());
+        values.put("imageUrl", getImageUrl());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("Card", values);
     }
 }

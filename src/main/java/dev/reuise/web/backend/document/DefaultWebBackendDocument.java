@@ -28,6 +28,7 @@ import dev.reuise.web.core.document.ImportMap;
 import dev.reuise.web.core.document.Metadata;
 import dev.reuise.web.core.document.StructuredData;
 import dev.reuise.web.core.document.StructuredDataType;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheet;
@@ -111,7 +112,7 @@ import java.util.stream.Collectors;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocument<S, O>, O extends WebBackendDocumentOptions> extends DefaultWebDocumentPart<S, O> implements WebBackendComponentType<S, O> , WebBackendDocument {
+public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocument<S, O>, O extends WebBackendDocumentOptions> extends DefaultWebDocumentPart<S, O> implements ClientConfigurationSource , WebBackendComponentType<S, O> , WebBackendDocument {
     private final List<Map.Entry<String, String>> alternateLanguageLinks = new ArrayList<>();
 
     @Override
@@ -1300,5 +1301,22 @@ public abstract class DefaultWebBackendDocument<S extends DefaultWebBackendDocum
         this.parentComponentPart.writeTo(writer);
         // writer.write("</body>");
         writer.write("</html>");
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        values.put("title", getTitle());
+        values.put("viewId", getViewId());
+        values.put("description", getDescription());
+        values.put("themeColor", getThemeColor());
+        values.put("language", getLanguage());
+        values.put("textDirection", getTextDirection() == null ? null : getTextDirection().name());
+        values.put("path", getPath());
+        values.put("url", getUrl());
+        values.put("charset", getCharset());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("Document", values);
     }
 }

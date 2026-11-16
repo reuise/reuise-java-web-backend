@@ -17,6 +17,7 @@ import dev.reuise.web.backend.layout.WebBackendContainerPart;
 import dev.reuise.web.backend.layout.WebBackendFlexContainerPart;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPart;
 import dev.reuise.web.core.WebRootComponent;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.web.core.view.DefaultWebSheetViewPart;
 import dev.reuise.web.core.view.RevealOptions;
 import dev.reuise.webstyles.Style;
@@ -24,6 +25,7 @@ import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 // Option: Parameters - WEB
 // Option: ContentType - WEB
@@ -124,7 +126,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendSheetView<S extends DefaultWebBackendSheetView<S, O>, O extends WebBackendSheetViewOptions> extends DefaultWebSheetViewPart<S, O> implements WebBackendSheetView , WebBackendComponentType<S, O> {
+public abstract class DefaultWebBackendSheetView<S extends DefaultWebBackendSheetView<S, O>, O extends WebBackendSheetViewOptions> extends DefaultWebSheetViewPart<S, O> implements ClientConfigurationSource , WebBackendSheetView , WebBackendComponentType<S, O> {
     protected final WebBackendViewPart viewPart;
 
     protected final WebBackendFlexContainerPart flexContainerPart;
@@ -440,5 +442,15 @@ public abstract class DefaultWebBackendSheetView<S extends DefaultWebBackendShee
         writeStartTag(writer);
         parentComponentPart.writeTo(writer);
         writeEndTag(writer);
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        values.put("title", getTitle());
+        values.put("revealed", isRevealed());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("SheetView", values);
     }
 }

@@ -18,12 +18,14 @@ import dev.reuise.web.backend.link.WebBackendNavigationLinkPart;
 import dev.reuise.web.backend.list.WebBackendListItem;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPart;
 import dev.reuise.web.core.WebRootComponent;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.web.core.navigation.DefaultWebNavigationTreeLinkPart;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 // Option: ActiveMatchType - WEB
 // Option: Active - CORE
@@ -104,7 +106,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendNavigationTreeLink<S extends DefaultWebBackendNavigationTreeLink<S, O>, O extends WebBackendNavigationTreeLinkOptions> extends DefaultWebNavigationTreeLinkPart<S, O> implements WebBackendNavigationTreeLink , WebBackendComponentType<S, O> {
+public abstract class DefaultWebBackendNavigationTreeLink<S extends DefaultWebBackendNavigationTreeLink<S, O>, O extends WebBackendNavigationTreeLinkOptions> extends DefaultWebNavigationTreeLinkPart<S, O> implements WebBackendNavigationTreeLink , ClientConfigurationSource , WebBackendComponentType<S, O> {
     protected final WebBackendNavigationLinkPart navigationLinkPart;
 
     protected final WebBackendLinkPart linkPart;
@@ -408,5 +410,20 @@ public abstract class DefaultWebBackendNavigationTreeLink<S extends DefaultWebBa
     @Override
     public void writeTo(PrintWriter writer) {
         getLinkPart().writeTo(writer);
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        values.put("useHistoryApi", isUseHistoryApi());
+        values.put("text", getText());
+        values.put("target", getTarget());
+        values.put("externalIndicator", getExternalIndicator());
+        values.put("activeMatchType", getActiveMatchType() == null ? null : getActiveMatchType().name());
+        values.put("active", isActive());
+        values.put("label", getLabel());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("NavigationTreeLink", values);
     }
 }

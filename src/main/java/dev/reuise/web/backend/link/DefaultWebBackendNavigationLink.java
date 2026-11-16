@@ -15,12 +15,14 @@ import dev.reuise.web.backend.basecomponent.WebBackendBaseComponentPart;
 import dev.reuise.web.backend.icon.WebBackendIcon;
 import dev.reuise.web.backend.parentcomponent.WebBackendParentComponentPart;
 import dev.reuise.web.core.WebRootComponent;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.web.core.link.DefaultWebNavigationLinkPart;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 // Option: UseHistoryApi - WEB
 // Option: Text - CORE
@@ -98,7 +100,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendNavigationLink<S extends DefaultWebBackendNavigationLink<S, O>, O extends WebBackendNavigationLinkOptions> extends DefaultWebNavigationLinkPart<S, O> implements WebBackendNavigationLink , WebBackendComponentType<S, O> {
+public abstract class DefaultWebBackendNavigationLink<S extends DefaultWebBackendNavigationLink<S, O>, O extends WebBackendNavigationLinkOptions> extends DefaultWebNavigationLinkPart<S, O> implements WebBackendNavigationLink , ClientConfigurationSource , WebBackendComponentType<S, O> {
     protected final WebBackendLinkPart linkPart;
 
     protected final WebBackendParentComponentPart parentComponentPart;
@@ -390,5 +392,19 @@ public abstract class DefaultWebBackendNavigationLink<S extends DefaultWebBacken
     @Override
     public void writeTo(PrintWriter writer) {
         getLinkPart().writeTo(writer);
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        values.put("useHistoryApi", isUseHistoryApi());
+        values.put("text", getText());
+        values.put("target", getTarget());
+        values.put("externalIndicator", getExternalIndicator());
+        values.put("activeMatchType", getActiveMatchType() == null ? null : getActiveMatchType().name());
+        values.put("active", isActive());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("NavigationLink", values);
     }
 }

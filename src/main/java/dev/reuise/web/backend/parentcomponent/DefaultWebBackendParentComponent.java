@@ -14,6 +14,7 @@ import dev.reuise.web.backend.WebBackendComponentFactory;
 import dev.reuise.web.backend.WebBackendComponentType;
 import dev.reuise.web.backend.basecomponent.WebBackendBaseComponentPart;
 import dev.reuise.web.core.WebRootComponent;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.web.core.parentcomponent.DefaultWebParentComponentPart;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
@@ -22,6 +23,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 // Option: Id - WEB
 // Option: TagName - WEB
@@ -91,7 +93,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendParentComponent<S extends DefaultWebBackendParentComponent<S, O>, O extends WebBackendParentComponentOptions> extends DefaultWebParentComponentPart<S, O> implements WebBackendParentComponent , WebBackendComponentType<S, O> {
+public abstract class DefaultWebBackendParentComponent<S extends DefaultWebBackendParentComponent<S, O>, O extends WebBackendParentComponentOptions> extends DefaultWebParentComponentPart<S, O> implements WebBackendParentComponent , ClientConfigurationSource , WebBackendComponentType<S, O> {
     protected final WebBackendBaseComponentPart baseComponentPart;
 
     protected DefaultWebBackendParentComponent(O options) {
@@ -351,5 +353,13 @@ public abstract class DefaultWebBackendParentComponent<S extends DefaultWebBacke
     @Override
     public void writeTo(PrintWriter writer) {
         children.stream().forEach(c -> ((WebBackendComponent) (c)).writeTo(writer));
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("ParentComponent", values);
     }
 }

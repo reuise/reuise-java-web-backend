@@ -13,12 +13,14 @@ import dev.reuise.web.backend.WebBackendComponentFactory;
 import dev.reuise.web.backend.WebBackendComponentType;
 import dev.reuise.web.backend.basecomponent.WebBackendBaseComponentPart;
 import dev.reuise.web.core.WebRootComponent;
+import dev.reuise.web.core.hydration.ClientConfigurationSource;
 import dev.reuise.web.core.text.DefaultWebLineBreakPart;
 import dev.reuise.webstyles.Style;
 import dev.reuise.webstyles.StyleBuilder;
 import dev.reuise.webstyles.StyleSheetFactory;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 // Option: Id - WEB
 // Option: TagName - WEB
@@ -88,7 +90,7 @@ import java.util.Set;
 // add composition for baseComponent: isInitialized
 // add composition for baseComponent: log
 // add composition for baseComponent: removeFromParent
-public abstract class DefaultWebBackendLineBreak<S extends DefaultWebBackendLineBreak<S, O>, O extends WebBackendLineBreakOptions> extends DefaultWebLineBreakPart<S, O> implements WebBackendComponentType<S, O> , WebBackendLineBreak {
+public abstract class DefaultWebBackendLineBreak<S extends DefaultWebBackendLineBreak<S, O>, O extends WebBackendLineBreakOptions> extends DefaultWebLineBreakPart<S, O> implements ClientConfigurationSource , WebBackendComponentType<S, O> , WebBackendLineBreak {
     protected final WebBackendBaseComponentPart baseComponentPart;
 
     protected DefaultWebBackendLineBreak(O options) {
@@ -340,5 +342,13 @@ public abstract class DefaultWebBackendLineBreak<S extends DefaultWebBackendLine
 
     public void onInitializeCommonStyle(StyleBuilder commonStyles) {
         super.onInitializeCommonStyle(commonStyles);
+    }
+
+    public Map<String, Object> getClientConfiguration() {
+        java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
+        values.put("tooltip", getTooltip());
+        values.put("contentEditable", isContentEditable());
+        values.put("enabled", isEnabled());
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("LineBreak", values);
     }
 }

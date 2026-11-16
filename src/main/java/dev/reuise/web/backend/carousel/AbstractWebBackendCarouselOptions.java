@@ -124,7 +124,7 @@ public abstract class AbstractWebBackendCarouselOptions<S extends AbstractWebBac
 
         setTagName("div");
         setBaseStyleClass("reuise-carousel");
-        setStoreInElementOptions(new ArrayList(Arrays.asList("activeIndex", "groupSize", "align", "whitespace", "circular", "draggable", "autoplay", "autoplayInterval", "paused", "transitionMillis", "showNavigation", "showIndicators", "gap", "label", "previousLabel", "nextLabel", "playLabel", "pauseLabel", "pageLabel")));
+        setStoreInElementOptions(new ArrayList(Arrays.asList("activeIndex", "defaultActiveIndex", "groupSize", "align", "whitespace", "circular", "draggable", "autoplay", "autoplayInterval", "paused", "transitionMillis", "showNavigation", "showIndicators", "activeDotColor", "gap", "label", "previousLabel", "nextLabel", "playLabel", "pauseLabel", "pageLabel")));
         return true;
     }
 

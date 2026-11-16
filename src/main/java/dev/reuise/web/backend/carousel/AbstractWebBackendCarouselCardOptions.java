@@ -96,7 +96,7 @@ public abstract class AbstractWebBackendCarouselCardOptions<S extends AbstractWe
 
         setTagName("div");
         setBaseStyleClass("reuise-carouselcard");
-        setStoreInElementOptions(new ArrayList(Arrays.asList("autoSize")));
+        setStoreInElementOptions(new ArrayList(Arrays.asList("hoverScale", "autoSize")));
         return true;
     }
 
