@@ -1421,6 +1421,10 @@ public abstract class AbstractWebBackendAudioPlayerOptions<S extends AbstractWeb
         return baseComponentPart.getOptions();
     }
 
+    public Map<String, ComponentOption<? extends Object>> getOptions(State state) {
+        return baseComponentPart.getOptions(state);
+    }
+
     public Collection<ComponentOption<? extends Object>> getOptionValues(String option) {
         return baseComponentPart.getOptionValues(option);
     }

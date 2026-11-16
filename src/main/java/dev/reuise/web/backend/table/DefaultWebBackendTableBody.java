@@ -361,7 +361,20 @@ public abstract class DefaultWebBackendTableBody<S extends DefaultWebBackendTabl
         java.util.Map<String, Object> values = new java.util.LinkedHashMap<>();
         values.put("tooltip", getTooltip());
         values.put("contentEditable", isContentEditable());
+        if (dev.reuise.web.core.hydration.ClientConfiguration.isScalar(getMargin())) values.put("margin", getMargin());
+        if (dev.reuise.web.core.hydration.ClientConfiguration.isScalar(getMarginTop())) values.put("marginTop", getMarginTop());
+        if (dev.reuise.web.core.hydration.ClientConfiguration.isScalar(getMarginRight())) values.put("marginRight", getMarginRight());
+        if (dev.reuise.web.core.hydration.ClientConfiguration.isScalar(getMarginBottom())) values.put("marginBottom", getMarginBottom());
+        if (dev.reuise.web.core.hydration.ClientConfiguration.isScalar(getMarginLeft())) values.put("marginLeft", getMarginLeft());
+        if (dev.reuise.web.core.hydration.ClientConfiguration.isScalar(getWidth())) values.put("width", getWidth());
+        if (dev.reuise.web.core.hydration.ClientConfiguration.isScalar(getMinWidth())) values.put("minWidth", getMinWidth());
+        if (dev.reuise.web.core.hydration.ClientConfiguration.isScalar(getMaxWidth())) values.put("maxWidth", getMaxWidth());
+        if (dev.reuise.web.core.hydration.ClientConfiguration.isScalar(getHeight())) values.put("height", getHeight());
+        if (dev.reuise.web.core.hydration.ClientConfiguration.isScalar(getMinHeight())) values.put("minHeight", getMinHeight());
+        if (dev.reuise.web.core.hydration.ClientConfiguration.isScalar(getMaxHeight())) values.put("maxHeight", getMaxHeight());
+        values.put("visible", isVisible());
         values.put("enabled", isEnabled());
-        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("TableBody", values);
+        java.util.List<java.util.Map<String, Object>> states = new java.util.ArrayList<>(); for (dev.reuise.core.State state : getStyleStates()) { if (state == null) continue; java.util.Map<String, Object> stateValues = new java.util.LinkedHashMap<>(); if (dev.reuise.web.core.hydration.ClientConfiguration.isScalar(getMargin(state))) stateValues.put("margin", getMargin(state)); if (dev.reuise.web.core.hydration.ClientConfiguration.isScalar(getMarginTop(state))) stateValues.put("marginTop", getMarginTop(state)); if (dev.reuise.web.core.hydration.ClientConfiguration.isScalar(getMarginRight(state))) stateValues.put("marginRight", getMarginRight(state)); if (dev.reuise.web.core.hydration.ClientConfiguration.isScalar(getMarginBottom(state))) stateValues.put("marginBottom", getMarginBottom(state)); if (dev.reuise.web.core.hydration.ClientConfiguration.isScalar(getMarginLeft(state))) stateValues.put("marginLeft", getMarginLeft(state)); if (dev.reuise.web.core.hydration.ClientConfiguration.isScalar(getWidth(state))) stateValues.put("width", getWidth(state)); if (dev.reuise.web.core.hydration.ClientConfiguration.isScalar(getMinWidth(state))) stateValues.put("minWidth", getMinWidth(state)); if (dev.reuise.web.core.hydration.ClientConfiguration.isScalar(getMaxWidth(state))) stateValues.put("maxWidth", getMaxWidth(state)); if (dev.reuise.web.core.hydration.ClientConfiguration.isScalar(getHeight(state))) stateValues.put("height", getHeight(state)); if (dev.reuise.web.core.hydration.ClientConfiguration.isScalar(getMinHeight(state))) stateValues.put("minHeight", getMinHeight(state)); if (dev.reuise.web.core.hydration.ClientConfiguration.isScalar(getMaxHeight(state))) stateValues.put("maxHeight", getMaxHeight(state)); stateValues.put("visible", isVisible(state)); if (!stateValues.isEmpty()) states.add(dev.reuise.web.core.hydration.ClientConfiguration.state(state, stateValues)); };
+        return dev.reuise.web.core.hydration.ClientConfiguration.snapshot("TableBody", values, states);
     }
 }

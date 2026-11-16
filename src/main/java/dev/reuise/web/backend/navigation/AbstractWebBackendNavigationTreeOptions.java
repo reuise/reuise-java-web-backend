@@ -2097,6 +2097,10 @@ public abstract class AbstractWebBackendNavigationTreeOptions<S extends Abstract
         return baseComponentPart.getOptions();
     }
 
+    public Map<String, ComponentOption<? extends Object>> getOptions(State state) {
+        return baseComponentPart.getOptions(state);
+    }
+
     public Collection<ComponentOption<? extends Object>> getOptionValues(String option) {
         return baseComponentPart.getOptionValues(option);
     }
