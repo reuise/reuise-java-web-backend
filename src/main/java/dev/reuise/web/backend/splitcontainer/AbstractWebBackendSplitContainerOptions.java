@@ -1796,7 +1796,7 @@ public abstract class AbstractWebBackendSplitContainerOptions<S extends Abstract
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendSplitContainerOptions) (other)) instanceof WebBackendSplitContainerOptions) {
+        if (other instanceof WebBackendSplitContainerOptions) {
             WebBackendSplitContainerOptions otherWebBackendSplitContainerOptions = ((WebBackendSplitContainerOptions) (other));
             CoreContainerOptions otherContainerOptions = otherWebBackendSplitContainerOptions.getContainerOptions();
             if (otherContainerOptions != null)

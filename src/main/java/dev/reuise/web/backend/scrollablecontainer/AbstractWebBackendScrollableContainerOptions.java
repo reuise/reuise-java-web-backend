@@ -1793,7 +1793,7 @@ public abstract class AbstractWebBackendScrollableContainerOptions<S extends Abs
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendScrollableContainerOptions) (other)) instanceof WebBackendScrollableContainerOptions) {
+        if (other instanceof WebBackendScrollableContainerOptions) {
             WebBackendScrollableContainerOptions otherWebBackendScrollableContainerOptions = ((WebBackendScrollableContainerOptions) (other));
             CoreContainerOptions otherScrollAreaBeforeOptions = otherWebBackendScrollableContainerOptions.getScrollAreaBeforeOptions();
             if (otherScrollAreaBeforeOptions != null)

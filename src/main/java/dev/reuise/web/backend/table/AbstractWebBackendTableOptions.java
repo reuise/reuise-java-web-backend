@@ -1359,7 +1359,7 @@ public abstract class AbstractWebBackendTableOptions<S extends AbstractWebBacken
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendTableOptions) (other)) instanceof WebBackendTableOptions) {
+        if (other instanceof WebBackendTableOptions) {
             WebBackendTableOptions otherWebBackendTableOptions = ((WebBackendTableOptions) (other));
             CoreContainerOptions otherTableOptions = otherWebBackendTableOptions.getTableOptions();
             if (otherTableOptions != null)

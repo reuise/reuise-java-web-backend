@@ -1336,7 +1336,7 @@ public abstract class AbstractWebBackendListViewOptions<S extends AbstractWebBac
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendListViewOptions) (other)) instanceof WebBackendListViewOptions) {
+        if (other instanceof WebBackendListViewOptions) {
             WebBackendListViewOptions otherWebBackendListViewOptions = ((WebBackendListViewOptions) (other));
         }
     }

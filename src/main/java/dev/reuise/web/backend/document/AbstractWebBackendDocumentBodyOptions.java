@@ -1335,7 +1335,7 @@ public abstract class AbstractWebBackendDocumentBodyOptions<S extends AbstractWe
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendDocumentBodyOptions) (other)) instanceof WebBackendDocumentBodyOptions) {
+        if (other instanceof WebBackendDocumentBodyOptions) {
             WebBackendDocumentBodyOptions otherWebBackendDocumentBodyOptions = ((WebBackendDocumentBodyOptions) (other));
         }
     }

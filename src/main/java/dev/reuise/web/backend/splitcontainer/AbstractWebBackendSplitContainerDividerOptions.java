@@ -1780,7 +1780,7 @@ public abstract class AbstractWebBackendSplitContainerDividerOptions<S extends A
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendSplitContainerDividerOptions) (other)) instanceof WebBackendSplitContainerDividerOptions) {
+        if (other instanceof WebBackendSplitContainerDividerOptions) {
             WebBackendSplitContainerDividerOptions otherWebBackendSplitContainerDividerOptions = ((WebBackendSplitContainerDividerOptions) (other));
         }
     }

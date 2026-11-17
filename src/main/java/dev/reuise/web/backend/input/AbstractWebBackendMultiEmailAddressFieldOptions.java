@@ -1773,7 +1773,7 @@ public abstract class AbstractWebBackendMultiEmailAddressFieldOptions<S extends 
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendMultiEmailAddressFieldOptions) (other)) instanceof WebBackendMultiEmailAddressFieldOptions) {
+        if (other instanceof WebBackendMultiEmailAddressFieldOptions) {
             WebBackendMultiEmailAddressFieldOptions otherWebBackendMultiEmailAddressFieldOptions = ((WebBackendMultiEmailAddressFieldOptions) (other));
         }
     }

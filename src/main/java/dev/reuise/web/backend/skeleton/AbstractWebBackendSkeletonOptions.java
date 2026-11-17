@@ -1292,7 +1292,7 @@ public abstract class AbstractWebBackendSkeletonOptions<S extends AbstractWebBac
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendSkeletonOptions) (other)) instanceof WebBackendSkeletonOptions) {
+        if (other instanceof WebBackendSkeletonOptions) {
             WebBackendSkeletonOptions otherWebBackendSkeletonOptions = ((WebBackendSkeletonOptions) (other));
         }
     }

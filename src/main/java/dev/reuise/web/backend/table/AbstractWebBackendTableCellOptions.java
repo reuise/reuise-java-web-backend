@@ -1336,7 +1336,7 @@ public abstract class AbstractWebBackendTableCellOptions<S extends AbstractWebBa
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendTableCellOptions) (other)) instanceof WebBackendTableCellOptions) {
+        if (other instanceof WebBackendTableCellOptions) {
             WebBackendTableCellOptions otherWebBackendTableCellOptions = ((WebBackendTableCellOptions) (other));
         }
     }

@@ -2217,7 +2217,7 @@ public abstract class AbstractWebBackendCardOptions<S extends AbstractWebBackend
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendCardOptions) (other)) instanceof WebBackendCardOptions) {
+        if (other instanceof WebBackendCardOptions) {
             WebBackendCardOptions otherWebBackendCardOptions = ((WebBackendCardOptions) (other));
             CoreLinkOptions otherMediaLinkOptions = otherWebBackendCardOptions.getMediaLinkOptions();
             if (otherMediaLinkOptions != null)

@@ -1418,7 +1418,7 @@ public abstract class AbstractWebBackendCheckboxTableColumnOptions<S extends Abs
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendCheckboxTableColumnOptions) (other)) instanceof WebBackendCheckboxTableColumnOptions) {
+        if (other instanceof WebBackendCheckboxTableColumnOptions) {
             WebBackendCheckboxTableColumnOptions otherWebBackendCheckboxTableColumnOptions = ((WebBackendCheckboxTableColumnOptions) (other));
             CoreCheckboxOptions otherCheckboxOptions = otherWebBackendCheckboxTableColumnOptions.getCheckboxOptions();
             if (otherCheckboxOptions != null)

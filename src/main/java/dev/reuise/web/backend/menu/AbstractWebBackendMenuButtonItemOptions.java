@@ -1710,7 +1710,7 @@ public abstract class AbstractWebBackendMenuButtonItemOptions<S extends Abstract
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendMenuButtonItemOptions) (other)) instanceof WebBackendMenuButtonItemOptions) {
+        if (other instanceof WebBackendMenuButtonItemOptions) {
             WebBackendMenuButtonItemOptions otherWebBackendMenuButtonItemOptions = ((WebBackendMenuButtonItemOptions) (other));
         }
     }

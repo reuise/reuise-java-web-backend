@@ -1354,7 +1354,7 @@ public abstract class AbstractWebBackendChipOptions<S extends AbstractWebBackend
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendChipOptions) (other)) instanceof WebBackendChipOptions) {
+        if (other instanceof WebBackendChipOptions) {
             WebBackendChipOptions otherWebBackendChipOptions = ((WebBackendChipOptions) (other));
             CoreIconOptions otherStartIconOptions = otherWebBackendChipOptions.getStartIconOptions();
             if (otherStartIconOptions != null)

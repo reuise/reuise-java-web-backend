@@ -2149,7 +2149,7 @@ public abstract class AbstractWebBackendRowLayoutOptions<S extends AbstractWebBa
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendRowLayoutOptions) (other)) instanceof WebBackendRowLayoutOptions) {
+        if (other instanceof WebBackendRowLayoutOptions) {
             WebBackendRowLayoutOptions otherWebBackendRowLayoutOptions = ((WebBackendRowLayoutOptions) (other));
         }
     }

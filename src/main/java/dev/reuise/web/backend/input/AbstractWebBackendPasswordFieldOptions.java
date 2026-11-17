@@ -1617,7 +1617,7 @@ public abstract class AbstractWebBackendPasswordFieldOptions<S extends AbstractW
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendPasswordFieldOptions) (other)) instanceof WebBackendPasswordFieldOptions) {
+        if (other instanceof WebBackendPasswordFieldOptions) {
             WebBackendPasswordFieldOptions otherWebBackendPasswordFieldOptions = ((WebBackendPasswordFieldOptions) (other));
         }
     }

@@ -1293,7 +1293,7 @@ public abstract class AbstractWebBackendBasicCheckboxOptions<S extends AbstractW
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendBasicCheckboxOptions) (other)) instanceof WebBackendBasicCheckboxOptions) {
+        if (other instanceof WebBackendBasicCheckboxOptions) {
             WebBackendBasicCheckboxOptions otherWebBackendBasicCheckboxOptions = ((WebBackendBasicCheckboxOptions) (other));
         }
     }

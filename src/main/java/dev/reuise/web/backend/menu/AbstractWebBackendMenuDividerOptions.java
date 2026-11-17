@@ -1697,7 +1697,7 @@ public abstract class AbstractWebBackendMenuDividerOptions<S extends AbstractWeb
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendMenuDividerOptions) (other)) instanceof WebBackendMenuDividerOptions) {
+        if (other instanceof WebBackendMenuDividerOptions) {
             WebBackendMenuDividerOptions otherWebBackendMenuDividerOptions = ((WebBackendMenuDividerOptions) (other));
         }
     }

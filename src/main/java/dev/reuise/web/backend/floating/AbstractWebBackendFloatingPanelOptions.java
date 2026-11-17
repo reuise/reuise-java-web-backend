@@ -1809,7 +1809,7 @@ public abstract class AbstractWebBackendFloatingPanelOptions<S extends AbstractW
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendFloatingPanelOptions) (other)) instanceof WebBackendFloatingPanelOptions) {
+        if (other instanceof WebBackendFloatingPanelOptions) {
             WebBackendFloatingPanelOptions otherWebBackendFloatingPanelOptions = ((WebBackendFloatingPanelOptions) (other));
             CoreFloatingActionButtonOptions otherTriggerOptions = otherWebBackendFloatingPanelOptions.getTriggerOptions();
             if (otherTriggerOptions != null)

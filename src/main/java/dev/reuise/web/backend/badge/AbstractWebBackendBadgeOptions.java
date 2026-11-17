@@ -1293,7 +1293,7 @@ public abstract class AbstractWebBackendBadgeOptions<S extends AbstractWebBacken
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendBadgeOptions) (other)) instanceof WebBackendBadgeOptions) {
+        if (other instanceof WebBackendBadgeOptions) {
             WebBackendBadgeOptions otherWebBackendBadgeOptions = ((WebBackendBadgeOptions) (other));
         }
     }

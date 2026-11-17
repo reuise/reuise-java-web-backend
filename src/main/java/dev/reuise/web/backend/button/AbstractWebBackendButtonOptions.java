@@ -1354,7 +1354,7 @@ public abstract class AbstractWebBackendButtonOptions<S extends AbstractWebBacke
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendButtonOptions) (other)) instanceof WebBackendButtonOptions) {
+        if (other instanceof WebBackendButtonOptions) {
             WebBackendButtonOptions otherWebBackendButtonOptions = ((WebBackendButtonOptions) (other));
             CoreIconOptions otherStartIconOptions = otherWebBackendButtonOptions.getStartIconOptions();
             if (otherStartIconOptions != null)

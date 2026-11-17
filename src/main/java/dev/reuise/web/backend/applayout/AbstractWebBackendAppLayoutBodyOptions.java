@@ -2150,7 +2150,7 @@ public abstract class AbstractWebBackendAppLayoutBodyOptions<S extends AbstractW
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendAppLayoutBodyOptions) (other)) instanceof WebBackendAppLayoutBodyOptions) {
+        if (other instanceof WebBackendAppLayoutBodyOptions) {
             WebBackendAppLayoutBodyOptions otherWebBackendAppLayoutBodyOptions = ((WebBackendAppLayoutBodyOptions) (other));
         }
     }

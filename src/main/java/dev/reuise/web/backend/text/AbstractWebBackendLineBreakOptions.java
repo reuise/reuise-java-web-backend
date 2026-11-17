@@ -1292,7 +1292,7 @@ public abstract class AbstractWebBackendLineBreakOptions<S extends AbstractWebBa
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendLineBreakOptions) (other)) instanceof WebBackendLineBreakOptions) {
+        if (other instanceof WebBackendLineBreakOptions) {
             WebBackendLineBreakOptions otherWebBackendLineBreakOptions = ((WebBackendLineBreakOptions) (other));
         }
     }

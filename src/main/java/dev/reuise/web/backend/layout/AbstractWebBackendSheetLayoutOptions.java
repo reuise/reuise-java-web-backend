@@ -2181,7 +2181,7 @@ public abstract class AbstractWebBackendSheetLayoutOptions<S extends AbstractWeb
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendSheetLayoutOptions) (other)) instanceof WebBackendSheetLayoutOptions) {
+        if (other instanceof WebBackendSheetLayoutOptions) {
             WebBackendSheetLayoutOptions otherWebBackendSheetLayoutOptions = ((WebBackendSheetLayoutOptions) (other));
         }
     }

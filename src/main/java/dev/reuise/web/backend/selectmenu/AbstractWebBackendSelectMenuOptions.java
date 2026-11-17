@@ -1349,7 +1349,7 @@ public abstract class AbstractWebBackendSelectMenuOptions<S extends AbstractWebB
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendSelectMenuOptions) (other)) instanceof WebBackendSelectMenuOptions) {
+        if (other instanceof WebBackendSelectMenuOptions) {
             WebBackendSelectMenuOptions otherWebBackendSelectMenuOptions = ((WebBackendSelectMenuOptions) (other));
             CoreTextFieldOptions otherTextFieldOptions = otherWebBackendSelectMenuOptions.getTextFieldOptions();
             if (otherTextFieldOptions != null)

@@ -1716,7 +1716,7 @@ public abstract class AbstractWebBackendFloatingActionButtonOptions<S extends Ab
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendFloatingActionButtonOptions) (other)) instanceof WebBackendFloatingActionButtonOptions) {
+        if (other instanceof WebBackendFloatingActionButtonOptions) {
             WebBackendFloatingActionButtonOptions otherWebBackendFloatingActionButtonOptions = ((WebBackendFloatingActionButtonOptions) (other));
             CoreInlineTextOptions otherBadgeOptions = otherWebBackendFloatingActionButtonOptions.getBadgeOptions();
             if (otherBadgeOptions != null)

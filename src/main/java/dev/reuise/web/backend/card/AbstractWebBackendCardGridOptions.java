@@ -1788,7 +1788,7 @@ public abstract class AbstractWebBackendCardGridOptions<S extends AbstractWebBac
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendCardGridOptions) (other)) instanceof WebBackendCardGridOptions) {
+        if (other instanceof WebBackendCardGridOptions) {
             WebBackendCardGridOptions otherWebBackendCardGridOptions = ((WebBackendCardGridOptions) (other));
             CoreContainerOptions otherScrimOptions = otherWebBackendCardGridOptions.getScrimOptions();
             if (otherScrimOptions != null)

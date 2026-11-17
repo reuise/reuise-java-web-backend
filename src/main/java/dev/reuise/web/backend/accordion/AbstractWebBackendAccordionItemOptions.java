@@ -2172,7 +2172,7 @@ public abstract class AbstractWebBackendAccordionItemOptions<S extends AbstractW
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendAccordionItemOptions) (other)) instanceof WebBackendAccordionItemOptions) {
+        if (other instanceof WebBackendAccordionItemOptions) {
             WebBackendAccordionItemOptions otherWebBackendAccordionItemOptions = ((WebBackendAccordionItemOptions) (other));
             CoreFlexContainerOptions otherHeaderOptions = otherWebBackendAccordionItemOptions.getHeaderOptions();
             if (otherHeaderOptions != null)

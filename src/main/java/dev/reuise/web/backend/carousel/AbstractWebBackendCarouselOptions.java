@@ -1809,7 +1809,7 @@ public abstract class AbstractWebBackendCarouselOptions<S extends AbstractWebBac
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendCarouselOptions) (other)) instanceof WebBackendCarouselOptions) {
+        if (other instanceof WebBackendCarouselOptions) {
             WebBackendCarouselOptions otherWebBackendCarouselOptions = ((WebBackendCarouselOptions) (other));
             CoreContainerOptions otherViewportOptions = otherWebBackendCarouselOptions.getViewportOptions();
             if (otherViewportOptions != null)

@@ -1337,7 +1337,7 @@ public abstract class AbstractWebBackendSvgOptions<S extends AbstractWebBackendS
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendSvgOptions) (other)) instanceof WebBackendSvgOptions) {
+        if (other instanceof WebBackendSvgOptions) {
             WebBackendSvgOptions otherWebBackendSvgOptions = ((WebBackendSvgOptions) (other));
         }
     }

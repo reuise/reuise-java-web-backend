@@ -2195,7 +2195,7 @@ public abstract class AbstractWebBackendSheetRouteLayoutOptions<S extends Abstra
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendSheetRouteLayoutOptions) (other)) instanceof WebBackendSheetRouteLayoutOptions) {
+        if (other instanceof WebBackendSheetRouteLayoutOptions) {
             WebBackendSheetRouteLayoutOptions otherWebBackendSheetRouteLayoutOptions = ((WebBackendSheetRouteLayoutOptions) (other));
             WebRouteLayoutOptions otherRouteLayoutOptions = otherWebBackendSheetRouteLayoutOptions.getRouteLayoutOptions();
             if (otherRouteLayoutOptions != null)

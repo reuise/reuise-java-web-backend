@@ -1346,7 +1346,7 @@ public abstract class AbstractWebBackendMenuOptions<S extends AbstractWebBackend
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendMenuOptions) (other)) instanceof WebBackendMenuOptions) {
+        if (other instanceof WebBackendMenuOptions) {
             WebBackendMenuOptions otherWebBackendMenuOptions = ((WebBackendMenuOptions) (other));
             CoreListViewOptions otherListOptions = otherWebBackendMenuOptions.getListOptions();
             if (otherListOptions != null)

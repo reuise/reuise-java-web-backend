@@ -1293,7 +1293,7 @@ public abstract class AbstractWebBackendFilePickerOptions<S extends AbstractWebB
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendFilePickerOptions) (other)) instanceof WebBackendFilePickerOptions) {
+        if (other instanceof WebBackendFilePickerOptions) {
             WebBackendFilePickerOptions otherWebBackendFilePickerOptions = ((WebBackendFilePickerOptions) (other));
         }
     }

@@ -1454,7 +1454,7 @@ public abstract class AbstractWebBackendCurrencySelectorOptions<S extends Abstra
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendCurrencySelectorOptions) (other)) instanceof WebBackendCurrencySelectorOptions) {
+        if (other instanceof WebBackendCurrencySelectorOptions) {
             WebBackendCurrencySelectorOptions otherWebBackendCurrencySelectorOptions = ((WebBackendCurrencySelectorOptions) (other));
         }
     }

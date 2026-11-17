@@ -1639,7 +1639,7 @@ public abstract class AbstractWebBackendTextBlockOptions<S extends AbstractWebBa
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendTextBlockOptions) (other)) instanceof WebBackendTextBlockOptions) {
+        if (other instanceof WebBackendTextBlockOptions) {
             WebBackendTextBlockOptions otherWebBackendTextBlockOptions = ((WebBackendTextBlockOptions) (other));
         }
     }

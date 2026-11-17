@@ -1336,7 +1336,7 @@ public abstract class AbstractWebBackendTableColumnOptions<S extends AbstractWeb
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendTableColumnOptions) (other)) instanceof WebBackendTableColumnOptions) {
+        if (other instanceof WebBackendTableColumnOptions) {
             WebBackendTableColumnOptions otherWebBackendTableColumnOptions = ((WebBackendTableColumnOptions) (other));
         }
     }

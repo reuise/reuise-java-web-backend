@@ -1335,7 +1335,7 @@ public abstract class AbstractWebBackendMediaPlayerOptions<S extends AbstractWeb
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendMediaPlayerOptions) (other)) instanceof WebBackendMediaPlayerOptions) {
+        if (other instanceof WebBackendMediaPlayerOptions) {
             WebBackendMediaPlayerOptions otherWebBackendMediaPlayerOptions = ((WebBackendMediaPlayerOptions) (other));
         }
     }

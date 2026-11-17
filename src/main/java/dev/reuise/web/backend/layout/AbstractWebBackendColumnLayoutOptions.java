@@ -2149,7 +2149,7 @@ public abstract class AbstractWebBackendColumnLayoutOptions<S extends AbstractWe
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendColumnLayoutOptions) (other)) instanceof WebBackendColumnLayoutOptions) {
+        if (other instanceof WebBackendColumnLayoutOptions) {
             WebBackendColumnLayoutOptions otherWebBackendColumnLayoutOptions = ((WebBackendColumnLayoutOptions) (other));
         }
     }

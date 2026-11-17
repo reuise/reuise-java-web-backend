@@ -2154,7 +2154,7 @@ public abstract class AbstractWebBackendButtonBarOptions<S extends AbstractWebBa
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendButtonBarOptions) (other)) instanceof WebBackendButtonBarOptions) {
+        if (other instanceof WebBackendButtonBarOptions) {
             WebBackendButtonBarOptions otherWebBackendButtonBarOptions = ((WebBackendButtonBarOptions) (other));
         }
     }

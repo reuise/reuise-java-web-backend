@@ -1336,7 +1336,7 @@ public abstract class AbstractWebBackendDropZoneOptions<S extends AbstractWebBac
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendDropZoneOptions) (other)) instanceof WebBackendDropZoneOptions) {
+        if (other instanceof WebBackendDropZoneOptions) {
             WebBackendDropZoneOptions otherWebBackendDropZoneOptions = ((WebBackendDropZoneOptions) (other));
         }
     }

@@ -1355,7 +1355,7 @@ public abstract class AbstractWebBackendIconLabelOptions<S extends AbstractWebBa
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendIconLabelOptions) (other)) instanceof WebBackendIconLabelOptions) {
+        if (other instanceof WebBackendIconLabelOptions) {
             WebBackendIconLabelOptions otherWebBackendIconLabelOptions = ((WebBackendIconLabelOptions) (other));
             CoreLinkOptions otherLinkOptions = otherWebBackendIconLabelOptions.getLinkOptions();
             if (otherLinkOptions != null)

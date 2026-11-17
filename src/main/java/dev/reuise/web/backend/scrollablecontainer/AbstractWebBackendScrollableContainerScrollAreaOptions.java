@@ -1351,7 +1351,7 @@ public abstract class AbstractWebBackendScrollableContainerScrollAreaOptions<S e
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendScrollableContainerScrollAreaOptions) (other)) instanceof WebBackendScrollableContainerScrollAreaOptions) {
+        if (other instanceof WebBackendScrollableContainerScrollAreaOptions) {
             WebBackendScrollableContainerScrollAreaOptions otherWebBackendScrollableContainerScrollAreaOptions = ((WebBackendScrollableContainerScrollAreaOptions) (other));
             CoreContainerOptions otherScrollAreaTopFadeOptions = otherWebBackendScrollableContainerScrollAreaOptions.getScrollAreaTopFadeOptions();
             if (otherScrollAreaTopFadeOptions != null)

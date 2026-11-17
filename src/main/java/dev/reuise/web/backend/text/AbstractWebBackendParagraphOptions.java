@@ -1336,7 +1336,7 @@ public abstract class AbstractWebBackendParagraphOptions<S extends AbstractWebBa
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendParagraphOptions) (other)) instanceof WebBackendParagraphOptions) {
+        if (other instanceof WebBackendParagraphOptions) {
             WebBackendParagraphOptions otherWebBackendParagraphOptions = ((WebBackendParagraphOptions) (other));
         }
     }

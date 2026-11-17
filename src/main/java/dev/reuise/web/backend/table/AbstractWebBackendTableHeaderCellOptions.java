@@ -1355,7 +1355,7 @@ public abstract class AbstractWebBackendTableHeaderCellOptions<S extends Abstrac
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendTableHeaderCellOptions) (other)) instanceof WebBackendTableHeaderCellOptions) {
+        if (other instanceof WebBackendTableHeaderCellOptions) {
             WebBackendTableHeaderCellOptions otherWebBackendTableHeaderCellOptions = ((WebBackendTableHeaderCellOptions) (other));
             CoreInlineTextOptions otherLabelContainerOptions = otherWebBackendTableHeaderCellOptions.getLabelContainerOptions();
             if (otherLabelContainerOptions != null)

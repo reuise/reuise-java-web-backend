@@ -2148,7 +2148,7 @@ public abstract class AbstractWebBackendSurfaceOptions<S extends AbstractWebBack
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendSurfaceOptions) (other)) instanceof WebBackendSurfaceOptions) {
+        if (other instanceof WebBackendSurfaceOptions) {
             WebBackendSurfaceOptions otherWebBackendSurfaceOptions = ((WebBackendSurfaceOptions) (other));
         }
     }

@@ -2179,7 +2179,7 @@ public abstract class AbstractWebBackendConsentBannerOptions<S extends AbstractW
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendConsentBannerOptions) (other)) instanceof WebBackendConsentBannerOptions) {
+        if (other instanceof WebBackendConsentBannerOptions) {
             WebBackendConsentBannerOptions otherWebBackendConsentBannerOptions = ((WebBackendConsentBannerOptions) (other));
             CoreParagraphOptions otherMessageParagraphOptions = otherWebBackendConsentBannerOptions.getMessageParagraphOptions();
             if (otherMessageParagraphOptions != null)

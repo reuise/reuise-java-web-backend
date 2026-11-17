@@ -1469,7 +1469,7 @@ public abstract class AbstractWebBackendSvgPathOptions<S extends AbstractWebBack
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendSvgPathOptions) (other)) instanceof WebBackendSvgPathOptions) {
+        if (other instanceof WebBackendSvgPathOptions) {
             WebBackendSvgPathOptions otherWebBackendSvgPathOptions = ((WebBackendSvgPathOptions) (other));
         }
     }

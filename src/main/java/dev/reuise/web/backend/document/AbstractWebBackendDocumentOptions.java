@@ -1396,7 +1396,7 @@ public abstract class AbstractWebBackendDocumentOptions<S extends AbstractWebBac
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendDocumentOptions) (other)) instanceof WebBackendDocumentOptions) {
+        if (other instanceof WebBackendDocumentOptions) {
             WebBackendDocumentOptions otherWebBackendDocumentOptions = ((WebBackendDocumentOptions) (other));
             WebDocumentBodyOptions otherBodyOptions = otherWebBackendDocumentOptions.getBodyOptions();
             if (otherBodyOptions != null)

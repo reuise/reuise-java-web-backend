@@ -2169,7 +2169,7 @@ public abstract class AbstractWebBackendOverflowBarOptions<S extends AbstractWeb
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendOverflowBarOptions) (other)) instanceof WebBackendOverflowBarOptions) {
+        if (other instanceof WebBackendOverflowBarOptions) {
             WebBackendOverflowBarOptions otherWebBackendOverflowBarOptions = ((WebBackendOverflowBarOptions) (other));
             CoreFlexContainerOptions otherItemsOptions = otherWebBackendOverflowBarOptions.getItemsOptions();
             if (otherItemsOptions != null)

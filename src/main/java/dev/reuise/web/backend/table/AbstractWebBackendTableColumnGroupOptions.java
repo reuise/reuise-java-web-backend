@@ -1336,7 +1336,7 @@ public abstract class AbstractWebBackendTableColumnGroupOptions<S extends Abstra
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendTableColumnGroupOptions) (other)) instanceof WebBackendTableColumnGroupOptions) {
+        if (other instanceof WebBackendTableColumnGroupOptions) {
             WebBackendTableColumnGroupOptions otherWebBackendTableColumnGroupOptions = ((WebBackendTableColumnGroupOptions) (other));
         }
     }

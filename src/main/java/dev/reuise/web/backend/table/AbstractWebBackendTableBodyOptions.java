@@ -1336,7 +1336,7 @@ public abstract class AbstractWebBackendTableBodyOptions<S extends AbstractWebBa
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendTableBodyOptions) (other)) instanceof WebBackendTableBodyOptions) {
+        if (other instanceof WebBackendTableBodyOptions) {
             WebBackendTableBodyOptions otherWebBackendTableBodyOptions = ((WebBackendTableBodyOptions) (other));
         }
     }

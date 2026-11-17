@@ -1482,7 +1482,7 @@ public abstract class AbstractWebBackendVideoPlayerOptions<S extends AbstractWeb
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendVideoPlayerOptions) (other)) instanceof WebBackendVideoPlayerOptions) {
+        if (other instanceof WebBackendVideoPlayerOptions) {
             WebBackendVideoPlayerOptions otherWebBackendVideoPlayerOptions = ((WebBackendVideoPlayerOptions) (other));
         }
     }

@@ -1351,7 +1351,7 @@ public abstract class AbstractWebBackendDividerOptions<S extends AbstractWebBack
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendDividerOptions) (other)) instanceof WebBackendDividerOptions) {
+        if (other instanceof WebBackendDividerOptions) {
             WebBackendDividerOptions otherWebBackendDividerOptions = ((WebBackendDividerOptions) (other));
             CoreContainerOptions otherStartLineOptions = otherWebBackendDividerOptions.getStartLineOptions();
             if (otherStartLineOptions != null)

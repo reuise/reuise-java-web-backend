@@ -1772,7 +1772,7 @@ public abstract class AbstractWebBackendMessageDialogOptions<S extends AbstractW
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendMessageDialogOptions) (other)) instanceof WebBackendMessageDialogOptions) {
+        if (other instanceof WebBackendMessageDialogOptions) {
             WebBackendMessageDialogOptions otherWebBackendMessageDialogOptions = ((WebBackendMessageDialogOptions) (other));
         }
     }

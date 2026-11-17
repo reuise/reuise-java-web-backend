@@ -1469,7 +1469,7 @@ public abstract class AbstractWebBackendSvgRectOptions<S extends AbstractWebBack
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendSvgRectOptions) (other)) instanceof WebBackendSvgRectOptions) {
+        if (other instanceof WebBackendSvgRectOptions) {
             WebBackendSvgRectOptions otherWebBackendSvgRectOptions = ((WebBackendSvgRectOptions) (other));
         }
     }

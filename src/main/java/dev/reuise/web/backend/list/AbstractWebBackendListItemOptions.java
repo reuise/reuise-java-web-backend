@@ -1429,7 +1429,7 @@ public abstract class AbstractWebBackendListItemOptions<S extends AbstractWebBac
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendListItemOptions) (other)) instanceof WebBackendListItemOptions) {
+        if (other instanceof WebBackendListItemOptions) {
             WebBackendListItemOptions otherWebBackendListItemOptions = ((WebBackendListItemOptions) (other));
             CoreCheckboxOptions otherCheckboxOptions = otherWebBackendListItemOptions.getCheckboxOptions();
             if (otherCheckboxOptions != null)

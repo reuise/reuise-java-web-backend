@@ -1411,7 +1411,7 @@ public abstract class AbstractWebBackendSvgImageOptions<S extends AbstractWebBac
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendSvgImageOptions) (other)) instanceof WebBackendSvgImageOptions) {
+        if (other instanceof WebBackendSvgImageOptions) {
             WebBackendSvgImageOptions otherWebBackendSvgImageOptions = ((WebBackendSvgImageOptions) (other));
         }
     }

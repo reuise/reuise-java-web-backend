@@ -1639,7 +1639,7 @@ public abstract class AbstractWebBackendHeadingOptions<S extends AbstractWebBack
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendHeadingOptions) (other)) instanceof WebBackendHeadingOptions) {
+        if (other instanceof WebBackendHeadingOptions) {
             WebBackendHeadingOptions otherWebBackendHeadingOptions = ((WebBackendHeadingOptions) (other));
         }
     }

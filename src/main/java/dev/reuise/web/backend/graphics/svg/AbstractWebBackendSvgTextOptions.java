@@ -1411,7 +1411,7 @@ public abstract class AbstractWebBackendSvgTextOptions<S extends AbstractWebBack
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendSvgTextOptions) (other)) instanceof WebBackendSvgTextOptions) {
+        if (other instanceof WebBackendSvgTextOptions) {
             WebBackendSvgTextOptions otherWebBackendSvgTextOptions = ((WebBackendSvgTextOptions) (other));
         }
     }

@@ -1639,7 +1639,7 @@ public abstract class AbstractWebBackendInlineTextOptions<S extends AbstractWebB
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendInlineTextOptions) (other)) instanceof WebBackendInlineTextOptions) {
+        if (other instanceof WebBackendInlineTextOptions) {
             WebBackendInlineTextOptions otherWebBackendInlineTextOptions = ((WebBackendInlineTextOptions) (other));
         }
     }

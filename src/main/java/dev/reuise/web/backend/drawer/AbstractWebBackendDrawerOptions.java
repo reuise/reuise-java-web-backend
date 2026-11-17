@@ -1780,7 +1780,7 @@ public abstract class AbstractWebBackendDrawerOptions<S extends AbstractWebBacke
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendDrawerOptions) (other)) instanceof WebBackendDrawerOptions) {
+        if (other instanceof WebBackendDrawerOptions) {
             WebBackendDrawerOptions otherWebBackendDrawerOptions = ((WebBackendDrawerOptions) (other));
         }
     }

@@ -1296,7 +1296,7 @@ public abstract class AbstractWebBackendBasicInputFieldOptions<S extends Abstrac
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendBasicInputFieldOptions) (other)) instanceof WebBackendBasicInputFieldOptions) {
+        if (other instanceof WebBackendBasicInputFieldOptions) {
             WebBackendBasicInputFieldOptions otherWebBackendBasicInputFieldOptions = ((WebBackendBasicInputFieldOptions) (other));
         }
     }

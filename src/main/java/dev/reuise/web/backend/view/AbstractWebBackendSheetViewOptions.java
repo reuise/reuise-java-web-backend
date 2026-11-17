@@ -2211,7 +2211,7 @@ public abstract class AbstractWebBackendSheetViewOptions<S extends AbstractWebBa
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendSheetViewOptions) (other)) instanceof WebBackendSheetViewOptions) {
+        if (other instanceof WebBackendSheetViewOptions) {
             WebBackendSheetViewOptions otherWebBackendSheetViewOptions = ((WebBackendSheetViewOptions) (other));
         }
     }

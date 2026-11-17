@@ -1781,7 +1781,7 @@ public abstract class AbstractWebBackendCarouselCardOptions<S extends AbstractWe
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendCarouselCardOptions) (other)) instanceof WebBackendCarouselCardOptions) {
+        if (other instanceof WebBackendCarouselCardOptions) {
             WebBackendCarouselCardOptions otherWebBackendCarouselCardOptions = ((WebBackendCarouselCardOptions) (other));
         }
     }

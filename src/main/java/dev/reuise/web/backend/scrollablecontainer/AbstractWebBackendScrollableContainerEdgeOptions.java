@@ -1336,7 +1336,7 @@ public abstract class AbstractWebBackendScrollableContainerEdgeOptions<S extends
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendScrollableContainerEdgeOptions) (other)) instanceof WebBackendScrollableContainerEdgeOptions) {
+        if (other instanceof WebBackendScrollableContainerEdgeOptions) {
             WebBackendScrollableContainerEdgeOptions otherWebBackendScrollableContainerEdgeOptions = ((WebBackendScrollableContainerEdgeOptions) (other));
         }
     }

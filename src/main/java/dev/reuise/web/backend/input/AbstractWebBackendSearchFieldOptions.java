@@ -1616,7 +1616,7 @@ public abstract class AbstractWebBackendSearchFieldOptions<S extends AbstractWeb
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendSearchFieldOptions) (other)) instanceof WebBackendSearchFieldOptions) {
+        if (other instanceof WebBackendSearchFieldOptions) {
             WebBackendSearchFieldOptions otherWebBackendSearchFieldOptions = ((WebBackendSearchFieldOptions) (other));
         }
     }

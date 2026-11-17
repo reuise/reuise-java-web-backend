@@ -1788,7 +1788,7 @@ public abstract class AbstractWebBackendSlideContainerOptions<S extends Abstract
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendSlideContainerOptions) (other)) instanceof WebBackendSlideContainerOptions) {
+        if (other instanceof WebBackendSlideContainerOptions) {
             WebBackendSlideContainerOptions otherWebBackendSlideContainerOptions = ((WebBackendSlideContainerOptions) (other));
             CoreContainerOptions otherSlideAreaBeforeOptions = otherWebBackendSlideContainerOptions.getSlideAreaBeforeOptions();
             if (otherSlideAreaBeforeOptions != null)

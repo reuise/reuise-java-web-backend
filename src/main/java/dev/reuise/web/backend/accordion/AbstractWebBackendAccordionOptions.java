@@ -2151,7 +2151,7 @@ public abstract class AbstractWebBackendAccordionOptions<S extends AbstractWebBa
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendAccordionOptions) (other)) instanceof WebBackendAccordionOptions) {
+        if (other instanceof WebBackendAccordionOptions) {
             WebBackendAccordionOptions otherWebBackendAccordionOptions = ((WebBackendAccordionOptions) (other));
         }
     }

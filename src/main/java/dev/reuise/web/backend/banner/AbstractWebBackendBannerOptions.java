@@ -2185,7 +2185,7 @@ public abstract class AbstractWebBackendBannerOptions<S extends AbstractWebBacke
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendBannerOptions) (other)) instanceof WebBackendBannerOptions) {
+        if (other instanceof WebBackendBannerOptions) {
             WebBackendBannerOptions otherWebBackendBannerOptions = ((WebBackendBannerOptions) (other));
             CoreIconOptions otherIconOptions = otherWebBackendBannerOptions.getIconOptions();
             if (otherIconOptions != null)

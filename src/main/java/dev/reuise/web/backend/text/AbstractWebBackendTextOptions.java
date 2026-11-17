@@ -1336,7 +1336,7 @@ public abstract class AbstractWebBackendTextOptions<S extends AbstractWebBackend
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendTextOptions) (other)) instanceof WebBackendTextOptions) {
+        if (other instanceof WebBackendTextOptions) {
             WebBackendTextOptions otherWebBackendTextOptions = ((WebBackendTextOptions) (other));
         }
     }

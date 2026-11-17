@@ -394,9 +394,13 @@ public abstract class DefaultWebBackendButton<S extends DefaultWebBackendButton<
         return label;
     }
 
+    // Implementation
     @Override
     public S setLabel(String label) {
         this.label = label;
+        if (getLabelContainer() != null)
+            getLabelContainer().setText(label);
+
         return self();
     }
 

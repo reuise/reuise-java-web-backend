@@ -1343,7 +1343,7 @@ public abstract class AbstractWebBackendProgressIndicatorOptions<S extends Abstr
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendProgressIndicatorOptions) (other)) instanceof WebBackendProgressIndicatorOptions) {
+        if (other instanceof WebBackendProgressIndicatorOptions) {
             WebBackendProgressIndicatorOptions otherWebBackendProgressIndicatorOptions = ((WebBackendProgressIndicatorOptions) (other));
             CoreContainerOptions otherTrackOptions = otherWebBackendProgressIndicatorOptions.getTrackOptions();
             if (otherTrackOptions != null)

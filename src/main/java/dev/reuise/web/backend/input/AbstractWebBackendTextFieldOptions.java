@@ -1367,7 +1367,7 @@ public abstract class AbstractWebBackendTextFieldOptions<S extends AbstractWebBa
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendTextFieldOptions) (other)) instanceof WebBackendTextFieldOptions) {
+        if (other instanceof WebBackendTextFieldOptions) {
             WebBackendTextFieldOptions otherWebBackendTextFieldOptions = ((WebBackendTextFieldOptions) (other));
             CoreLabelOptions otherLabelContainerOptions = otherWebBackendTextFieldOptions.getLabelContainerOptions();
             if (otherLabelContainerOptions != null)

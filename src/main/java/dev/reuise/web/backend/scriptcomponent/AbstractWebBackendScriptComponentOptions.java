@@ -1336,7 +1336,7 @@ public abstract class AbstractWebBackendScriptComponentOptions<S extends Abstrac
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendScriptComponentOptions) (other)) instanceof WebBackendScriptComponentOptions) {
+        if (other instanceof WebBackendScriptComponentOptions) {
             WebBackendScriptComponentOptions otherWebBackendScriptComponentOptions = ((WebBackendScriptComponentOptions) (other));
         }
     }

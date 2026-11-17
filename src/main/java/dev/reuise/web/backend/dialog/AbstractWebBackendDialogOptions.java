@@ -1376,7 +1376,7 @@ public abstract class AbstractWebBackendDialogOptions<S extends AbstractWebBacke
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendDialogOptions) (other)) instanceof WebBackendDialogOptions) {
+        if (other instanceof WebBackendDialogOptions) {
             WebBackendDialogOptions otherWebBackendDialogOptions = ((WebBackendDialogOptions) (other));
             CoreContainerOptions otherContainerOptions = otherWebBackendDialogOptions.getContainerOptions();
             if (otherContainerOptions != null)

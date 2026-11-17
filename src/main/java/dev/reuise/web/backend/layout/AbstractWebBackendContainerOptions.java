@@ -1335,7 +1335,7 @@ public abstract class AbstractWebBackendContainerOptions<S extends AbstractWebBa
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendContainerOptions) (other)) instanceof WebBackendContainerOptions) {
+        if (other instanceof WebBackendContainerOptions) {
             WebBackendContainerOptions otherWebBackendContainerOptions = ((WebBackendContainerOptions) (other));
         }
     }

@@ -1780,7 +1780,7 @@ public abstract class AbstractWebBackendSplitContainerPanelOptions<S extends Abs
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendSplitContainerPanelOptions) (other)) instanceof WebBackendSplitContainerPanelOptions) {
+        if (other instanceof WebBackendSplitContainerPanelOptions) {
             WebBackendSplitContainerPanelOptions otherWebBackendSplitContainerPanelOptions = ((WebBackendSplitContainerPanelOptions) (other));
         }
     }

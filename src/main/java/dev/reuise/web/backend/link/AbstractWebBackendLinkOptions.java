@@ -1348,7 +1348,7 @@ public abstract class AbstractWebBackendLinkOptions<S extends AbstractWebBackend
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendLinkOptions) (other)) instanceof WebBackendLinkOptions) {
+        if (other instanceof WebBackendLinkOptions) {
             WebBackendLinkOptions otherWebBackendLinkOptions = ((WebBackendLinkOptions) (other));
             CoreIconOptions otherStartIconOptions = otherWebBackendLinkOptions.getStartIconOptions();
             if (otherStartIconOptions != null)

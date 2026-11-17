@@ -1825,7 +1825,7 @@ public abstract class AbstractWebBackendChatBoxOptions<S extends AbstractWebBack
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendChatBoxOptions) (other)) instanceof WebBackendChatBoxOptions) {
+        if (other instanceof WebBackendChatBoxOptions) {
             WebBackendChatBoxOptions otherWebBackendChatBoxOptions = ((WebBackendChatBoxOptions) (other));
             CoreFloatingPanelOptions otherFloatingPanelOptions = otherWebBackendChatBoxOptions.getFloatingPanelOptions();
             if (otherFloatingPanelOptions != null)

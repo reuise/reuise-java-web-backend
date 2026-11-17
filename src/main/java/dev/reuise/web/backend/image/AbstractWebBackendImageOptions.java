@@ -1300,7 +1300,7 @@ public abstract class AbstractWebBackendImageOptions<S extends AbstractWebBacken
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendImageOptions) (other)) instanceof WebBackendImageOptions) {
+        if (other instanceof WebBackendImageOptions) {
             WebBackendImageOptions otherWebBackendImageOptions = ((WebBackendImageOptions) (other));
             CoreLinkOptions otherLinkOptions = otherWebBackendImageOptions.getLinkOptions();
             if (otherLinkOptions != null)

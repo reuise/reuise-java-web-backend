@@ -1483,7 +1483,7 @@ public abstract class AbstractWebBackendFilterChipOptions<S extends AbstractWebB
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendFilterChipOptions) (other)) instanceof WebBackendFilterChipOptions) {
+        if (other instanceof WebBackendFilterChipOptions) {
             WebBackendFilterChipOptions otherWebBackendFilterChipOptions = ((WebBackendFilterChipOptions) (other));
         }
     }

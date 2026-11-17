@@ -1355,7 +1355,7 @@ public abstract class AbstractWebBackendIconOptions<S extends AbstractWebBackend
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendIconOptions) (other)) instanceof WebBackendIconOptions) {
+        if (other instanceof WebBackendIconOptions) {
             WebBackendIconOptions otherWebBackendIconOptions = ((WebBackendIconOptions) (other));
             WebSvgOptions otherSvgOptions = otherWebBackendIconOptions.getSvgOptions();
             if (otherSvgOptions != null)

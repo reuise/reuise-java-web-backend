@@ -1291,7 +1291,7 @@ public abstract class AbstractWebBackendParentComponentOptions<S extends Abstrac
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendParentComponentOptions) (other)) instanceof WebBackendParentComponentOptions) {
+        if (other instanceof WebBackendParentComponentOptions) {
             WebBackendParentComponentOptions otherWebBackendParentComponentOptions = ((WebBackendParentComponentOptions) (other));
         }
     }

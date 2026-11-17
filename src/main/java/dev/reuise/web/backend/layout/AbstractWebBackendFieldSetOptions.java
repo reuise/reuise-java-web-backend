@@ -1776,7 +1776,7 @@ public abstract class AbstractWebBackendFieldSetOptions<S extends AbstractWebBac
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendFieldSetOptions) (other)) instanceof WebBackendFieldSetOptions) {
+        if (other instanceof WebBackendFieldSetOptions) {
             WebBackendFieldSetOptions otherWebBackendFieldSetOptions = ((WebBackendFieldSetOptions) (other));
         }
     }

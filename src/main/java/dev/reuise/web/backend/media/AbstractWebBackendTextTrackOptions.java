@@ -1336,7 +1336,7 @@ public abstract class AbstractWebBackendTextTrackOptions<S extends AbstractWebBa
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendTextTrackOptions) (other)) instanceof WebBackendTextTrackOptions) {
+        if (other instanceof WebBackendTextTrackOptions) {
             WebBackendTextTrackOptions otherWebBackendTextTrackOptions = ((WebBackendTextTrackOptions) (other));
         }
     }

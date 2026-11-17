@@ -1777,7 +1777,7 @@ public abstract class AbstractWebBackendRouteLayoutOptions<S extends AbstractWeb
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendRouteLayoutOptions) (other)) instanceof WebBackendRouteLayoutOptions) {
+        if (other instanceof WebBackendRouteLayoutOptions) {
             WebBackendRouteLayoutOptions otherWebBackendRouteLayoutOptions = ((WebBackendRouteLayoutOptions) (other));
         }
     }

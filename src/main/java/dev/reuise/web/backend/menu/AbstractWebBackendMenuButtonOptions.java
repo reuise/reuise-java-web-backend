@@ -1793,7 +1793,7 @@ public abstract class AbstractWebBackendMenuButtonOptions<S extends AbstractWebB
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendMenuButtonOptions) (other)) instanceof WebBackendMenuButtonOptions) {
+        if (other instanceof WebBackendMenuButtonOptions) {
             WebBackendMenuButtonOptions otherWebBackendMenuButtonOptions = ((WebBackendMenuButtonOptions) (other));
             CoreButtonOptions otherTriggerOptions = otherWebBackendMenuButtonOptions.getTriggerOptions();
             if (otherTriggerOptions != null)

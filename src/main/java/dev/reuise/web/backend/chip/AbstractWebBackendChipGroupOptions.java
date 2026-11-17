@@ -1807,7 +1807,7 @@ public abstract class AbstractWebBackendChipGroupOptions<S extends AbstractWebBa
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendChipGroupOptions) (other)) instanceof WebBackendChipGroupOptions) {
+        if (other instanceof WebBackendChipGroupOptions) {
             WebBackendChipGroupOptions otherWebBackendChipGroupOptions = ((WebBackendChipGroupOptions) (other));
             CoreChipOptions otherAddButtonOptions = otherWebBackendChipGroupOptions.getAddButtonOptions();
             if (otherAddButtonOptions != null)

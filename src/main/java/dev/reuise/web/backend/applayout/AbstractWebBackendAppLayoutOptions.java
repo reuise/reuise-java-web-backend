@@ -1354,7 +1354,7 @@ public abstract class AbstractWebBackendAppLayoutOptions<S extends AbstractWebBa
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendAppLayoutOptions) (other)) instanceof WebBackendAppLayoutOptions) {
+        if (other instanceof WebBackendAppLayoutOptions) {
             WebBackendAppLayoutOptions otherWebBackendAppLayoutOptions = ((WebBackendAppLayoutOptions) (other));
             CoreContainerOptions otherDrawerScrimOptions = otherWebBackendAppLayoutOptions.getDrawerScrimOptions();
             if (otherDrawerScrimOptions != null)

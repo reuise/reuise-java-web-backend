@@ -1542,7 +1542,7 @@ public abstract class AbstractWebBackendNavigationTreeLinkOptions<S extends Abst
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendNavigationTreeLinkOptions) (other)) instanceof WebBackendNavigationTreeLinkOptions) {
+        if (other instanceof WebBackendNavigationTreeLinkOptions) {
             WebBackendNavigationTreeLinkOptions otherWebBackendNavigationTreeLinkOptions = ((WebBackendNavigationTreeLinkOptions) (other));
             CoreListItemOptions otherItemOptions = otherWebBackendNavigationTreeLinkOptions.getItemOptions();
             if (otherItemOptions != null)

@@ -1293,7 +1293,7 @@ public abstract class AbstractWebBackendRotatingTextOptions<S extends AbstractWe
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendRotatingTextOptions) (other)) instanceof WebBackendRotatingTextOptions) {
+        if (other instanceof WebBackendRotatingTextOptions) {
             WebBackendRotatingTextOptions otherWebBackendRotatingTextOptions = ((WebBackendRotatingTextOptions) (other));
         }
     }

@@ -1343,7 +1343,7 @@ public abstract class AbstractWebBackendBasicListItemOptions<S extends AbstractW
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendBasicListItemOptions) (other)) instanceof WebBackendBasicListItemOptions) {
+        if (other instanceof WebBackendBasicListItemOptions) {
             WebBackendBasicListItemOptions otherWebBackendBasicListItemOptions = ((WebBackendBasicListItemOptions) (other));
             CoreLinkOptions otherLinkOptions = otherWebBackendBasicListItemOptions.getLinkOptions();
             if (otherLinkOptions != null)

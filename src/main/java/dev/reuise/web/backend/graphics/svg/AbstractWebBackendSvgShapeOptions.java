@@ -1410,7 +1410,7 @@ public abstract class AbstractWebBackendSvgShapeOptions<S extends AbstractWebBac
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendSvgShapeOptions) (other)) instanceof WebBackendSvgShapeOptions) {
+        if (other instanceof WebBackendSvgShapeOptions) {
             WebBackendSvgShapeOptions otherWebBackendSvgShapeOptions = ((WebBackendSvgShapeOptions) (other));
         }
     }

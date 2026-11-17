@@ -1775,7 +1775,7 @@ public abstract class AbstractWebBackendFlexContainerOptions<S extends AbstractW
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendFlexContainerOptions) (other)) instanceof WebBackendFlexContainerOptions) {
+        if (other instanceof WebBackendFlexContainerOptions) {
             WebBackendFlexContainerOptions otherWebBackendFlexContainerOptions = ((WebBackendFlexContainerOptions) (other));
         }
     }

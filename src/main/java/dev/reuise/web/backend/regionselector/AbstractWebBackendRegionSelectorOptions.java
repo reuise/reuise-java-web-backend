@@ -1454,7 +1454,7 @@ public abstract class AbstractWebBackendRegionSelectorOptions<S extends Abstract
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendRegionSelectorOptions) (other)) instanceof WebBackendRegionSelectorOptions) {
+        if (other instanceof WebBackendRegionSelectorOptions) {
             WebBackendRegionSelectorOptions otherWebBackendRegionSelectorOptions = ((WebBackendRegionSelectorOptions) (other));
         }
     }

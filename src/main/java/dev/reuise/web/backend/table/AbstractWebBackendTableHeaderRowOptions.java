@@ -1336,7 +1336,7 @@ public abstract class AbstractWebBackendTableHeaderRowOptions<S extends Abstract
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendTableHeaderRowOptions) (other)) instanceof WebBackendTableHeaderRowOptions) {
+        if (other instanceof WebBackendTableHeaderRowOptions) {
             WebBackendTableHeaderRowOptions otherWebBackendTableHeaderRowOptions = ((WebBackendTableHeaderRowOptions) (other));
         }
     }

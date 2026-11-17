@@ -1349,7 +1349,7 @@ public abstract class AbstractWebBackendAvatarOptions<S extends AbstractWebBacke
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendAvatarOptions) (other)) instanceof WebBackendAvatarOptions) {
+        if (other instanceof WebBackendAvatarOptions) {
             WebBackendAvatarOptions otherWebBackendAvatarOptions = ((WebBackendAvatarOptions) (other));
             CoreImageOptions otherImageOptions = otherWebBackendAvatarOptions.getImageOptions();
             if (otherImageOptions != null)

@@ -1645,7 +1645,7 @@ public abstract class AbstractWebBackendLabelOptions<S extends AbstractWebBacken
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendLabelOptions) (other)) instanceof WebBackendLabelOptions) {
+        if (other instanceof WebBackendLabelOptions) {
             WebBackendLabelOptions otherWebBackendLabelOptions = ((WebBackendLabelOptions) (other));
         }
     }

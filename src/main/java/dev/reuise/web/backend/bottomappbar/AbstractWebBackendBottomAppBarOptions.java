@@ -1292,7 +1292,7 @@ public abstract class AbstractWebBackendBottomAppBarOptions<S extends AbstractWe
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendBottomAppBarOptions) (other)) instanceof WebBackendBottomAppBarOptions) {
+        if (other instanceof WebBackendBottomAppBarOptions) {
             WebBackendBottomAppBarOptions otherWebBackendBottomAppBarOptions = ((WebBackendBottomAppBarOptions) (other));
         }
     }

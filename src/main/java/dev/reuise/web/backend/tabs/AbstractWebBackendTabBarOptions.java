@@ -1789,7 +1789,7 @@ public abstract class AbstractWebBackendTabBarOptions<S extends AbstractWebBacke
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendTabBarOptions) (other)) instanceof WebBackendTabBarOptions) {
+        if (other instanceof WebBackendTabBarOptions) {
             WebBackendTabBarOptions otherWebBackendTabBarOptions = ((WebBackendTabBarOptions) (other));
             CoreContainerOptions otherContainerOptions = otherWebBackendTabBarOptions.getContainerOptions();
             if (otherContainerOptions != null)

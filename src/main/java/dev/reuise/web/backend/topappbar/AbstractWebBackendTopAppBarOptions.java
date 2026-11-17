@@ -1354,7 +1354,7 @@ public abstract class AbstractWebBackendTopAppBarOptions<S extends AbstractWebBa
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendTopAppBarOptions) (other)) instanceof WebBackendTopAppBarOptions) {
+        if (other instanceof WebBackendTopAppBarOptions) {
             WebBackendTopAppBarOptions otherWebBackendTopAppBarOptions = ((WebBackendTopAppBarOptions) (other));
             CoreContainerOptions otherContainerOptions = otherWebBackendTopAppBarOptions.getContainerOptions();
             if (otherContainerOptions != null)

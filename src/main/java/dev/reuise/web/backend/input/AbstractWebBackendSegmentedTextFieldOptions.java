@@ -2156,7 +2156,7 @@ public abstract class AbstractWebBackendSegmentedTextFieldOptions<S extends Abst
     @Override
     public void merge(CoreComponentOptions other) {
         baseComponentPart.merge(other);
-        if (((WebBackendSegmentedTextFieldOptions) (other)) instanceof WebBackendSegmentedTextFieldOptions) {
+        if (other instanceof WebBackendSegmentedTextFieldOptions) {
             WebBackendSegmentedTextFieldOptions otherWebBackendSegmentedTextFieldOptions = ((WebBackendSegmentedTextFieldOptions) (other));
         }
     }
